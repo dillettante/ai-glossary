@@ -143,3 +143,59 @@
 **함께 보기:** [Embedding](01-llm-basics.md), [RAG](03-building.md)
 
 **출처:** word2vec: Mikolov et al. (2013), [arXiv:1301.3781](https://arxiv.org/abs/1301.3781) · HNSW: Malkov & Yashunin (2016), [arXiv:1603.09320](https://arxiv.org/abs/1603.09320). 정의 보조: Elastic/Google/IBM. (벤더 중립 — 유일 창시 아님)
+
+---
+
+### Embedding model · 임베딩 모델
+
+> **한 줄 요약:** 문장·문서 같은 데이터를 '의미 좌표'인 임베딩 벡터로 바꿔주는 전용 모델. 답을 쓰는 생성 모델과는 역할이 다르다.
+
+**정의 (Definition)**
+- KO: 텍스트(또는 이미지 등)를 의미를 담은 고정 크기의 임베딩 벡터로 변환하도록 특화된 모델. 문장을 생성하는 LLM이 아니라, 유사도 비교·검색에 쓸 벡터를 만드는 것이 목적이다.
+- EN: A model specialized to convert text (or other data) into fixed-size embedding vectors that capture meaning — distinct from a generative LLM, its output is a vector for similarity and search, not text.
+
+**비유 (쉽게):** 글의 뜻을 읽고 **지도 위 좌표 하나를 찍어주는 측량사.** 뜻이 비슷한 문장은 가까운 좌표에, 다른 문장은 먼 좌표에 찍힌다. 측량사는 글을 새로 쓰지 않는다 — 위치만 매긴다.
+
+**왜 중요한가 / 언제 쓰나:**
+- RAG·의미검색의 **입구**다. 문서와 질문을 같은 임베딩 모델로 벡터화해야 서로 거리를 잴 수 있다.
+- 검색 품질이 임베딩 모델 성능에 직접 달려 있다 — 뜻을 잘 못 담으면 엉뚱한 문서가 회수된다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "문서와 질문을 같은 임베딩 모델로 벡터화한 뒤 벡터DB에 넣어줘."
+- "한국어 성능이 좋은 임베딩 모델을 골라 문단 단위로 임베딩해줘."
+
+**흔한 오해:**
+- **"GPT 같은 생성 모델이 임베딩도 다 한다"** — 겹치기도 하지만, 임베딩은 보통 **별도의 전용 모델**(또는 전용 엔드포인트)로 만든다. 생성용 LLM과 임베딩 모델은 목적·출력이 다르다(하나는 텍스트, 하나는 벡터).
+- **"임베딩 모델이 다르면 벡터를 섞어 써도 된다"** — 아니다. 모델마다 좌표계(벡터 공간)가 달라, 문서와 질문은 **같은 모델**로 임베딩해야 비교가 성립한다.
+
+**함께 보기:** [Embedding](01-llm-basics.md), [Vector DB / Embedding search](03-building.md#vector-db--embedding-search--벡터db--임베딩-검색), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Chunking](03-building.md#chunking--청킹)
+
+**출처:** Reimers & Gurevych (2019), *Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks*, [arXiv:1908.10084](https://arxiv.org/abs/1908.10084) (EMNLP 2019). 보조: OpenAI, *Embeddings* 문서, [platform.openai.com](https://platform.openai.com/docs/guides/embeddings). (대표 문헌 — 유일 창시 아님)
+
+---
+
+### Chunking · 청킹
+
+> **한 줄 요약:** 긴 문서를 검색·임베딩하기 좋게 작은 조각으로 잘라두는 전처리 작업.
+
+**정의 (Definition)**
+- KO: 긴 텍스트를 임베딩·검색에 알맞은 작은 조각(chunk)으로 나누는 전처리. RAG에서 벡터DB에 넣기 전에 거치는 필수 단계다.
+- EN: The preprocessing step of breaking long text into smaller segments (chunks) suited to embedding and retrieval — a standard step before indexing in RAG.
+
+**비유 (쉽게):** 두꺼운 책을 통째로 복사기에 넣는 대신 **한 장씩 뜯어 정리해 두는 것.** 나중에 필요한 대목을 찾을 때, 책 전체가 아니라 딱 그 한 장만 빠르게 꺼낼 수 있다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 임베딩 모델은 한 번에 넣을 수 있는 토큰(컨텍스트) 한도가 있어, 긴 문서는 잘라야 벡터로 만들 수 있다.
+- 조각 크기가 검색 품질을 좌우한다 — 너무 크면 잡음이 섞이고, 너무 작으면 맥락이 끊겨 엉뚱하게 회수된다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 규정 문서를 문단·조항 단위로 청킹한 뒤 임베딩해줘."
+- "조각이 너무 잘게 끊기지 않게, 겹침(overlap)을 조금 줘서 나눠줘."
+
+**흔한 오해:**
+- **"조각은 작을수록 좋다"** — 아니다. 지나치게 작으면 맥락이 사라져, 그 자체로는 쓸모없는 조각이 되어 검색에서 안 떠오를 수 있다. 크기·겹침에는 균형점이 있다.
+- **"정답 청킹 규칙이 있다"** — 아니다. 문서 종류·질의 성격에 따라 달라지는 **실무 튜닝 영역**이며, 단일 정본 방식은 없다.
+
+**함께 보기:** [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Embedding model](03-building.md#embedding-model--임베딩-모델), [Vector DB / Embedding search](03-building.md#vector-db--embedding-search--벡터db--임베딩-검색), [Embedding](01-llm-basics.md)
+
+**출처:** Pinecone, *Chunking Strategies for LLM Applications*, [pinecone.io](https://www.pinecone.io/learn/chunking-strategies/) ("chunking is the process of breaking down large text into smaller segments called chunks"). (RAG 실무 개념 — 단일 정본·유일 창시 없음)

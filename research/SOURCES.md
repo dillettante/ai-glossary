@@ -17,6 +17,11 @@
 | 5 | 정렬 · 강화학습 | RLHF, RLAIF, DPO, GRPO (+ 사례: OpenPipe ART) |
 | 6 | 바이브코딩 워크플로우 | Vendoring, Porting, Refactoring, Scaffolding, Wrapping, Modularization |
 | 7 | 개발 단계 · 품질 | PoC, MVP, Production Ready |
+| 8 | 모델 형식·양자화·경량화 | GGUF, MLX, safetensors, Quantization, MoE, Distillation |
+| 9 | 로컬 실행·셀프호스팅 | llama.cpp, Ollama, LM Studio, Self-hosting |
+| 10 | 개발·운영 인프라 | SSH, CLI, cron, Docker/Container, API, Port/localhost, Environment variable |
+| +2 | (프롬프트 추가) | Reasoning/Thinking mode, Context engineering |
+| +3 | (구축 추가) | Embedding model, Chunking |
 
 ---
 
@@ -105,6 +110,47 @@
 | **Production Ready / 프로덕션 레디** | Google SRE Book, Production Readiness Review(sre.google/sre-book) | 실제 트래픽 운영에 안전히 올릴 수 있는 상태(모니터링·장애대응·확장·보안) | "로컬에서 잘 돎"=프로덕션 레디 아님(관측성·복구·용량·보안 필요) |
 
 ---
+
+## 카테고리 8 — 모델 형식·양자화·경량화 (2차 확장)
+
+| 용어 | 검증 출처 | 한 줄 정의 | 흔한 오해 |
+|---|---|---|---|
+| **Quantization / 양자화** | LLM.int8(): Dettmers **arXiv:2208.07339**(2022) · GPTQ: Frantar **arXiv:2210.17323**(2022) | 가중치를 저비트(16→8/4bit)로 표현해 크기·메모리 압축 | 파인튜닝 아님; "무조건 성능 급락" 아님. ⚠️단일 창시 아님(대표 논문) |
+| **GGUF** | ggml-org GGUF 명세 [ggml/docs/gguf.md] · llama.cpp | llama.cpp/GGML 생태계의 (주로 양자화) 모델 단일 파일 포맷 | 양자화 "방법"이 아니라 "그릇(포맷)". ⚠️원전 논문 없음 |
+| **MLX** | Apple ml-explore [github.com/ml-explore/mlx] · ml-explore.github.io/mlx | 애플 실리콘용 NumPy 유사 ML 프레임워크(통합메모리·로컬) | 특정 모델/포맷 아님(프레임워크). ⚠️원전 논문 없음 |
+| **safetensors** | Hugging Face [github.com/huggingface/safetensors] | 안전(코드실행 불가)·고속(≈제로카피, README 예: BLOOM 8GPU 로딩 10분→45초) 텐서 직렬화 포맷, pickle 대체 | 압축(양자화) 아님(직렬화). "완전 0복사"도 아님. ⚠️원전 논문 없음 |
+| **MoE / 전문가 혼합** | Sparsely-Gated MoE: Shazeer **arXiv:1701.06538**(2017) · Switch: Fedus **arXiv:2101.03961**(2021) | 입력마다 게이팅이 고른 일부 전문가 서브넷만 활성화(희소 활성화) | "매 입력에 전체 파라미터 다 씀" 아님. ⚠️대표 출처(유일 창시 아님) |
+| **Distillation / 증류** | Hinton, Vinyals & Dean **arXiv:1503.02531**(2015) | 큰 교사 모델 지식(soft targets)을 작은 학생 모델로 이전·압축 | 양자화와 다름(별개 작은 모델 생성) |
+
+## 카테고리 9 — 로컬 실행·셀프호스팅 (2차 확장)
+
+| 용어 | 검증 출처 | 한 줄 정의 | 흔한 오해 |
+|---|---|---|---|
+| **llama.cpp** | [github.com/ggml-org/llama.cpp] | C/C++ 경량 LLM 추론 엔진(CPU·GPU, GGUF 사용, GGML 기반) | 학습 도구 아님(추론); 유일 엔진 아님. ⚠️원전 논문 없음 |
+| **Ollama** | [github.com/ollama/ollama]·ollama.com (MIT) | 로컬에서 오픈 모델을 손쉽게 받아 실행하는 도구(llama.cpp 백엔드) | 밑바닥부터의 엔진 아님(래핑). ⚠️원전 논문 없음 |
+| **LM Studio** | [lmstudio.ai]·lmstudio.ai/docs | 로컬 LLM 실행·서버 GUI 앱(엔진 llama.cpp+MLX, OpenAI 호환 API) | "무료≠오픈소스"(앱은 독점무료); OpenAI 호환=응답 형식만. ⚠️제품 |
+| **Self-hosting / 셀프호스팅** | Wikipedia *Self-hosting (web services)* | 클라우드 대신 내 서버/PC에서 직접 운영 | 자동으로 싸거나 쉬운 것 아님(운영·보안 부담). ⚠️단일 정본 없음 |
+
+## 카테고리 10 — 개발·운영 인프라 (2차 확장)
+
+| 용어 | 검증 출처 | 한 줄 정의 | 흔한 오해 |
+|---|---|---|---|
+| **SSH** | **RFC 4251** *SSH Protocol Architecture*(2006) | 신뢰 못 할 망 위에서 원격 로그인·서비스를 안전하게(인증·암호화) | 파일전송 도구 아님(scp/sftp가 위에 얹힘); 개인키=비밀번호 취급 |
+| **CLI / 커맨드라인** | POSIX *Shell Command Language* IEEE Std 1003.1-2017 | GUI 대신 텍스트 명령으로 프로그램·OS 조작 | "전문가 전용·더 위험"은 절반만 맞음. ⚠️단일 정본 없음 |
+| **cron / 크론** | POSIX `crontab` IEEE Std 1003.1-2017 · man cron | 지정 시각·주기에 명령 자동 반복 실행(5칸) | 꺼진 동안 못 돈 작업 몰아 실행 안 함; cron 실행환경(PATH) 다름 |
+| **Docker/Container / 컨테이너** | docs.docker.com · OCI Runtime/Image Spec | 앱+의존성을 격리 단위로 묶어 호스트 무관 동일 실행 | VM과 다름(커널 공유→경량); Docker=컨테이너 아님(OCI 표준·Podman 등) |
+| **API** | 일반 개념 · REST: Fielding(2000) 5장 · HTTP: **RFC 9110**(2022) | 프로그램끼리 정해진 규칙으로 기능·데이터를 요청·수신하는 창구 | 웹 API만 API 아님(함수규격도 API). ⚠️단일 창시 아님 |
+| **Port / localhost** | 포트 **RFC 6335**(2011) · localhost **RFC 6761**(2013) · 루프백 **RFC 1122** §3.2.1.3 | 포트=서비스 구분번호(0–65535); localhost=자기자신(127.0.0.1, 루프백) | localhost는 기본 내 기기서만 접근; 1024 미만은 관리자 권한 |
+| **Environment variable / 환경변수(.env)** | POSIX Base Defs ch.8 IEEE Std 1003.1-2017 · Twelve-Factor III(12factor.net) | 코드 밖에서 주입되는 이름–값 설정(환경마다 코드 수정 없이 교체) | **비밀키는 코드·Git·.env 커밋 금지**; .env는 관례이지 표준 아님. ⚠️단일 정본 없음 |
+
+## 카테고리 2·3 추가 (분산 편입)
+
+| 용어(카테고리) | 검증 출처 | 한 줄 정의 | 흔한 오해 |
+|---|---|---|---|
+| **Reasoning/Thinking mode (2)** | OpenAI *Reasoning models* docs · Anthropic *Extended thinking* docs | 답 전에 내부적으로 더 길게 '생각'하는 내장 모드 | CoT(프롬프트 기법)와 다름(내장 기능). ⚠️벤더별 구현·유일 창시 아님 |
+| **Context engineering (2)** | Anthropic *Effective context engineering for AI agents* | 컨텍스트 윈도우에 무엇을 어떻게 채울지 설계(프롬프트 넘어) | 프롬프트 엔지니어링의 확장. ⚠️신생·단일 정본 없음 |
+| **Embedding model (3)** | Sentence-BERT: Reimers & Gurevych **arXiv:1908.10084**(2019) | 텍스트를 임베딩 벡터로 변환하는 전용 모델(생성 LLM과 구별) | 생성 LLM이 다 하지 않음(전용 모델); 다른 모델 벡터 섞기 금지 |
+| **Chunking (3)** | Pinecone *Chunking Strategies* 등 실무 가이드 | 긴 문서를 검색·임베딩용 작은 조각으로 나눔(RAG 전처리) | ⚠️단일 정본 없음(RAG 실무 개념) |
 
 ## 정확성 결정사항 (집필 시 반드시 반영)
 

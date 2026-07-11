@@ -114,3 +114,61 @@
 **함께 보기:** [Few-shot / In-context learning](02-prompting.md#few-shot--in-context-learning--퓨샷인컨텍스트-러닝), [Prompt](02-prompting.md#prompt--프롬프트), [Hallucination](01-llm-basics.md)
 
 **출처:** Wei et al. (2022), *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*, [arXiv:2201.11903](https://arxiv.org/abs/2201.11903) (NeurIPS 2022).
+
+---
+
+### Reasoning / Thinking mode · 추론 모드
+
+> **한 줄 요약:** 모델이 최종 답을 내놓기 전에, 속으로 더 길게 '생각'하는 단계를 거치도록 만든 작동 방식.
+
+**정의 (Definition)**
+- KO: 최종 응답 전에 모델이 내부 추론(reasoning·thinking) 토큰을 먼저 생성해, 문제를 쪼개고 여러 접근을 따져본 뒤 답하게 하는 모델 작동 모드.
+- EN: A model mode in which the model first generates internal reasoning ("thinking") tokens — planning and weighing approaches — before producing its final answer.
+
+**비유 (쉽게):** 즉답하는 학생이 아니라, **답안지를 쓰기 전에 연습장에 먼저 풀어보는** 학생. 연습장(내부 추론)은 채점자에게 안 보이거나 요약만 보이고, 깨끗한 답안(최종 응답)만 제출된다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 수학·코딩·다단계 논리처럼 한 번에 답하기 어려운 문제에서 정확도가 오른다.
+- 추론에 쓰는 토큰만큼 시간·비용·컨텍스트를 더 먹는다 — 간단한 질문엔 과한 선택일 수 있다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이건 어려운 문제니 추론(thinking) 모드를 켜고, 충분히 생각한 뒤 답해줘."
+- "단계별 검증이 필요한 계산이야. 생각 예산을 넉넉히 줘."
+
+**흔한 오해:**
+- **"CoT와 같은 것"** — 겹치지만 다르다. [Chain-of-thought](02-prompting.md#chain-of-thought--생각의-사슬cot)는 프롬프트로 유도하는 **기법**이고, 추론 모드는 그 '생각' 단계를 모델·API가 **내장 기능**으로 제공하는 것이다. 내부 추론은 사용자에게 감춰지거나 요약만 노출되는 경우가 많다.
+- **"보이는(또는 요약된) 생각 = 모델의 진짜 속마음"** — 아니다. 노출되는 추론은 그럴듯한 서술일 수 있고, 실제 내부 연산과 일치한다는 보장은 없다(CoT와 같은 한계).
+- **"항상 켜는 게 낫다"** — 아니다. 추론 토큰은 비용·지연·컨텍스트를 소모하므로 단순 과제엔 비효율적이다.
+
+**함께 보기:** [Chain-of-thought](02-prompting.md#chain-of-thought--생각의-사슬cot), [Prompt](02-prompting.md#prompt--프롬프트), [Context window](01-llm-basics.md)
+
+**출처:** OpenAI, *Reasoning models* 가이드, [developers.openai.com](https://developers.openai.com/api/docs/guides/reasoning) ("Reasoning models … use internal reasoning tokens before producing a response"). 보조: Anthropic, *Extended thinking*, [platform.claude.com](https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking) ("step-by-step thought process before it delivers its final answer"). (벤더별 구현 병존 — 유일 창시 아님)
+
+---
+
+### Context engineering · 컨텍스트 엔지니어링
+
+> **한 줄 요약:** 프롬프트 한 줄을 넘어, 모델의 컨텍스트 윈도우에 무엇을 어떻게 채워 넣을지를 통째로 설계하는 일.
+
+**정의 (Definition)**
+- KO: 추론 시점에 모델의 컨텍스트 윈도우에 담을 정보(문서·도구·기억·예시·대화이력·형식) 일체를 큐레이션·유지하는 전략. 프롬프트뿐 아니라 그 밖에 들어가는 모든 토큰을 대상으로 한다.
+- EN: The set of strategies for curating and maintaining the optimal set of tokens (information) in the context window during inference — including everything beyond the prompt itself.
+
+**비유 (쉽게):** 프롬프트 쓰기가 **한 통의 편지를 잘 쓰는 것**이라면, 컨텍스트 엔지니어링은 **책상 위에 어떤 자료·메모·도구를 펼쳐 둘지 통째로 짜는 것**이다. 편지 문구뿐 아니라, 모델이 답할 때 곁에 두고 볼 모든 것을 설계한다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 에이전트·RAG처럼 문서·도구·기억이 여러 턴에 걸쳐 컨텍스트로 흘러드는 시스템에서, 무엇을 넣고 뺄지가 성패를 가른다.
+- 컨텍스트는 유한 자원이다 — 너무 많이 채우면 성능이 되레 흐트러진다("context rot"). 목표는 "성과를 극대화하는, 가능한 한 작은 고신호 토큰 집합".
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 에이전트가 매 턴 참조할 문서·도구·이력을 추려서, 컨텍스트 윈도우를 군더더기 없이 구성해줘."
+- "관련 낮은 과거 대화는 요약해 넣고, 핵심 규정 원문만 그대로 유지해줘."
+
+**흔한 오해:**
+- **"프롬프트 엔지니어링의 새 이름일 뿐"** — 아니다. 프롬프트 엔지니어링은 **지시문 작성**에 초점이고, 컨텍스트 엔지니어링은 프롬프트를 포함해 **컨텍스트에 들어가는 모든 정보의 큐레이션·유지**로 범위가 넓다. 프롬프트 엔지니어링의 확장으로 이해하면 무리가 없다.
+- **"많이 넣을수록 똑똑해진다"** — 아니다. 컨텍스트가 길어질수록 성능이 떨어지는 현상이 보고된다. 관건은 양이 아니라 신호 대 잡음이다.
+- **신생 용어 · 단일 정본 없음** — 아직 표준 정의가 굳지 않은 업계 신생 용어다. 아래는 대표 출처이며 유일한 정의가 아니다.
+
+**함께 보기:** [Prompt](02-prompting.md#prompt--프롬프트), [System prompt](02-prompting.md#system-prompt--시스템-프롬프트), [Context window](01-llm-basics.md), [RAG](03-building.md)
+
+**출처:** Anthropic, *Effective context engineering for AI agents*, [anthropic.com](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (컨텍스트 = "the set of tokens included when sampling from an LLM"; 프롬프트 엔지니어링과의 구분·"context rot" 서술). (신생 용어 — 유일 창시·표준 정의 없음)

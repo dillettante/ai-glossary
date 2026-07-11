@@ -8,6 +8,8 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 
 **원칙:** 모든 정의에 검증된 출처를 답니다. 추측·할루시네이션을 넣지 않습니다. → [SOURCES](research/SOURCES.md) · [집필 규칙](CONTRIBUTING.md)
 
+**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (61개 항목 한눈에)
+
 ---
 
 ## 🚀 치트시트
@@ -30,6 +32,8 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | System prompt (시스템 프롬프트) | 모델의 역할·어조·경계를 앞단에서 규정하는 지시문 |
 | Few-shot / In-context learning | 프롬프트 안 예시 몇 개로 그 자리에서 과제 시연 |
 | Chain-of-thought (생각의 사슬) | 중간 풀이 단계를 쓰게 해 복잡추론 성능↑ |
+| Reasoning / Thinking mode (추론 모드) | 답 전에 속으로 더 길게 '생각'하는 내장 모드 |
+| Context engineering (컨텍스트 엔지니어링) | 컨텍스트에 무엇을 채울지 통째로 설계 |
 
 ### 3. AI 서비스 구축 — [자세히](terms/03-building.md)
 | 용어 | 한 줄 요약 |
@@ -39,6 +43,8 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | Agent (에이전트) | 목표를 받아 스스로 도구를 쓰고 여러 단계를 수행하는 AI |
 | Tool use / Function calling | 모델이 필요 시 정의된 도구를 스스로 호출 |
 | Vector DB / Embedding search | 의미가 가까운 것끼리 찾아주는 벡터 저장·검색 |
+| Embedding model (임베딩 모델) | 데이터를 임베딩 벡터로 바꾸는 전용 모델 |
+| Chunking (청킹) | 긴 문서를 검색·임베딩용 조각으로 자르기 |
 
 ### 4. 모델 커스터마이징 (파인튜닝) — [자세히](terms/04-finetuning.md)
 | 용어 | 한 줄 요약 |
@@ -71,6 +77,35 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | PoC (개념 증명) | 기술적으로 되는지만 빠르게 확인하는 일회용 실험 |
 | MVP (최소 기능 제품) | 최소 노력으로 배움을 최대로 얻는 출시 가능 제품 |
 | Production Ready (프로덕션 레디) | 실제 운영에 안전히 올릴 수 있는 상태 |
+
+### 8. 모델 포맷·경량화 — [자세히](terms/08-model-formats.md)
+| 용어 | 한 줄 요약 |
+|---|---|
+| Quantization (양자화) | 가중치 비트 수를 줄여 크기·메모리 압축 |
+| GGUF | llama.cpp 생태계의 모델 파일 포맷 |
+| MLX | 애플 실리콘용 ML 프레임워크 |
+| safetensors | 안전·고속 텐서 저장 포맷(pickle 대체) |
+| MoE (전문가 혼합) | 입력마다 일부 전문가만 켜는 구조 |
+| Distillation (증류) | 큰 교사 모델 지식을 작은 모델로 이전 |
+
+### 9. 로컬 실행·셀프호스팅 — [자세히](terms/09-local-run.md)
+| 용어 | 한 줄 요약 |
+|---|---|
+| llama.cpp | 평범한 하드웨어용 경량 LLM 추론 엔진 |
+| Ollama | 명령 한 줄로 오픈 모델 로컬 실행 |
+| LM Studio | 로컬 LLM 실행·API 서버 GUI 앱 |
+| Self-hosting (셀프호스팅) | 내 서버·PC에서 직접 운영 |
+
+### 10. 개발·인프라 기초 — [자세히](terms/10-dev-infra.md)
+| 용어 | 한 줄 요약 |
+|---|---|
+| SSH | 원격 컴퓨터에 암호화 채널로 안전 접속 |
+| CLI (커맨드라인) | 텍스트 명령으로 프로그램 조작 |
+| cron (크론) | 정해둔 시각에 작업 자동 실행 |
+| Docker / Container (컨테이너) | 앱+의존성을 밀봉해 어디서든 동일 실행 |
+| API | 프로그램끼리 약속된 방식으로 소통하는 창구 |
+| Port / localhost | 서비스 구분 번호와 '내 컴퓨터 자신' 주소 |
+| Environment variable (환경변수/.env) | 코드 밖에서 설정·비밀키 주입 |
 
 ---
 
