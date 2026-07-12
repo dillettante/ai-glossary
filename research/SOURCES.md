@@ -24,6 +24,8 @@
 | +3 | (구축 추가) | Embedding model, Chunking |
 | +δ | (3차 확장·분산) | Prompt injection/Jailbreak(2), Evals(7), Multimodal(1), Knowledge cutoff(1), Reranking(3), Open weights vs Open source(9) |
 | 11 | 버전 관리·협업 | Git vs GitHub, Repository, Commit, Branch/Merge, Clone/Pull/Push, Fork, Pull request |
+| 12 | 안전·거버넌스 | Guardrails, Red-teaming, Model card, Watermarking, EU AI Act 위험등급 |
+| +ε | (4차 확장·토대/분산) | LLM/Foundation model(1), Transformer/Attention(1), Generative AI(1), Pretraining(1), Diffusion model(1), Alignment(5), Overfitting(4), Structured output(3), Agent memory(3) |
 
 ---
 
@@ -176,6 +178,30 @@
 | **Clone / Pull / Push** | git-scm.com/docs/git-{clone,pull,push} · *Pro Git* "Working with Remotes" | 클론=최초 복제, 풀=원격 변경 받기, 푸시=내 커밋 올리기 | 풀↔푸시 방향 반대; 커밋만으론 전달 안 됨 |
 | **Fork** | GitHub Docs *About forks* | 남의 저장소를 내 계정으로 통째 복제해 독립 갈래 | ⚠️core git 명령 아님(플랫폼 기능); branch와 다름(별개 저장소) |
 | **Pull request (PR)** | GitHub Docs *About pull requests* · GitLab *Merge requests* | 내 변경을 원본에 합쳐달라 제안·리뷰·병합하는 절차 | ⚠️core git 아님(플랫폼 기능); GitLab=merge request; `git pull`과 별개 |
+
+## 카테고리 12 — 안전·거버넌스
+
+| 용어 | 검증 출처 | 한 줄 정의 | 흔한 오해 |
+|---|---|---|---|
+| **Guardrails / 가드레일** | NVIDIA NeMo Guardrails docs·github | 모델 입출력을 규칙·필터로 통제하는 바깥 안전 통제층 | 모델 자체를 안전하게 만드는 게 아님(바깥 통제층); 우회 가능. ⚠️단일 정본 없음 |
+| **Red-teaming / 레드팀** | OpenAI·Anthropic red-teaming 문서 | 배포 전 일부러 공격·유도해 안전 취약점을 찾는 적대적 시험 | 합격 도장 아님·반복 과정; 취약점 부재 증명 못 함. ⚠️단일 정본 없음 |
+| **Model card / 모델 카드** | Mitchell et al. **arXiv:1810.03993**(2019) | 모델 용도·성능·한계·평가·윤리를 표준 서식으로 문서화(투명성) | 성능 자랑 아님 — 한계·부적합 용도 명시가 핵심 |
+| **Watermarking / 워터마킹** | Kirchenbauer et al. **arXiv:2301.10226**(2023) | AI 생성물 식별 위해 출력에 통계적 신호를 삽입 | 재작성·번역·편집으로 제거·우회 가능; 표식 없음≠비AI. ⚠️대표 방법 |
+| **EU AI Act 위험등급** | Regulation (EU) **2024/1689**(EUR-Lex CELEX:32024R1689)·EU집행위 요약 | AI를 위험도 4단계(금지/고위험/투명성/최소)+GPAI로 분류 | 금지(Art.5)≠고위험(Art.6·Annex III); 투명성=Art.50; GPAI=Ch.V(분류 Art.51·기본의무 Art.53·systemic Art.55). 조문 축자 확인 완료(2026-07-12) |
+
+## 4차 확장 — 토대·분산 (9종)
+
+| 용어(카테고리) | 검증 출처 | 한 줄 정의 | 흔한 오해 |
+|---|---|---|---|
+| **LLM / Foundation model (1)** | Foundation model 명명: Bommasani **arXiv:2108.07258**(2021, Stanford CRFM); LLM=우산용어 | 방대한 텍스트로 학습해 언어 이해·생성하는 대형 신경망 / 다양한 과제에 적응 가능한 범용 사전학습 모델 | LLM≠Foundation model(후자 더 넓음); LLM≠정답 DB. ⚠️LLM 단일 정본 없음 |
+| **Transformer / Attention (1)** | Vaswani et al. **arXiv:1706.03762**(2017) | 어텐션으로 문맥을 파악하는, 현대 거의 모든 LLM의 뼈대 아키텍처 | 어텐션≠사람의 집중력(수학적 가중치) |
+| **Generative AI (1)** | Google Cloud·IBM 문서(우산 용어) | 학습 패턴으로 새 콘텐츠(텍스트·이미지·코드 등)를 생성하는 AI 총칭 | GenAI≠LLM(더 넓음). ⚠️단일 창시 없음 |
+| **Pretraining / 사전학습 (1)** | BERT: Devlin **arXiv:1810.04805**(2018) / GPT 계열이 대중화 | 대규모 데이터로 기본 언어·표현 능력을 먼저 학습(이후 파인튜닝·정렬) | 사전학습≠파인튜닝. ⚠️대표 계보(단일 창안 아님) |
+| **Diffusion model / 디퓨전 (1)** | Ho et al. **arXiv:2006.11239**(2020); 원류 Sohl-Dickstein **arXiv:1503.03585**(2015) | 노이즈를 점진 제거해 이미지·영상을 생성(미드저니·SD·Sora류) | LLM(텍스트)과 다른 생성 방식 |
+| **Alignment / 정렬 (5)** | Wikipedia *AI alignment* · Anthropic(HHH) | AI를 인간 의도·가치·선호에 맞게 행동시키는 것(RLHF·RLAIF·DPO·GRPO가 그 방법) | 정렬≠성능(별개 축). ⚠️단일 정본 없음 |
+| **Overfitting / 과적합 (4)** | Google *ML Crash Course — Overfitting* · Wikipedia | 학습 데이터에 과하게 맞춰져 새 데이터·실제서 성능이 떨어지는 현상 | 벤치마크 과적합→[Evals] 연결. ⚠️단일 창시 없음 |
+| **Structured output / JSON mode (3)** | OpenAI *Structured Outputs* · Anthropic 문서 | 모델이 정해진 스키마(JSON)에 맞춰 답하도록 강제하는 기능 | 구조화출력(스키마 보장)≠단순 JSON mode. ⚠️벤더별 구현 |
+| **Agent memory / 에이전트 메모리 (3)** | LangChain LangMem · Anthropic Agent memory 문서 | 세션을 넘어 정보를 저장·회상해 맥락 유지(단기=컨텍스트, 장기=외부저장) | ⚠️프레임워크·제공사별, 단일 정본 없음 |
 
 ## 정확성 결정사항 (집필 시 반드시 반영)
 

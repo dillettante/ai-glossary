@@ -242,3 +242,139 @@
 **함께 보기:** [Hallucination](01-llm-basics.md), [Inference](01-llm-basics.md), [RAG](03-building.md)
 
 **출처:** 제공사 모델 문서(검증) — Anthropic, *Models overview*, [https://platform.claude.com/docs/en/about-claude/models/overview](https://platform.claude.com/docs/en/about-claude/models/overview) (모델별 "Reliable knowledge cutoff"·"Training data cutoff" 명시); OpenAI, *Models*, [https://developers.openai.com/api/docs/models](https://developers.openai.com/api/docs/models) (모델별 "Knowledge cutoff" 명시). 단일 논문이 아니라 제공사 모델 문서에 근거한 개념이다.
+
+---
+
+### LLM · 대규모 언어 모델 (Large Language Model) / Foundation model · 파운데이션 모델
+
+> **한 줄 요약:** 방대한 글로 훈련해 "다음에 올 말"을 예측하며 언어를 이해·생성하는 거대한 신경망. 이렇게 넓게 훈련돼 온갖 일에 갖다 쓸 수 있는 범용 모델을 파운데이션 모델이라 부르고, LLM은 그 대표 사례다.
+
+**정의 (Definition)**
+- KO: **LLM(대규모 언어 모델)** = 방대한 텍스트로 학습해 다음 토큰을 예측하며 언어를 이해·생성하는 대형 신경망. **파운데이션 모델** = 대량의 데이터로 사전학습되어 다양한 하위 과제(번역·요약·질의응답 등)에 적응할 수 있는 범용 모델이며, LLM은 그 대표적 사례다.
+- EN: An **LLM (Large Language Model)** is a large neural network trained on vast text to predict the next token, thereby understanding and generating language. A **foundation model** is a general-purpose model pretrained on broad data that can be adapted to many downstream tasks; the LLM is its most prominent instance.
+
+**비유 (쉽게):** 수많은 책을 읽고 **문장을 이어 쓰는 감각을 몸에 익힌 사람**과 같다. "옛날 옛적에 …" 다음에 무슨 말이 자연스러운지 감으로 아는 것이다. 그리고 파운데이션 모델은 **밑간을 넓게 해 둔 육수**에 비유할 수 있다 — 한 번 깊게 우려 두면, 여기서 국·찌개·전골 어느 요리로도 갈라 쓸 수 있다. LLM은 그 육수로 만든 대표 요리다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 요즘 쓰는 챗봇·글쓰기·코딩 도구의 **엔진**이 대부분 LLM이다 — 이 글의 거의 모든 다른 항목이 결국 LLM을 다루기 위한 개념이다.
+- "파운데이션 모델"이라는 명명은 **하나를 크게 훈련해 여러 과제에 재사용한다**는 패러다임 전환을 가리킨다 — 과제마다 모델을 새로 만들던 시대와 대비된다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 작업에 굳이 최상위 LLM이 필요한지, 작은 모델로 충분한지 먼저 따져줘."
+- "범용 파운데이션 모델을 우리 업무 데이터로 [파인튜닝](04-finetuning.md)하면 뭐가 좋아지는지 설명해줘."
+
+**흔한 오해:**
+- **LLM은 "정답 데이터베이스"가 아니다** — 사실을 찾아 꺼내는 게 아니라 다음 토큰을 확률적으로 이어 붙이는 것이라, 그럴듯한 [환각](01-llm-basics.md)이 섞일 수 있다.
+- **"LLM = 파운데이션 모델"로 등치하지 말 것** — 파운데이션 모델은 이미지·음성 등 언어가 아닌 것도 포함하는 더 넓은 개념이고, LLM은 그중 언어를 다루는 대표 갈래다.
+
+**함께 보기:** [Token](01-llm-basics.md), [Parameter / Weight](01-llm-basics.md), [Inference](01-llm-basics.md), [Multimodal](01-llm-basics.md), [Pretraining](01-llm-basics.md), [Transformer / Attention](01-llm-basics.md), [Fine-tuning](04-finetuning.md)
+
+**출처:** "파운데이션 모델"이라는 명명·정식화는 Bommasani et al. (2021), *On the Opportunities and Risks of Foundation Models*, [arXiv:2108.07258](https://arxiv.org/abs/2108.07258) (Stanford CRFM)에서 검증됨. **LLM은 단일 정본 논문이 없는 넓은 용어**로, 이 항목의 정의는 대표 문헌과 제공사 문서를 종합한 것이며 유일 창시를 특정하지 않는다.
+
+---
+
+### Transformer / Attention · 트랜스포머 / 어텐션
+
+> **한 줄 요약:** 오늘날 거의 모든 LLM의 뼈대가 되는 설계. 그 핵심은 문장 속 단어들이 서로 얼마나 관련되는지 "주의(attention)"를 나눠 매기며 문맥을 읽는 방식이다.
+
+**정의 (Definition)**
+- KO: **트랜스포머** = 현대 거의 모든 LLM의 바탕이 되는 신경망 아키텍처. **어텐션(주의)** = 문장 속 각 단어가 다른 단어들과 얼마나 관련되는지 가중치를 매겨, 문맥에 따라 어디에 집중할지 정하는 메커니즘.
+- EN: The **Transformer** is the neural-network architecture underlying almost all modern LLMs. **Attention** is its core mechanism: it weighs how much each word relates to the others, deciding where to focus given the context.
+
+**비유 (쉽게):** 회의에서 한 사람의 말을 이해하려고 **참석자 모두를 둘러보며 "지금 이 말과 관련 깊은 사람이 누구지?"를 가늠하는 것**과 같다. "그 계약을 그가 파기했다"에서 '그가'가 누구인지 알려면 앞 문장들을 돌아봐야 하는데, 어텐션은 바로 그 "누구를 얼마나 참고할지"의 배분이다. 트랜스포머는 이 눈길 배분을 층층이 쌓아 만든 구조물이다.
+
+**왜 중요한가 / 언제 쓰나:**
+- **왜 요즘 AI가 갑자기 잘하게 됐는지**를 설명하는 핵심 전환점이다 — 트랜스포머는 문장을 앞에서부터 차례로만 읽던 이전 방식과 달리 병렬 처리가 가능해, 훨씬 크고 빠른 학습을 열었다.
+- [컨텍스트 윈도우](01-llm-basics.md)·[파라미터](01-llm-basics.md) 같은 개념이 왜 성능·비용을 좌우하는지 이해하려면 이 아키텍처가 밑그림이 된다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "어텐션이 긴 문서에서 왜 앞뒤 문맥을 연결할 수 있는지 쉬운 말로 설명해줘."
+- "우리 모델이 트랜스포머 기반인지, 그게 처리 길이·비용에 어떤 영향을 주는지 알려줘."
+
+**흔한 오해:**
+- **어텐션은 사람의 "집중력"과 같지 않다** — 의식적으로 주의를 기울이는 게 아니라, 단어들 사이 관련도를 숫자 가중치로 계산하는 수학 연산이다.
+- **트랜스포머라고 문장 전체를 무제한으로 보는 것은 아니다** — 한 번에 다룰 수 있는 양은 [컨텍스트 윈도우](01-llm-basics.md)로 제한된다.
+
+**함께 보기:** [Parameter / Weight](01-llm-basics.md), [Context window](01-llm-basics.md), [Token](01-llm-basics.md), [Pretraining](01-llm-basics.md), [LLM](01-llm-basics.md)
+
+**출처:** Vaswani et al. (2017), *Attention Is All You Need*, [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — 트랜스포머 아키텍처와 어텐션 메커니즘을 정식화한 원 논문(검증).
+
+---
+
+### Generative AI · 생성형 AI (GenAI)
+
+> **한 줄 요약:** 배운 패턴을 바탕으로 글·이미지·음성·코드 같은 "새 콘텐츠"를 만들어 내는 AI의 총칭. 분류·예측만 하던 전통 AI와 대비된다.
+
+**정의 (Definition)**
+- KO: 학습한 패턴을 바탕으로 텍스트·이미지·음성·코드 등 새로운 콘텐츠를 생성하는 AI를 아우르는 총칭. 주어진 것을 분류·예측하는 데 초점을 둔 전통적 AI와 대비되는 개념이다.
+- EN: An umbrella term for AI that produces new content — text, images, audio, code — from learned patterns, in contrast to traditional AI focused on classifying or predicting existing data.
+
+**비유 (쉽게):** 전통 AI가 **바구니 속 과일을 "사과냐 배냐" 골라내는 감별사**라면, 생성형 AI는 **주문을 받아 새 그림을 그려 주는 화가**에 가깝다. 앞의 것은 있는 것을 판정하고, 뒤의 것은 없던 것을 만들어 낸다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 요즘 화제가 되는 챗봇·이미지 생성기·코드 도우미가 모두 이 범주에 든다 — 뉴스·정책 문서에서 "생성형 AI"라고 뭉뚱그려 부르는 대상이 이것이다.
+- 규제·계약서에서 대상 기술을 지칭할 때 자주 쓰이므로, **무엇을 포함하고 무엇이 아닌지**의 경계를 아는 것이 실무상 중요하다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 업무 중 생성형 AI로 자동화할 부분과, 전통적 분류·예측이 더 맞는 부분을 나눠줘."
+- "'생성형 AI'라는 표현이 우리 계약서에서 무엇을 가리키는지 범위를 정의해줘."
+
+**흔한 오해:** **"생성형 AI = LLM"이 아니다** — LLM(텍스트)은 생성형 AI의 한 갈래일 뿐, 이미지의 [디퓨전 모델](01-llm-basics.md)처럼 언어가 아닌 생성 방식도 포함한다. 또 **하나의 창시자·정본 정의가 있는 용어가 아니다** — 여러 계보가 합류한 우산 용어다.
+
+**함께 보기:** [LLM](01-llm-basics.md), [Diffusion model](01-llm-basics.md), [Multimodal](01-llm-basics.md), [Hallucination](01-llm-basics.md)
+
+**출처:** **단일 창시·정본 정의가 없는 우산 용어**로, 권위 있는 공식 문서의 정의를 인용한다 — Google Cloud, *Generative AI glossary*; IBM, *What is generative AI?*, [https://www.ibm.com/think/topics/generative-ai](https://www.ibm.com/think/topics/generative-ai). 어느 것도 이 용어의 유일 창시가 아니다.
+
+---
+
+### Pretraining · 사전학습
+
+> **한 줄 요약:** 특정 과제를 가르치기 전에, 방대한 미분류 데이터로 모델에 언어·표현의 기초 체력을 먼저 길러 두는 단계.
+
+**정의 (Definition)**
+- KO: 특정 과제 학습에 앞서, 대규모의 라벨 없는(미분류) 데이터로 모델의 기본적인 언어·표현 능력을 먼저 학습시키는 단계. 이후 파인튜닝·정렬을 거쳐 용도에 맞게 특화된다.
+- EN: The stage of first training a model on large-scale unlabeled data to build general language and representation ability, before it is specialized through fine-tuning or alignment.
+
+**비유 (쉽게):** **의대 본과에 들어가기 전의 기초 교양·기초 의학 과정**과 같다. 아직 특정 진료과를 정하지 않았지만, 나중에 어느 과로 가든 밑바탕이 되는 폭넓은 기초를 먼저 쌓는 것이다. 전공(파인튜닝)은 그다음에 얹는다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 오늘날 LLM의 힘은 대부분 이 단계에서 나온다 — 방대한 데이터로 한 번 크게 사전학습해 두면, 이후엔 비교적 적은 데이터로 여러 과제에 맞춰 쓸 수 있다.
+- 사전학습은 막대한 비용이 드는 **한 번의 큰 투자**이고, 그 위에 [파인튜닝](04-finetuning.md)·[인스트럭션 튜닝](04-finetuning.md)이라는 저렴한 특화 단계가 얹힌다는 구조를 이해하면, 커스터마이징 논의가 명확해진다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "사전학습된 범용 모델을 우리 판례 데이터로 파인튜닝하는 게 나은지, 사전학습부터 새로 하는 건 비현실적인지 판단해줘."
+- "이 모델이 사전학습에서 얻은 일반 지식과, 우리가 파인튜닝으로 더할 전문 지식을 구분해서 설명해줘."
+
+**흔한 오해:**
+- **사전학습과 [파인튜닝](04-finetuning.md)은 다른 단계다** — 사전학습은 미분류 데이터로 기초 능력을 넓게 쌓는 단계, 파인튜닝은 그 위에 특정 과제를 특화하는 단계다.
+- **사전학습만으로 곧바로 유용한 비서가 되는 것은 아니다** — 지시를 잘 따르게 하려면 [인스트럭션 튜닝](04-finetuning.md)·정렬([RLHF](05-alignment-rl.md)) 같은 후속 단계가 필요하다.
+
+**함께 보기:** [LLM](01-llm-basics.md), [Parameter / Weight](01-llm-basics.md), [Fine-tuning](04-finetuning.md), [Instruction Tuning](04-finetuning.md), [RLHF](05-alignment-rl.md)
+
+**출처:** 대규모 미분류 데이터 기반 사전학습을 대중화한 대표 계보(검증) — Devlin et al. (2018), *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*, [arXiv:1810.04805](https://arxiv.org/abs/1810.04805); GPT 계열도 이 "사전학습→특화" 패러다임을 널리 확산시켰다. 사전학습은 특정 단일 논문의 창안이라기보다 여러 계보를 통해 표준이 된 개념이다.
+
+---
+
+### Diffusion model · 디퓨전 모델
+
+> **한 줄 요약:** 뿌연 노이즈에서 시작해 조금씩 노이즈를 걷어내며 이미지·영상을 만들어 내는 모델. 미드저니·Stable Diffusion·Sora류가 이 원리다.
+
+**정의 (Definition)**
+- KO: 무작위 노이즈에서 출발해, 노이즈를 점진적으로 제거(denoising)하는 과정을 반복하며 이미지·영상 등을 생성하는 모델. 다음 토큰을 잇는 LLM(텍스트)과는 생성 방식이 다르다.
+- EN: A model that generates images or video by starting from random noise and iteratively removing it (denoising), step by step — a generative approach distinct from the next-token prediction of text LLMs.
+
+**비유 (쉽게):** **안개 낀 유리창을 조금씩 닦아 그림을 드러내는 것**과 같다. 처음엔 아무 형체 없는 얼룩(노이즈)뿐이지만, 여러 번에 걸쳐 조금씩 닦아 나가면 점점 또렷한 그림이 나타난다. "무엇을 그릴지"의 지시(프롬프트)가 어느 얼룩을 어떻게 닦을지를 이끈다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 오늘날 이미지·영상 생성 도구의 주류 원리다 — 텍스트는 LLM, 이미지·영상은 디퓨전이라는 큰 구도를 알면 [생성형 AI](01-llm-basics.md)의 지형이 잡힌다.
+- 저작권·딥페이크 같은 실무 쟁점이 자주 이 계열 모델에서 불거지므로, 작동 원리의 개요를 아는 것이 유용하다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 삽화를 디퓨전 모델로 생성할 때, 프롬프트를 어떻게 써야 원하는 구도가 나오는지 알려줘."
+- "우리가 쓰는 이미지 생성 도구가 디퓨전 계열인지, 그게 결과물의 특징에 어떤 영향을 주는지 설명해줘."
+
+**흔한 오해:** **디퓨전은 LLM과 같은 방식으로 작동하지 않는다** — LLM은 다음 토큰을 순서대로 잇지만, 디퓨전은 전체 화면의 노이즈를 여러 번 걷어내며 한꺼번에 다듬는다. 또 **"노이즈에서 그림을 뽑아낸다"고 무에서 창조하는 마법은 아니다** — 학습한 데이터의 분포를 되짚어 그럴듯한 결과를 복원하는 것이다.
+
+**함께 보기:** [Generative AI](01-llm-basics.md), [Multimodal](01-llm-basics.md), [LLM](01-llm-basics.md)
+
+**출처:** Ho et al. (2020), *Denoising Diffusion Probabilistic Models* (DDPM), [arXiv:2006.11239](https://arxiv.org/abs/2006.11239) — 현대 디퓨전 생성모델을 정립한 대표 논문(검증). 원류로는 Sohl-Dickstein et al. (2015), *Deep Unsupervised Learning using Nonequilibrium Thermodynamics*, [arXiv:1503.03585](https://arxiv.org/abs/1503.03585)를 병기한다(검증).

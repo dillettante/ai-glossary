@@ -229,3 +229,59 @@
 **함께 보기:** [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Vector DB / Embedding search](03-building.md#vector-db--embedding-search--벡터db--임베딩-검색), [Embedding model](03-building.md#embedding-model--임베딩-모델)
 
 **출처:** Nogueira & Cho (2019), *Passage Re-ranking with BERT*, [arXiv:1901.04085](https://arxiv.org/abs/1901.04085) (확인 2026-07-12). 보조(상용 예): Cohere, *Rerank Overview*, [docs.cohere.com](https://docs.cohere.com/docs/rerank-overview) ("Given a query and a list of documents, Rerank indexes the documents from most to least semantically relevant to the query"). (대표 문헌 — 유일 창시 아님)
+
+---
+
+### Structured output / JSON mode · 구조화 출력
+
+> **한 줄 요약:** 모델이 자유로운 문장이 아니라, 미리 정한 **틀(예: JSON 스키마)**에 딱 맞춰 답하도록 강제하는 기능.
+
+**정의 (Definition)**
+- KO: 모델의 출력을 자유 텍스트가 아니라 정해진 스키마(대개 JSON)에 반드시 부합하도록 제약하는 기능. 필수 키 누락이나 잘못된 값 없이 정해진 형식만 나오게 보장한다.
+- EN: A feature that constrains the model's output to always conform to a supplied schema (typically JSON), so required keys aren't omitted and invalid values aren't produced.
+
+**비유 (쉽게):** 자유 서술형 답안 대신 **칸이 정해진 서식(양식지)**을 내미는 것. "이름·날짜·금액 칸을 채워라"라고 칸을 못박아 두면, 답이 제멋대로 흩어지지 않고 항상 같은 자리에 들어온다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 모델 답을 **프로그램이 곧바로 받아 쓰려면** 형식이 일정해야 한다 — 시스템 연동·자동화의 필수 관문이다.
+- 자유 텍스트를 정규식으로 긁어 파싱하다 깨지는 사고를 없애, 재시도·후처리 비용을 줄인다.
+- 도구 사용(function calling)과 짝을 이룬다 — 도구에 넘길 인자를 스키마에 맞춰 안정적으로 뽑을 때 쓴다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 계약서에서 당사자·금액·기일을 뽑아, {parties, amount, due_date} JSON 스키마로만 답해줘."
+
+**흔한 오해:**
+- **"JSON mode면 스키마까지 지켜진다"** — 아니다. 단순 JSON mode는 *유효한 JSON*만 보장하고, 내가 정한 *스키마 준수*까지는 보장하지 않는다. 스키마 강제는 Structured Outputs 계열의 기능이다.
+- **"형식만 맞으면 내용도 맞다"** — 아니다. 틀은 맞아도 값이 틀릴 수 있다. 구조화 출력은 **형식**을 보장할 뿐 사실 정확성까지 보장하지는 않는다.
+
+**함께 보기:** [Tool use / Function calling](03-building.md), [Agent](03-building.md)
+
+**출처:** OpenAI, *Structured Outputs*, [developers.openai.com](https://developers.openai.com/api/docs/guides/structured-outputs) ("ensures the model will always generate responses that adhere to your supplied JSON Schema"; "only Structured Outputs ensure schema adherence"; 확인 2026-07-12). 보조: Anthropic, *Increase output consistency / Structured outputs*, [platform.claude.com](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) ("guaranteed schema compliance"). (벤더별 구현 병존 — 유일 창시 아님.)
+
+---
+
+### Agent memory · 에이전트 메모리
+
+> **한 줄 요약:** 에이전트가 대화·작업이 끝나도 정보를 저장해 두었다가 다시 꺼내 써, 여러 세션에 걸쳐 맥락을 이어 가게 하는 것.
+
+**정의 (Definition)**
+- KO: 에이전트가 상호작용·작업의 정보를 저장하고 나중에 회상해, 한 번의 대화를 넘어 맥락을 유지하는 능력. 단기 기억은 컨텍스트 윈도우에, 장기 기억은 외부 저장소(예: 벡터DB·DB)에 둔다.
+- EN: An agent's ability to store and later recall information from interactions so it retains context beyond a single exchange — short-term memory in the context window, long-term memory in an external store.
+
+**비유 (쉽게):** 사람이 회의 중에 **머릿속에 잠깐 담아 두는 것(단기)**과, 나중에 다시 보려고 **수첩에 적어 두는 것(장기)**의 차이. 컨텍스트 윈도우는 머릿속, 외부 저장소는 수첩이다. 수첩에 적어 두면 다음 회의(다음 세션)에도 이어서 볼 수 있다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 컨텍스트 윈도우는 유한하고 세션이 끝나면 비워진다 — 오래 이어지는 작업·개인화에는 창 밖으로 밀려난 정보를 **다시 꺼내 올** 장기 기억이 필요하다.
+- 장기 기억은 흔히 정보를 외부 저장소에 넣고 필요할 때 검색해 오는 식이라, RAG와 기법이 겹친다.
+- 무엇을 기억하고 무엇을 버릴지(컨텍스트 큐레이션)는 context engineering의 핵심 주제와 맞닿는다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 에이전트가 지난 세션에서 정한 사용자 선호를 기억하게, 장기 메모리를 외부 저장소로 붙여줘."
+
+**흔한 오해:**
+- **"컨텍스트 윈도우가 곧 기억이다"** — 아니다. 그건 단기 기억일 뿐, 창 밖으로 밀려나거나 세션이 끝나면 사라진다. 장기 기억은 **별도 저장소**가 있어야 한다.
+- **단일 표준 정의·정본 없음** — 아래는 대표적 프레임워크 문서 기준이며, "에이전트 메모리"의 구현·구분(단기/장기)은 표준화돼 있지 않다(제품마다 다르다).
+
+**함께 보기:** [Context window](01-llm-basics.md), [Agent](03-building.md), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Context engineering](02-prompting.md)
+
+**출처:** LangChain, *LangMem — Core Concepts*, [langchain-ai.github.io/langmem](https://langchain-ai.github.io/langmem/concepts/conceptual_guide/) ("Long-term memory allows agents to remember important information across conversations"; 단기=현재 대화 컨텍스트 / 장기=대화를 넘어 지속; 확인 2026-07-12). 참고: Anthropic도 별도 *Agent memory* 문서를 둔다([platform.claude.com](https://platform.claude.com/docs/en/docs/build-with-claude/agent-memory)). (프레임워크·제공사별 구현 — 단일 정본 없음.)

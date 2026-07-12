@@ -105,6 +105,34 @@
 
 ---
 
+### Alignment · 정렬 (AI Alignment)
+
+> **한 줄 요약:** AI가 **똑똑하기만** 한 게 아니라 **우리가 원하는 대로, 안전하게** 행동하도록 사람의 의도·가치에 맞춰 두는 것. 이 장의 RLHF·RLAIF·DPO·GRPO가 그 구체적 방법들이다.
+
+**정의 (Definition)**
+- KO: AI 시스템이 인간(개인·집단)이 의도한 목표·선호·윤리 원칙에 부합하게 행동하도록 유도하는 것.
+- EN: Steering AI systems toward a person's or group's intended goals, preferences, or ethical principles.
+
+**비유 (쉽게):** 유능한 신입에게 일을 맡길 때, **능력(무엇을 할 수 있나)**과 **정렬(시킨 대로, 선을 지켜 하나)**은 별개의 문제다. 아무리 일 잘하는 사람도 조직이 원하는 방향과 어긋나게 열심히 하면 곤란하다. 정렬은 바로 그 "우리가 원하는 방향"에 AI를 맞춰 두는 일이다.
+
+**왜 중요한가 / 언제 쓰나:**
+- "유능함"과 "안전하게 우리 뜻대로"는 **다른 축**이다 — 성능이 아무리 높아도 의도와 어긋나면 위험하다.
+- 이 장(章)의 RLHF·RLAIF·DPO·GRPO는 모두 "무엇에(사람의 선호) 정렬시키느냐"를 놓고 겨루는 **정렬의 구체적 기법**이다.
+- 목표를 대충 정하면(proxy goal) AI가 그 허점을 파고드는 reward hacking이 생겨, "무엇에 정렬시킬지"를 정확히 정하는 것 자체가 어려운 문제다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 모델을 우리 안전 가이드라인에 정렬(align)시키려면 RLHF와 DPO 중 뭐가 맞을지 정리해줘."
+
+**흔한 오해:**
+- **"정렬 = 성능 향상"** — 아니다. 정렬은 *유능함*이 아니라 *의도·가치와의 부합*을 다룬다. 둘은 별개 축이다.
+- **단일 표준 정의 없음** — 아래는 대표적 서술이며, "정렬"은 넓은 개념이라 단일 정본 정의가 없다(연구자·기관마다 강조점이 다르다).
+
+**함께 보기:** [RLHF](05-alignment-rl.md#rlhf--인간-피드백-기반-강화학습-reinforcement-learning-from-human-feedback), [RLAIF](05-alignment-rl.md#rlaif--ai-피드백-기반-강화학습-reinforcement-learning-from-ai-feedback), [DPO](05-alignment-rl.md#dpo--직접-선호-최적화-direct-preference-optimization), [Guardrails](12-safety-governance.md)
+
+**출처:** 대표 서술 — *AI alignment*, [en.wikipedia.org/wiki/AI_alignment](https://en.wikipedia.org/wiki/AI_alignment) ("steer AI systems toward a person's or group's intended goals, preferences, or ethical principles"; 확인 2026-07-12). 기관 예시 — Anthropic은 정렬 목표를 "helpful, honest, and harmless(도움되고·정직하고·해롭지 않게)"로 서술한다(*Alignment faking in large language models*, [anthropic.com](https://www.anthropic.com/research/alignment-faking)). (넓은 개념 — 단일 정본 정의 없음.)
+
+---
+
 ## 사례 (Case Study)
 
 ### 사례: OpenPipe ART / RULER — 수작업 보상 설계를 건너뛰는 에이전트 RL

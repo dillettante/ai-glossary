@@ -256,3 +256,31 @@
 **함께 보기:** [Multi-Task Fine-Tuning](04-finetuning.md#multi-task-fine-tuning--멀티태스크-미세조정), [LoRA](04-finetuning.md#lora--로라저계수-적응)
 
 **출처:** McMahan et al. (*FedAvg*, 개념 창시 — arXiv 2016 / AISTATS 2017), [arXiv:1602.05629](https://arxiv.org/abs/1602.05629); LLM 적용 — Zhang et al. (2023), *FedIT*, [arXiv:2305.05644](https://arxiv.org/abs/2305.05644).
+
+---
+
+### Overfitting · 과적합
+
+> **한 줄 요약:** 모델이 학습 데이터를 **외우다시피** 지나치게 맞춰진 나머지, 정작 처음 보는 새 데이터에서는 성능이 떨어지는 현상.
+
+**정의 (Definition)**
+- KO: 모델이 학습 데이터에 너무 가깝게(잡음까지) 맞춰진 나머지, 일반화에 실패해 새로운 데이터에서는 올바른 예측을 하지 못하는 현상.
+- EN: Creating a model that matches (memorizes) the training set so closely that it fails to make correct predictions on new data.
+
+**비유 (쉽게):** 시험 대비를 **기출문제의 답만 통째로 외운** 학생과 같다. 봤던 문제(학습 데이터)는 만점이지만, 숫자만 바꾼 새 문제(실제 데이터)가 나오면 무너진다. 원리를 배운 게 아니라 답을 외운 탓이다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 파인튜닝·평가의 핵심 함정 — 데이터가 적거나 너무 오래 학습시키면, 모델이 일반적 패턴 대신 학습셋의 우연·잡음까지 외운다.
+- 목표는 학습셋 점수가 아니라 **일반화(generalization)** — 처음 보는 데이터에서의 성능이다.
+- 벤치마크(eval)에도 적용된다 — 특정 벤치마크에 과적합된 모델은 그 점수만 높고 실제 성능은 부풀려질 수 있다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 파인튜닝이 과적합됐는지 보게, 학습셋 말고 따로 떼어 둔 검증셋 성능도 함께 재줘."
+
+**흔한 오해:**
+- **"학습셋 점수가 높으면 좋은 모델"** — 아니다. 학습셋만 높고 검증·실데이터에서 낮으면 과적합이다. 좋고 나쁨은 **처음 보는 데이터** 성능으로 가린다.
+- **"과적합은 무조건 학습을 오래 해서 생긴다"** — 그것도 한 원인이지만, 데이터가 너무 적거나 모델이 과제에 비해 지나치게 복잡할 때도 생긴다.
+
+**함께 보기:** [Evals](07-dev-stages.md), [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝), [Multi-Task Fine-Tuning](04-finetuning.md#multi-task-fine-tuning--멀티태스크-미세조정)
+
+**출처:** Google, *Machine Learning Crash Course — Overfitting*, [developers.google.com](https://developers.google.com/machine-learning/crash-course/overfitting/overfitting) ("creating a model that matches (memorizes) the training set so closely that the model fails to make correct predictions on new data"; 확인 2026-07-12). 보조 — *Overfitting*, [en.wikipedia.org/wiki/Overfitting](https://en.wikipedia.org/wiki/Overfitting) ("corresponds too closely … may therefore fail to fit to additional data or predict future observations reliably"). (표준 ML 개념 — 유일 창시 없음.)

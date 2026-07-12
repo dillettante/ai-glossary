@@ -8,7 +8,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 
 **원칙:** 모든 정의에 검증된 출처를 답니다. 추측·할루시네이션을 넣지 않습니다. → [SOURCES](research/SOURCES.md) · [집필 규칙](CONTRIBUTING.md)
 
-**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (74개 항목 한눈에)
+**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (88개 항목 한눈에)
 
 ---
 
@@ -26,6 +26,11 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | Temperature (온도) | 출력의 무작위성 조절값(高=창의, 低=보수) |
 | Multimodal (멀티모달) | 이미지·음성·영상까지 함께 다루는 모델 |
 | Knowledge cutoff (지식 컷오프) | 학습이 멈춘 시점 — 이후는 도구 없이 모름 |
+| LLM / Foundation model | "다음 말" 예측으로 언어 이해·생성하는 거대 신경망(범용=파운데이션) |
+| Transformer / Attention | 현대 LLM의 뼈대 — 단어 간 '주의'로 문맥 파악 |
+| Generative AI (생성형 AI) | 새 콘텐츠(글·이미지·코드)를 만드는 AI 총칭 |
+| Pretraining (사전학습) | 과제 학습 전, 대규모 데이터로 기초 체력 기르기 |
+| Diffusion model (디퓨전) | 노이즈를 걷어내며 이미지·영상 생성(미드저니·SD·Sora) |
 
 ### 2. 프롬프트 & 상호작용 — [자세히](terms/02-prompting.md)
 | 용어 | 한 줄 요약 |
@@ -49,6 +54,8 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | Embedding model (임베딩 모델) | 데이터를 임베딩 벡터로 바꾸는 전용 모델 |
 | Chunking (청킹) | 긴 문서를 검색·임베딩용 조각으로 자르기 |
 | Reranking (리랭킹) | 1차 검색 후보를 정밀 모델로 재정렬 |
+| Structured output / JSON mode | 정해진 틀(JSON)에 맞춰 답하게 강제 |
+| Agent memory (에이전트 메모리) | 세션 넘어 정보 저장·회상해 맥락 유지 |
 
 ### 4. 모델 커스터마이징 (파인튜닝) — [자세히](terms/04-finetuning.md)
 | 용어 | 한 줄 요약 |
@@ -57,6 +64,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | Prefix / Adapter / P-Tuning / BitFit / Soft Prompts | 소수 파라미터만 학습하는 경량 파인튜닝(PEFT) 계열 |
 | Instruction Tuning | 지시문 데이터로 튜닝(※PEFT 아님·완전 미세조정) |
 | Multi-Task / Federated FT | 여러 과제 동시 / 데이터 반출 없이 분산 학습 |
+| Overfitting (과적합) | 학습 데이터에 과하게 맞춰져 새 데이터서 성능 하락 |
 
 ### 5. 정렬 · 강화학습 — [자세히](terms/05-alignment-rl.md)
 | 용어 | 한 줄 요약 |
@@ -64,6 +72,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | RLHF / RLAIF | 인간(또는 AI) 선호로 보상모델 학습→RL 미세조정 |
 | DPO | 보상모델·RL 없이 선호데이터로 직접 최적화(RL 아님) |
 | GRPO | critic 없이 그룹 내 상대우열로 학습(DeepSeekMath 2024) |
+| Alignment (정렬) | AI를 인간 의도·가치에 안전하게 맞추기(RLHF 등이 방법) |
 
 ### 6. 바이브코딩 워크플로우 — [자세히](terms/06-vibe-coding.md)
 | 용어 | 한 줄 요약 |
@@ -123,6 +132,15 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | Clone / Pull / Push (클론·풀·푸시) | 원격과 동기화 3동작(복제·받기·올리기) |
 | Fork (포크) | 남의 저장소를 내 계정으로 통째 복제 |
 | Pull request (PR) | 변경을 제안·리뷰·병합 요청 |
+
+### 12. 안전·거버넌스 — [자세히](terms/12-safety-governance.md)
+| 용어 | 한 줄 요약 |
+|---|---|
+| Guardrails (가드레일) | 입출력 앞뒤에 세운 안전 울타리 |
+| Red-teaming (레드팀) | 배포 전 일부러 공격해 약점 찾기 |
+| Model card (모델 카드) | 모델 용도·성능·한계 설명서(성분표) |
+| Watermarking (워터마킹) | AI 생성물에 사람 눈엔 안 보이는 표식 심기 |
+| EU AI Act 위험등급 | EU AI 법의 4단계 위험 분류(+GPAI 별도) |
 
 ---
 
