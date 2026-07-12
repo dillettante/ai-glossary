@@ -8,7 +8,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 
 **원칙:** 모든 정의에 검증된 출처를 답니다. 추측·할루시네이션을 넣지 않습니다. → [SOURCES](research/SOURCES.md) · [집필 규칙](CONTRIBUTING.md)
 
-**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (67개 항목 한눈에)
+**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (74개 항목 한눈에)
 
 ---
 
@@ -112,6 +112,17 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | API | 프로그램끼리 약속된 방식으로 소통하는 창구 |
 | Port / localhost | 서비스 구분 번호와 '내 컴퓨터 자신' 주소 |
 | Environment variable (환경변수/.env) | 코드 밖에서 설정·비밀키 주입 |
+
+### 11. 버전 관리·협업 — [자세히](terms/11-version-control.md)
+| 용어 | 한 줄 요약 |
+|---|---|
+| Git vs GitHub (깃/깃허브) | Git=이력관리 도구, GitHub=온라인 호스팅 장소 |
+| Repository (repo) | 프로젝트 파일 + 변경 이력 저장 단위 |
+| Commit (커밋) | 변경을 메시지와 함께 남기는 스냅샷 |
+| Branch / Merge (브랜치·머지) | 본류 밖 갈래 작업 / 다시 합치기 |
+| Clone / Pull / Push (클론·풀·푸시) | 원격과 동기화 3동작(복제·받기·올리기) |
+| Fork (포크) | 남의 저장소를 내 계정으로 통째 복제 |
+| Pull request (PR) | 변경을 제안·리뷰·병합 요청 |
 
 ---
 

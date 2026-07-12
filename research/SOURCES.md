@@ -23,6 +23,7 @@
 | +2 | (프롬프트 추가) | Reasoning/Thinking mode, Context engineering |
 | +3 | (구축 추가) | Embedding model, Chunking |
 | +δ | (3차 확장·분산) | Prompt injection/Jailbreak(2), Evals(7), Multimodal(1), Knowledge cutoff(1), Reranking(3), Open weights vs Open source(9) |
+| 11 | 버전 관리·협업 | Git vs GitHub, Repository, Commit, Branch/Merge, Clone/Pull/Push, Fork, Pull request |
 
 ---
 
@@ -163,6 +164,18 @@
 | **Knowledge cutoff / 지식 컷오프 (1)** | 제공사 모델 문서(OpenAI/Anthropic model cards의 training/knowledge cutoff) | 학습 데이터가 특정 시점까지만→이후는 도구 없이 모름 | 실시간 인터넷 연결 아님; 이후 정보엔 RAG/검색 필요. (날짜 아닌 개념 인용→노후화 방지) |
 | **Reranking / 리랭킹 (3)** | Nogueira & Cho **arXiv:1901.04085**(2019) · Cohere Rerank docs | 1차 검색 후보를 정밀 모델(cross-encoder)로 재정렬하는 RAG 2단계 | 검색 대체 아님(위에 얹는 2단계); 느림→소수 후보에만 |
 | **Open weights vs Open source (9)** | OSI *Open Source AI Definition* v1.0(2024) opensource.org/ai | 가중치 공개≠오픈소스; 사용·재배포 범위는 라이선스가 정함 | "무료=마음대로" 아님; "open"이 곧 OSI 오픈소스 아님. Llama는 논쟁 사례로만(판정 아님) |
+
+## 카테고리 11 — 버전 관리·협업
+
+| 용어 | 검증 출처 | 한 줄 정의 | 흔한 오해 |
+|---|---|---|---|
+| **Git vs GitHub** | *Pro Git*(git-scm.com/book) · git-scm.com/docs · MS 인수(2018-06-04) | Git=분산 버전관리 도구(Torvalds 2005, 리눅스 커널용); GitHub=git 저장소 호스팅·협업 서비스(MS 소유) | Git≠GitHub; git은 로컬 완결·GitHub은 호스팅 다수 중 하나(GitLab·Bitbucket) |
+| **Repository (repo)** | *Pro Git* "Getting a Git Repository" | 프로젝트 파일+전체 변경 이력을 담는 저장 단위 | "현재 폴더"만 아님(이력 포함); 온라인 전용 아님 |
+| **Commit** | *Pro Git* "Recording Changes" · git-scm.com/docs/git-commit | 저장소 상태를 메시지와 함께 남기는 스냅샷 | 커밋만으론 공유 안 됨(push 필요) |
+| **Branch / Merge** | *Pro Git* "Branches in a Nutshell"·"Basic Branching and Merging" | 브랜치=본류 밖 독립 작업 갈래; 머지=본류에 합침 | 브랜치=복사폴더 아님; 머지 자동 아님(충돌은 사람이) |
+| **Clone / Pull / Push** | git-scm.com/docs/git-{clone,pull,push} · *Pro Git* "Working with Remotes" | 클론=최초 복제, 풀=원격 변경 받기, 푸시=내 커밋 올리기 | 풀↔푸시 방향 반대; 커밋만으론 전달 안 됨 |
+| **Fork** | GitHub Docs *About forks* | 남의 저장소를 내 계정으로 통째 복제해 독립 갈래 | ⚠️core git 명령 아님(플랫폼 기능); branch와 다름(별개 저장소) |
+| **Pull request (PR)** | GitHub Docs *About pull requests* · GitLab *Merge requests* | 내 변경을 원본에 합쳐달라 제안·리뷰·병합하는 절차 | ⚠️core git 아님(플랫폼 기능); GitLab=merge request; `git pull`과 별개 |
 
 ## 정확성 결정사항 (집필 시 반드시 반영)
 
