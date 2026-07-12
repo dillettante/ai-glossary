@@ -80,3 +80,32 @@
 **함께 보기:** [PoC](07-dev-stages.md), [MVP](07-dev-stages.md)
 
 **출처:** Google, *Site Reliability Engineering* — Production Readiness Review: [sre.google/sre-book](https://sre.google/sre-book/evolving-sre-engagement-model/). (특정 벤더의 실무 표준이며 유일 창시 정의가 아님.)
+
+---
+
+### Evals · 평가·벤치마크 (Evaluation & Benchmarks)
+
+> **한 줄 요약:** 모델·시스템이 얼마나 잘하는지를 정해진 과제와 지표로 재보는 것 — "이 모델이 좋다"는 말의 근거를 읽는 법.
+
+**정의 (Definition)**
+- KO: 모델·AI 시스템의 성능·품질을 정해진 과제(task)와 지표(metric)로 측정·비교하는 것. 표준화된 과제 묶음을 '벤치마크'라 부른다.
+- EN: Measuring and comparing a model's or system's performance and quality against defined tasks and metrics; a standardized task set is a "benchmark".
+
+**비유 (쉽게):** 학생의 실력을 재려고 보는 **표준화 시험**. 같은 문제지(벤치마크)로 여러 학생(모델)을 풀게 해 점수로 줄 세운다. 다만 시험 잘 보는 것과 실무 잘하는 것이 늘 같지는 않다는 점까지 똑같다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 모델 선택·홍보·논문에서 "성능이 좋다"는 주장의 **근거**가 대부분 eval 점수다. 점수의 출처와 조건을 읽을 줄 알아야 과장을 걸러낸다.
+- 대표 벤치마크로 폭넓은 지식·다과제 이해를 재는 **MMLU**(57개 과목), 정확도뿐 아니라 견고성·공정성·독성 등 여러 축을 함께 재는 **HELM** 등이 있다.
+- 자기 업무(예: 계약서 검토)에 쓸 모델은 공개 벤치마크만으로 판단하기 어렵다 — 자기 과제에 맞는 eval을 따로 만들어 재는 것이 실무의 핵심이다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "우리 계약서 30건으로 이 모델의 조항 추출 정확도를 재는 간단한 eval 세트를 설계해줘 — 정답지와 채점 기준까지."
+- "이 벤치마크 점수가 어떤 조건(few-shot 수·프롬프트·데이터 버전)에서 나온 건지 정리해줘."
+
+**흔한 오해:**
+- **"벤치마크 점수 = 실사용 성능"** — 아니다. 점수는 특정 문제지에서의 성적일 뿐이다. **데이터 오염**(시험 문제가 학습 데이터에 섞임)·**과적합**(그 벤치마크에만 맞춰 튜닝)·**도메인 불일치**(내 업무와 다른 과제)로, 높은 점수가 실무 성능을 보장하지 않는다.
+- **"evals에는 하나의 정본 정의가 있다"** — 아니다. 'evals'는 단일 정본이 없는 넓은 실무 개념이다. MMLU·HELM 같은 대표 벤치마크는 있으나, 무엇을·어떻게 재느냐는 목적마다 다르다.
+
+**함께 보기:** [MVP](07-dev-stages.md), [Production Ready](07-dev-stages.md), [LLM 기초](01-llm-basics.md), [파인튜닝](04-finetuning.md)
+
+**출처:** 대표 벤치마크 — Hendrycks et al. (2020), *Measuring Massive Multitask Language Understanding* (MMLU), [arXiv:2009.03300](https://arxiv.org/abs/2009.03300); Liang et al. (2022), *Holistic Evaluation of Language Models* (HELM), [arXiv:2211.09110](https://arxiv.org/abs/2211.09110). ('evals'는 단일 정본 없는 넓은 실무 개념 — 대표 출처이며 유일 정의 아님.)

@@ -22,6 +22,7 @@
 | 10 | 개발·운영 인프라 | SSH, CLI, cron, Docker/Container, API, Port/localhost, Environment variable |
 | +2 | (프롬프트 추가) | Reasoning/Thinking mode, Context engineering |
 | +3 | (구축 추가) | Embedding model, Chunking |
+| +δ | (3차 확장·분산) | Prompt injection/Jailbreak(2), Evals(7), Multimodal(1), Knowledge cutoff(1), Reranking(3), Open weights vs Open source(9) |
 
 ---
 
@@ -151,6 +152,17 @@
 | **Context engineering (2)** | Anthropic *Effective context engineering for AI agents* | 컨텍스트 윈도우에 무엇을 어떻게 채울지 설계(프롬프트 넘어) | 프롬프트 엔지니어링의 확장. ⚠️신생·단일 정본 없음 |
 | **Embedding model (3)** | Sentence-BERT: Reimers & Gurevych **arXiv:1908.10084**(2019) | 텍스트를 임베딩 벡터로 변환하는 전용 모델(생성 LLM과 구별) | 생성 LLM이 다 하지 않음(전용 모델); 다른 모델 벡터 섞기 금지 |
 | **Chunking (3)** | Pinecone *Chunking Strategies* 등 실무 가이드 | 긴 문서를 검색·임베딩용 작은 조각으로 나눔(RAG 전처리) | ⚠️단일 정본 없음(RAG 실무 개념) |
+
+## 3차 확장 — 개념 6종 (분산 편입)
+
+| 용어(카테고리) | 검증 출처 | 한 줄 정의 | 흔한 오해 |
+|---|---|---|---|
+| **Prompt injection / Jailbreak (2)** | Willison(2022) 명명 · OWASP *Top 10 for LLM* LLM01 · Wei et al. **arXiv:2307.02483**(2023) | injection=신뢰 못 할 입력의 숨은 지시가 모델을 탈취 / jailbreak=안전장치 우회 | 둘은 다름(injection=출처 탈취, jailbreak=정책 우회); 시스템 프롬프트가 방어벽 아님 |
+| **Evals / 평가·벤치마크 (7)** | MMLU: Hendrycks **arXiv:2009.03300**(2020) · HELM: Liang **arXiv:2211.09110**(2022) | 정해진 과제·지표로 성능 측정(표준 묶음=벤치마크) | 벤치마크 점수≠실사용(오염·과적합·도메인 불일치). ⚠️단일 정본 없음 |
+| **Multimodal / 멀티모달 (1)** | CLIP: Radford **arXiv:2103.00020**(2021) | 텍스트+이미지·음성 등 여러 모달리티를 함께 처리 | "진짜로 본다" 아님(환각 가능)·모달별 편차. ⚠️대표 사례(유일 창시 아님) |
+| **Knowledge cutoff / 지식 컷오프 (1)** | 제공사 모델 문서(OpenAI/Anthropic model cards의 training/knowledge cutoff) | 학습 데이터가 특정 시점까지만→이후는 도구 없이 모름 | 실시간 인터넷 연결 아님; 이후 정보엔 RAG/검색 필요. (날짜 아닌 개념 인용→노후화 방지) |
+| **Reranking / 리랭킹 (3)** | Nogueira & Cho **arXiv:1901.04085**(2019) · Cohere Rerank docs | 1차 검색 후보를 정밀 모델(cross-encoder)로 재정렬하는 RAG 2단계 | 검색 대체 아님(위에 얹는 2단계); 느림→소수 후보에만 |
+| **Open weights vs Open source (9)** | OSI *Open Source AI Definition* v1.0(2024) opensource.org/ai | 가중치 공개≠오픈소스; 사용·재배포 범위는 라이선스가 정함 | "무료=마음대로" 아님; "open"이 곧 OSI 오픈소스 아님. Llama는 논쟁 사례로만(판정 아님) |
 
 ## 정확성 결정사항 (집필 시 반드시 반영)
 

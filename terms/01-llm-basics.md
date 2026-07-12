@@ -190,3 +190,55 @@
 **함께 보기:** [Token](01-llm-basics.md), [Hallucination](01-llm-basics.md), [Parameter / Weight](01-llm-basics.md)
 
 **출처:** Anthropic, *Glossary* (platform.claude.com/docs), [https://platform.claude.com/docs](https://platform.claude.com/docs); 보조: Google Cloud, *Generative AI glossary*.
+
+---
+
+### Multimodal · 멀티모달
+
+> **한 줄 요약:** 글만이 아니라 이미지·음성·영상까지 한 모델이 함께 다루는 것. 눈·귀·입을 여럿 가진 셈이다.
+
+**정의 (Definition)**
+- KO: 텍스트뿐 아니라 이미지·음성·영상 등 여러 형식(모달리티, modality)을 함께 입력·출력으로 다루는 모델이나 시스템.
+- EN: A model or system that handles multiple modalities — not just text but also images, audio, or video — as input and/or output.
+
+**비유 (쉽게):** 글만 읽던 사람이 **눈과 귀까지 갖게 된 것**. 편지(텍스트)만 받던 상대가 이제 사진도 보고 목소리도 들을 수 있게 되어, "이 사진 속 표지판 뭐라고 쓰여 있어?" 같은 부탁을 한 번에 알아듣는다. 다만 감각마다 밝기가 달라, 눈은 밝은데 귀는 어두운 식으로 형식별 실력 차가 난다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 문서 스캔본·사진·도표·음성 녹취처럼 **글이 아닌 자료**를 그대로 넣고 물어볼 수 있다.
+- 하나의 모델로 "이미지 보고 설명", "표 읽어 요약", "음성 받아쓰기"를 처리해, 형식마다 별도 도구를 붙이던 수고를 줄인다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 계약서 스캔 이미지를 읽고 핵심 조항을 정리해줘."
+- "이 도표 사진에서 숫자를 뽑아 표로 만들어줘."
+
+**흔한 오해:** **"이미지도 되니 모델이 진짜로 본다"는 뜻이 아니다** — 사람처럼 이해하는 게 아니라 여전히 확률적으로 처리하므로, 사진 속 글자를 잘못 읽거나 없는 것을 지어내는 [환각](01-llm-basics.md)이 얼마든지 생길 수 있다. 또 **형식마다 성능이 고르지 않다** — 텍스트는 잘해도 음성·영상은 약할 수 있다.
+
+**함께 보기:** [Hallucination](01-llm-basics.md), [Token](01-llm-basics.md), [Embedding](01-llm-basics.md)
+
+**출처:** Radford et al. (2021), *Learning Transferable Visual Models From Natural Language Supervision* (CLIP), [arXiv:2103.00020](https://arxiv.org/abs/2103.00020); 보조 정의: Google Cloud, *Generative AI glossary*. (CLIP은 이미지·텍스트를 잇는 **대표적 멀티모달 학습 사례**일 뿐, 멀티모달이라는 넓은 개념의 **유일한 창시 논문은 아니다** — 음성·영상 등 다른 계보가 병존한다.)
+
+---
+
+### Knowledge cutoff · 지식 컷오프(학습 컷오프)
+
+> **한 줄 요약:** 모델의 지식이 멈춰 있는 시점. 그 이후에 벌어진 일은 (검색·도구 없이는) 모른다.
+
+**정의 (Definition)**
+- KO: 모델의 학습 데이터가 특정 시점까지만 포함되어, 그 이후의 사건·정보는 (검색·도구 없이는) 알지 못한다는 한계이자 그 기준 시점.
+- EN: The point up to which a model's training data extends — after which it does not know later events or information without external tools or search.
+
+**비유 (쉽게):** **특정 날짜에 인쇄돼 멈춘 백과사전**. 그 날까지의 내용은 담겨 있지만, 인쇄 뒤에 일어난 일은 페이지에 없다. 아무리 최신 사건을 물어도, 책 자체가 그 날짜에서 멈춰 있으니 답할 재료가 없는 것이다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 최신 뉴스·법령 개정·시세처럼 **컷오프 이후의 사실**을 물으면, 모델이 모르거나 옛 정보로 답할 수 있어 반드시 별도 확인이 필요하다.
+- 그래서 최신성이 중요한 작업은 [RAG](03-building.md)·검색·도구로 **바깥의 최신 자료를 붙여** 컷오프의 빈틈을 메운다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "네 지식 컷오프가 언제인지 먼저 알려주고, 그 이후 내용은 추측하지 말아줘."
+- "최근 개정된 조문이 필요하니, 기억에 의존하지 말고 검색해서 출처와 함께 확인해줘."
+
+**흔한 오해:** **"AI가 인터넷에 실시간으로 연결돼 있다"는 뜻이 아니다** — 기본 상태의 모델은 컷오프까지의 고정된 지식만 가지며, 실시간으로 웹을 뒤지지 않는다. 컷오프 이후를 알려면 검색·[RAG](03-building.md)·도구를 따로 붙여야 한다. 또 컷오프는 "그 날짜 이후 전부 완벽히 안다"는 뜻도 아니다 — 제공사 문서도 지식이 **가장 두텁고 신뢰할 만한 시점**과 학습 데이터의 넓은 범위를 구분해 표기한다.
+
+**함께 보기:** [Hallucination](01-llm-basics.md), [Inference](01-llm-basics.md), [RAG](03-building.md)
+
+**출처:** 제공사 모델 문서(검증) — Anthropic, *Models overview*, [https://platform.claude.com/docs/en/about-claude/models/overview](https://platform.claude.com/docs/en/about-claude/models/overview) (모델별 "Reliable knowledge cutoff"·"Training data cutoff" 명시); OpenAI, *Models*, [https://developers.openai.com/api/docs/models](https://developers.openai.com/api/docs/models) (모델별 "Knowledge cutoff" 명시). 단일 논문이 아니라 제공사 모델 문서에 근거한 개념이다.

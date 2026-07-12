@@ -114,3 +114,31 @@
 **함께 보기:** [llama.cpp](#llamacpp--라마씨피피), [Ollama](#ollama--올라마), [LM Studio](#lm-studio--엘엠-스튜디오)
 
 **출처:** 단일 정본 없는 일반 개념(유일 창시 없음). 보조 설명: Wikipedia, *Self-hosting (web services)*, [en.wikipedia.org](https://en.wikipedia.org/wiki/Self-hosting_(web_services)) (확인 2026-07-11).
+
+---
+
+### Open weights vs Open source · 오픈 웨이트 vs 오픈소스
+
+> **한 줄 요약:** 가중치를 내려받아 쓸 수 있는 것(오픈 웨이트)과, 사용·연구·수정·재배포가 자유롭고 학습 데이터 정보·코드까지 공개된 것(오픈소스)은 다르다 — "가중치 공개 ≠ 오픈소스".
+
+**정의 (Definition)**
+- KO: **오픈 웨이트**는 학습이 끝난 모델의 가중치(파라미터)를 내려받아 실행·파인튜닝할 수 있게 공개한 것을 말한다. 다만 학습 데이터·코드가 공개되었는지, 라이선스가 상업 이용·재배포를 어디까지 허용하는지는 **별개의 문제**다. **오픈소스(AI)**는 OSI의 *Open Source AI Definition*(OSAID) 기준으로, 사용·연구·수정·재배포의 자유가 보장되고 학습 데이터에 관한 충분한 정보와 학습·실행 코드까지 공개된 것을 말한다.
+- EN: **Open weights** means the trained model's weights are published so they can be run and fine-tuned — but whether the training data/code are released, and how far the license permits commercial use or redistribution, are separate questions. **Open source (AI)**, per the OSI Open Source AI Definition (OSAID v1.0), grants the freedoms to use, study, modify, and share, and additionally requires sufficiently detailed information about the training data plus the code used to train and run the system.
+
+**비유 (쉽게):** 오픈 웨이트는 **완성된 요리(가중치)를 통째로 받아 먹고 다시 간을 볼 수 있는 것**. 오픈소스는 그 요리의 **레시피와 재료 출처(학습 데이터·코드)까지 공개하고, 누구나 고쳐서 다시 팔아도 된다고 허락한 것**. 요리를 받았다고 레시피까지 받은 것은 아니다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 모델을 셀프호스팅·파인튜닝·재배포하려 할 때, "받았으니 마음대로 써도 되는지"는 **가중치 공개 여부가 아니라 라이선스**가 정한다. 상업 이용 금지·사용자 수 상한·재배포 제한이 붙어 있을 수 있다.
+- 실제로 널리 쓰이는 다수 모델(예: Llama, DeepSeek 계열)은 가중치를 내려받을 수 있어 흔히 "오픈"으로 불리지만, 그 라이선스가 OSI 기준의 오픈소스인지는 논쟁·검토 대상이다(예: Llama 라이선스에 붙은 사용 조건을 두고 OSI가 "오픈소스가 아니다"라고 본 논쟁).
+- 법률·기밀 업무에서 모델을 도입하기 전, **라이선스 조항(상업 이용·재배포·책임·출력물 권리)**을 실제로 확인해야 한다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 모델이 오픈 웨이트인지 OSI 기준 오픈소스인지 구분하고, 상업 이용·재배포를 허용하는 라이선스인지 확인해줘."
+
+**흔한 오해:**
+- **"무료로 받았으니 마음대로 써도 된다"** — 아니다. 무상 배포와 자유로운 사용은 별개다. 가중치가 공개돼도 라이선스가 상업 이용·재배포를 제한할 수 있다.
+- **"'open'이 붙으면 오픈소스다"** — 아니다. 제품·모델명이나 홍보의 "open"은 OSI가 정의한 오픈소스와 같지 않다. 오픈 웨이트만으로는 OSAID의 오픈소스 요건(학습 데이터 정보·코드 공개)을 충족하지 못할 수 있다.
+
+**함께 보기:** [Self-hosting](09-local-run.md#self-hosting--셀프호스팅), [Ollama](09-local-run.md#ollama--올라마), [llama.cpp](09-local-run.md#llamacpp--라마씨피피)
+
+**출처:** Open Source Initiative, *The Open Source AI Definition — 1.0* (OSAID v1.0, 2024), [opensource.org/ai](https://opensource.org/ai/open-source-ai-definition) (확인 2026-07-12 — 사용·연구·수정·공유 4대 자유 + 학습 데이터 정보·학습/실행 코드·가중치 공개 요건). (일반 개념·라이선스 판단은 개별 모델 라이선스 원문 우선)

@@ -8,7 +8,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 
 **원칙:** 모든 정의에 검증된 출처를 답니다. 추측·할루시네이션을 넣지 않습니다. → [SOURCES](research/SOURCES.md) · [집필 규칙](CONTRIBUTING.md)
 
-**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (61개 항목 한눈에)
+**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (67개 항목 한눈에)
 
 ---
 
@@ -24,6 +24,8 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | Inference (추론·실행) | 학습 끝난 모델을 실제로 써서 답을 생성하는 단계 |
 | Parameter/Weight (파라미터·가중치) | 학습으로 조정되는 모델 내부 변수(=수백억 개 손잡이) |
 | Temperature (온도) | 출력의 무작위성 조절값(高=창의, 低=보수) |
+| Multimodal (멀티모달) | 이미지·음성·영상까지 함께 다루는 모델 |
+| Knowledge cutoff (지식 컷오프) | 학습이 멈춘 시점 — 이후는 도구 없이 모름 |
 
 ### 2. 프롬프트 & 상호작용 — [자세히](terms/02-prompting.md)
 | 용어 | 한 줄 요약 |
@@ -34,6 +36,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | Chain-of-thought (생각의 사슬) | 중간 풀이 단계를 쓰게 해 복잡추론 성능↑ |
 | Reasoning / Thinking mode (추론 모드) | 답 전에 속으로 더 길게 '생각'하는 내장 모드 |
 | Context engineering (컨텍스트 엔지니어링) | 컨텍스트에 무엇을 채울지 통째로 설계 |
+| Prompt injection / Jailbreak (인젝션/탈옥) | 숨은 지시로 모델 탈취 vs 안전장치 우회 |
 
 ### 3. AI 서비스 구축 — [자세히](terms/03-building.md)
 | 용어 | 한 줄 요약 |
@@ -45,6 +48,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | Vector DB / Embedding search | 의미가 가까운 것끼리 찾아주는 벡터 저장·검색 |
 | Embedding model (임베딩 모델) | 데이터를 임베딩 벡터로 바꾸는 전용 모델 |
 | Chunking (청킹) | 긴 문서를 검색·임베딩용 조각으로 자르기 |
+| Reranking (리랭킹) | 1차 검색 후보를 정밀 모델로 재정렬 |
 
 ### 4. 모델 커스터마이징 (파인튜닝) — [자세히](terms/04-finetuning.md)
 | 용어 | 한 줄 요약 |
@@ -77,6 +81,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | PoC (개념 증명) | 기술적으로 되는지만 빠르게 확인하는 일회용 실험 |
 | MVP (최소 기능 제품) | 최소 노력으로 배움을 최대로 얻는 출시 가능 제품 |
 | Production Ready (프로덕션 레디) | 실제 운영에 안전히 올릴 수 있는 상태 |
+| Evals (평가·벤치마크) | 정해진 과제·지표로 성능 측정, 점수의 근거 읽기 |
 
 ### 8. 모델 포맷·경량화 — [자세히](terms/08-model-formats.md)
 | 용어 | 한 줄 요약 |
@@ -95,6 +100,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | Ollama | 명령 한 줄로 오픈 모델 로컬 실행 |
 | LM Studio | 로컬 LLM 실행·API 서버 GUI 앱 |
 | Self-hosting (셀프호스팅) | 내 서버·PC에서 직접 운영 |
+| Open weights vs Open source | 가중치 공개 ≠ 오픈소스(라이선스가 좌우) |
 
 ### 10. 개발·인프라 기초 — [자세히](terms/10-dev-infra.md)
 | 용어 | 한 줄 요약 |

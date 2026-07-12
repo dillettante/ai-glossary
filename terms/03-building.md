@@ -200,3 +200,32 @@
 **함께 보기:** [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Embedding model](03-building.md#embedding-model--임베딩-모델), [Vector DB / Embedding search](03-building.md#vector-db--embedding-search--벡터db--임베딩-검색), [Embedding](01-llm-basics.md)
 
 **출처:** Pinecone, *Chunking Strategies for LLM Applications*, [pinecone.io](https://www.pinecone.io/learn/chunking-strategies/) ("chunking is the process of breaking down large text into smaller segments called chunks"). (RAG 실무 개념 — 단일 정본·유일 창시 없음)
+
+---
+
+### Reranking · 리랭킹(리랭커)
+
+> **한 줄 요약:** 1차 검색으로 대충 추린 후보 문서들을, 더 정밀한 모델로 질문과의 관련도를 다시 매겨 상위만 남기는 2단계 정제.
+
+**정의 (Definition)**
+- KO: 벡터·키워드 검색으로 빠르게 뽑은 다수의 후보 문서를, 질문과 문서를 함께 입력받는 더 정밀한 모델(주로 cross-encoder)로 관련도를 다시 채점해 순위를 재정렬하고, 상위 소수만 남기는 RAG의 2단계 정제 과정.
+- EN: A second-stage step that re-scores the candidates returned by a first-stage retriever using a more precise model (typically a cross-encoder that reads the query and each document together), reorders them by relevance, and keeps only the top few.
+
+**비유 (쉽게):** 1차 검색은 이력서만 훑어 지원자를 100명에서 20명으로 걸러내는 **서류심사**, 리랭킹은 그 20명을 한 명씩 앉혀 놓고 직접 면접해 최종 5명을 고르는 **면접**. 정밀하지만 느려서 소수에게만 한다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 1차 검색(임베딩·키워드)은 빠르지만 거칠다 → 리랭커가 상위 결과의 정확도를 끌어올린다.
+- cross-encoder는 질문과 문서를 **한꺼번에 읽어** 둘의 상호작용을 보므로, 각자 따로 벡터로 만들어 거리만 재는 1차 검색보다 정밀하다.
+- 대표 논문인 BERT 리랭커는 MS MARCO 패시지 검색에서 이전 최고 성능 대비 MRR@10을 상대 27% 끌어올렸다(Nogueira & Cho, 2019).
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "벡터DB에서 후보 30개를 뽑은 다음, cross-encoder 리랭커로 다시 매겨 상위 5개만 컨텍스트에 넣어줘."
+- "1차 검색 결과가 어수선하니, 리랭킹 단계를 붙여 관련도 순으로 재정렬해줘."
+
+**흔한 오해:**
+- **"리랭커가 검색을 대체한다"** — 아니다. 1차 검색 **위에 얹는 2단계**이지, 전체 코퍼스를 리랭커로 훑는 게 아니다. 먼저 후보를 좁힌 뒤에만 쓴다.
+- **"많이 리랭킹할수록 좋다"** — 아니다. cross-encoder는 후보마다 모델을 한 번씩 돌려야 해 **느리고 비싸므로**, 후보 소수(보통 수십 개)에만 적용한다.
+
+**함께 보기:** [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Vector DB / Embedding search](03-building.md#vector-db--embedding-search--벡터db--임베딩-검색), [Embedding model](03-building.md#embedding-model--임베딩-모델)
+
+**출처:** Nogueira & Cho (2019), *Passage Re-ranking with BERT*, [arXiv:1901.04085](https://arxiv.org/abs/1901.04085) (확인 2026-07-12). 보조(상용 예): Cohere, *Rerank Overview*, [docs.cohere.com](https://docs.cohere.com/docs/rerank-overview) ("Given a query and a list of documents, Rerank indexes the documents from most to least semantically relevant to the query"). (대표 문헌 — 유일 창시 아님)
