@@ -5,6 +5,64 @@
 
 ---
 
+### PEFT · 파라미터 효율 파인튜닝 (Parameter-Efficient Fine-Tuning)
+
+> **한 줄 요약:** 모델 전체를 다시 학습하는 대신, 아주 일부 파라미터만 손봐서 같은 효과를 훨씬 싸게 얻는 방법들의 총칭.
+
+**정의 (Definition)**
+- KO: 사전학습된 대형 모델의 파라미터 대부분을 그대로 둔 채, 소수의 (추가) 파라미터만 학습해 하위 과제에 적응시키는 기법군. 계산·저장 비용을 크게 줄이면서 전체 파인튜닝에 준하는 성능을 목표로 한다.
+- EN: A family of methods that fine-tune only a small number of (extra) model parameters instead of all of them — significantly decreasing computational and storage costs — while yielding performance comparable to a fully fine-tuned model.
+
+**비유 (쉽게):** 건물 전체를 리모델링하는 대신 **간판과 인테리어 일부만 바꾸는 것**. 구조(원 가중치)는 그대로 두니 공사비와 기간이 확 줄지만, 손님이 느끼는 인상은 새 가게가 된다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 이 카테고리(4번)의 **상위 개념**이다. LoRA·QLoRA·Prefix·Adapter·P-Tuning·BitFit·Soft Prompts가 모두 PEFT의 하위 기법이다.
+- 소비자용 GPU 한 장으로도 큰 모델을 맞춤화할 수 있게 만든 것이 이 계열의 실질적 기여다.
+- 어댑터만 따로 저장·교체할 수 있어, 과제별로 모델 전체 사본을 두지 않아도 된다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "전체 파인튜닝은 장비가 안 되니, PEFT 계열 중에서 이 데이터 규모에 맞는 기법을 추천하고 이유를 설명해줘."
+
+**흔한 오해:**
+- **"PEFT = LoRA"** — 아니다. LoRA는 PEFT의 여러 기법 중 하나이고, 무엇을 학습하고 무엇을 얼리는지가 기법마다 다르다.
+- **"파라미터를 적게 바꾸니 성능도 그만큼 떨어진다"** — 목표는 전체 파인튜닝에 **준하는** 성능이다. 다만 과제·데이터·기법에 따라 결과가 달라지므로 항상 검증셋으로 확인한다.
+- **"PEFT면 지식을 새로 주입할 수 있다"** — 파인튜닝 일반의 한계가 그대로 적용된다. 최신 사실을 넣는 문제는 대개 [RAG](03-building.md)의 영역이다.
+
+**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응), [QLoRA](04-finetuning.md#qlora--큐로라), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [SFT](04-finetuning.md#sft--지도-파인튜닝-supervised-fine-tuning)
+
+**출처:** Hugging Face, *PEFT (Parameter-Efficient Fine-Tuning) documentation*, [huggingface.co/docs/peft](https://huggingface.co/docs/peft/index) ("PEFT methods only fine-tune a small number of (extra) model parameters — significantly decreasing computational and storage costs — while yielding performance comparable to a fully fine-tuned model"; 확인 2026-08-27). (총칭 개념 — 유일 창시 논문 없음.)
+
+---
+
+### SFT · 지도 파인튜닝 (Supervised Fine-Tuning)
+
+> **한 줄 요약:** "이렇게 답하라"는 모범 답안 묶음을 보여 주며 모델을 다시 가르치는, 파인튜닝의 가장 기본 형태.
+
+**정의 (Definition)**
+- KO: 입력과 사람이 작성한 모범 출력이 짝지어진 데이터로 사전학습 모델을 지도학습 방식으로 추가 학습시키는 단계. InstructGPT에서는 사람 피드백 기반 강화학습(RLHF)에 앞서는 **1단계**로 쓰였다.
+- EN: Further training a pretrained model with supervised learning on a dataset of labeler demonstrations of the desired behavior — the first stage before reward modeling and RL in the InstructGPT recipe.
+
+**비유 (쉽게):** 신입에게 **잘 쓴 보고서 예시 묶음**을 주고 "이 형식과 톤으로 쓰라"고 시키는 것. 업무 지식을 새로 주입하는 게 아니라, **일하는 방식**을 맞추는 훈련이다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 문체·형식·도메인 어휘·응답 형태를 맞출 때 가장 먼저 검토하는 방법이다.
+- [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝)은 지시문–응답 쌍으로 하는 SFT의 한 형태로 볼 수 있다.
+- [PEFT](04-finetuning.md#peft--파라미터-효율-파인튜닝-parameter-efficient-fine-tuning) 기법과 배타적이지 않다 — LoRA로 SFT를 수행하는 구성이 실무에서 흔하다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "우리 의견서 30건을 입력–출력 쌍으로 만들어 SFT용 데이터셋 형식으로 정리해줘. 사건 식별 정보는 전부 빼고."
+
+**흔한 오해:**
+- **"SFT로 새 지식을 넣는다"** — 형식·문체·과제 수행 방식을 맞추는 데 강하고, 최신 사실을 주입하는 용도로는 신뢰하기 어렵다. 사실 갱신은 [RAG](03-building.md) 쪽 문제다.
+- **"SFT = RLHF"** — 아니다. SFT는 RLHF 이전 단계이며, 선호 비교나 보상 모델 없이 모범 답안만으로 학습한다.
+- **"데이터가 많을수록 무조건 낫다"** — 품질·일관성이 양보다 중요하며, 과하면 [과적합](04-finetuning.md#overfitting--과적합)과 [파국적 망각](04-finetuning.md#catastrophic-forgetting--파국적-망각)을 부른다.
+
+**함께 보기:** [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝), [PEFT](04-finetuning.md#peft--파라미터-효율-파인튜닝-parameter-efficient-fine-tuning), [RLHF](05-alignment-rl.md), [Overfitting](04-finetuning.md#overfitting--과적합)
+
+**출처:** Ouyang et al. (2022), *Training language models to follow instructions with human feedback*, [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) ("we collect a dataset of labeler demonstrations of the desired model behavior, which we use to fine-tune GPT-3 using supervised learning"; 확인 2026-08-27). (대표 출처이며 지도학습식 파인튜닝의 유일 창시는 아님.)
+
+---
+
 ### LoRA · 로라(저계수 적응)
 
 > **한 줄 요약:** 원본 모델은 통째로 얼려 두고, 각 층에 끼운 작은 행렬만 학습해 저비용으로 모델을 맞춤화한다.
@@ -284,3 +342,32 @@
 **함께 보기:** [Evals](07-dev-stages.md), [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝), [Multi-Task Fine-Tuning](04-finetuning.md#multi-task-fine-tuning--멀티태스크-미세조정)
 
 **출처:** Google, *Machine Learning Crash Course — Overfitting*, [developers.google.com](https://developers.google.com/machine-learning/crash-course/overfitting/overfitting) ("creating a model that matches (memorizes) the training set so closely that the model fails to make correct predictions on new data"; 확인 2026-07-12). 보조 — *Overfitting*, [en.wikipedia.org/wiki/Overfitting](https://en.wikipedia.org/wiki/Overfitting) ("corresponds too closely … may therefore fail to fit to additional data or predict future observations reliably"). (표준 ML 개념 — 유일 창시 없음.)
+
+---
+
+### Catastrophic forgetting · 파국적 망각
+
+> **한 줄 요약:** 새 과제를 가르치면 이전에 잘하던 것을 급격히 잊어버리는 신경망의 고질적 성질.
+
+**정의 (Definition)**
+- KO: 신경망을 새로운 과제로 순차 학습시킬 때, 이전 과제에 필요한 가중치가 덮어써져 기존 성능이 급격히 떨어지는 현상.
+- EN: The tendency of neural networks to abruptly lose performance on previously learned tasks when trained sequentially on a new task.
+
+**비유 (쉽게):** 한 칠판에 계속 새 내용을 덧쓰는 것과 같다. 새 수업(새 과제)을 적으려면 지우고 써야 하는데, **지운 자리에 있던 지난 수업 내용이 함께 사라진다.**
+
+**왜 중요한가 / 언제 쓰나:**
+- 파인튜닝의 대표적 부작용이다. 좁은 도메인 데이터로 강하게 학습시키면 그 과제는 좋아지지만 **일반 능력이 무너질 수 있다.**
+- [PEFT](04-finetuning.md#peft--파라미터-효율-파인튜닝-parameter-efficient-fine-tuning) 계열이 선호되는 이유 중 하나 — 원 가중치를 얼려 두면 덮어쓸 여지가 줄어든다.
+- 파인튜닝 후에는 목표 과제뿐 아니라 **손대지 않은 일반 과제 성능도 함께** 재야 이 현상을 잡아낸다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "파인튜닝 전후로 목표 과제와 일반 상식 과제를 둘 다 평가해서, 파국적 망각이 일어났는지 비교해줘."
+
+**흔한 오해:**
+- **"학습을 더 시키면 지식이 쌓이기만 한다"** — 순차 학습에서는 쌓이는 게 아니라 **덮어써질** 수 있다.
+- **"과적합과 같은 말"** — 다르다. 과적합은 *새 데이터*에서의 일반화 실패이고, 파국적 망각은 *이전에 하던 과제*의 성능 상실이다.
+- **"완전히 해결된 문제"** — 완화 기법(정규화·리허설·어댑터 분리 등)이 있을 뿐 일반 해법은 아니다.
+
+**함께 보기:** [Overfitting](04-finetuning.md#overfitting--과적합), [PEFT](04-finetuning.md#peft--파라미터-효율-파인튜닝-parameter-efficient-fine-tuning), [Multi-Task Fine-Tuning](04-finetuning.md#multi-task-fine-tuning--멀티태스크-미세조정)
+
+**출처:** Kirkpatrick et al. (2016), *Overcoming catastrophic forgetting in neural networks*, [arXiv:1612.00796](https://arxiv.org/abs/1612.00796) ("it has been widely thought that catastrophic forgetting is an inevitable feature of connectionist models"; 확인 2026-08-27). (완화 기법을 제시한 대표 논문 — 현상 자체는 1980년대부터 보고된 것으로 유일 창시 아님.)

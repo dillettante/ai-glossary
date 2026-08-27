@@ -31,6 +31,35 @@
 
 ---
 
+### Tokenizer · 토크나이저
+
+> **한 줄 요약:** 사람의 글을 모델이 읽을 수 있는 토큰 조각으로 자르는 규칙이자 그 프로그램.
+
+**정의 (Definition)**
+- KO: 원문 텍스트를 모델의 어휘집에 있는 토큰 단위로 분할하고 숫자 ID로 바꾸는 구성요소. 널리 쓰이는 방식은 드문 단어를 더 작은 **부분단어(subword)** 조각들의 열로 표현한다.
+- EN: The component that segments raw text into vocabulary units and maps them to IDs; common schemes encode rare and unknown words as sequences of subword units.
+
+**비유 (쉽게):** 요리 전 **재료를 써는 방식**이다. 같은 재료라도 어떻게 써느냐에 따라 조리 결과가 달라지듯, 같은 문장도 토크나이저가 다르면 조각 수와 경계가 달라진다.
+
+**왜 중요한가 / 언제 쓰나:**
+- **비용과 길이가 여기서 정해진다.** 토큰 수가 곧 과금 단위이자 [컨텍스트 윈도우](01-llm-basics.md#context-window--컨텍스트-윈도우) 소모량이다.
+- 한국어는 같은 뜻을 영어보다 더 많은 토큰으로 쪼개는 경우가 많아, 같은 문서라도 비용이 더 든다.
+- 파인튜닝에서는 **모델과 토크나이저를 짝으로** 다뤄야 한다. 짝이 어긋나면 학습·추론이 조용히 망가진다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 계약서가 몇 토큰인지 세어 주고, 컨텍스트 윈도우에 한 번에 들어가는지 알려줘."
+
+**흔한 오해:**
+- **"토큰 = 단어"** — 아니다. 부분단어·문자·바이트일 수 있고, 한 단어가 여러 토큰으로 쪼개지기도 한다.
+- **"토크나이저는 아무거나 써도 된다"** — 모델이 학습된 토크나이저와 달라지면 성능이 무너진다.
+- **"글자 수 ÷ 4면 토큰 수"** — 영어권 경험칙일 뿐, 언어·표기·코드 여부에 따라 크게 어긋난다.
+
+**함께 보기:** [Token](01-llm-basics.md#token--토큰), [Context window](01-llm-basics.md#context-window--컨텍스트-윈도우), [Embedding](01-llm-basics.md#embedding--임베딩)
+
+**출처:** Sennrich et al. (2015), *Neural Machine Translation of Rare Words with Subword Units*, [arXiv:1508.07909](https://arxiv.org/abs/1508.07909) ("encoding rare and unknown words as sequences of subword units"; 확인 2026-08-27). (BPE를 도입한 대표 논문 — 토크나이저 일반의 유일 창시는 아님.)
+
+---
+
 ### Context window · 컨텍스트 윈도우
 
 > **한 줄 요약:** 모델이 답을 만들 때 한 번에 "볼 수 있는" 텍스트의 총량. 모델의 작업 기억이다.

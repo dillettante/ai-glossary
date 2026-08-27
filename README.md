@@ -8,7 +8,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 
 **원칙:** 모든 정의에 검증된 출처를 답니다. 추측·할루시네이션을 넣지 않습니다. → [SOURCES](research/SOURCES.md) · [집필 규칙](CONTRIBUTING.md)
 
-**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (88개 항목 한눈에)
+**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (92개 항목 한눈에)
 
 ---
 
@@ -18,6 +18,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | 용어 | 한 줄 요약 |
 |---|---|
 | Token (토큰) | 모델이 읽고 쓰는 최소 단위(단어보다 작거나 클 수 있음) |
+| Tokenizer (토크나이저) | 글을 토큰으로 자르는 규칙·프로그램(비용과 길이가 여기서 정해짐) |
 | Context window (컨텍스트 윈도우) | 한 번에 참조 가능한 텍스트 양 = 모델의 작업기억 |
 | Embedding (임베딩) | 데이터를 의미관계를 담은 숫자 벡터로 바꾼 표현 |
 | Hallucination (환각) | 모델이 사실 아닌 내용을 그럴듯하게 지어내는 현상 |
@@ -60,11 +61,14 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 ### 4. 모델 커스터마이징 (파인튜닝) — [자세히](terms/04-finetuning.md)
 | 용어 | 한 줄 요약 |
 |---|---|
+| PEFT (파라미터 효율 파인튜닝) | 일부 파라미터만 학습하는 기법군의 총칭(4번 카테고리의 상위 개념) |
+| SFT (지도 파인튜닝) | 모범 답안 쌍으로 다시 가르치는 파인튜닝의 기본형 |
 | LoRA / QLoRA | 원본은 얼리고 작은 저계수 행렬만 학습(+4bit 양자화) |
 | Prefix / Adapter / P-Tuning / BitFit / Soft Prompts | 소수 파라미터만 학습하는 경량 파인튜닝(PEFT) 계열 |
 | Instruction Tuning | 지시문 데이터로 튜닝(※PEFT 아님·완전 미세조정) |
 | Multi-Task / Federated FT | 여러 과제 동시 / 데이터 반출 없이 분산 학습 |
 | Overfitting (과적합) | 학습 데이터에 과하게 맞춰져 새 데이터서 성능 하락 |
+| Catastrophic forgetting (파국적 망각) | 새 과제를 배우며 이전 과제 성능을 잃는 현상 |
 
 ### 5. 정렬 · 강화학습 — [자세히](terms/05-alignment-rl.md)
 | 용어 | 한 줄 요약 |
