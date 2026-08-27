@@ -8,7 +8,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 
 **원칙:** 모든 정의에 검증된 출처를 답니다. 추측·할루시네이션을 넣지 않습니다. → [SOURCES](research/SOURCES.md) · [집필 규칙](CONTRIBUTING.md)
 
-**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (93개 항목 한눈에)
+**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (96개 항목 한눈에)
 
 ---
 
@@ -56,11 +56,14 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | Chunking (청킹) | 긴 문서를 검색·임베딩용 조각으로 자르기 |
 | Reranking (리랭킹) | 1차 검색 후보를 정밀 모델로 재정렬 |
 | Structured output / JSON mode | 정해진 틀(JSON)에 맞춰 답하게 강제 |
+| Harness (하네스) | 모델을 감싸 도구·권한·컨텍스트를 정하는 실행 껍데기 |
 | Agent memory (에이전트 메모리) | 세션 넘어 정보 저장·회상해 맥락 유지 |
 
 ### 4. 모델 커스터마이징 (파인튜닝) — [자세히](terms/04-finetuning.md)
 | 용어 | 한 줄 요약 |
 |---|---|
+| Base vs Instruct model (베이스·인스트럭트) | 사전학습만 vs 지시 이행까지 — 튜닝 출발점의 갈림길 |
+| Train/Val/Test split (학습·검증·테스트 분리) | 배운 데이터로 채점하지 않기 위한 3분할 |
 | Full fine-tuning (전체 파인튜닝) | 모든 가중치를 다시 학습 — PEFT의 대조군 |
 | PEFT (파라미터 효율 파인튜닝) | 일부 파라미터만 학습하는 기법군의 총칭(4번 카테고리의 상위 개념) |
 | SFT (지도 파인튜닝) | 모범 답안 쌍으로 다시 가르치는 파인튜닝의 기본형 |

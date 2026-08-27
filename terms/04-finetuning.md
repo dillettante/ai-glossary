@@ -5,6 +5,64 @@
 
 ---
 
+### Base model vs Instruct model · 베이스 모델과 인스트럭트 모델
+
+> **한 줄 요약:** 사전학습만 끝난 모델과, 지시를 따르도록 추가로 다듬어진 모델. 파인튜닝을 시작할 때 무엇을 출발점으로 삼을지의 첫 갈림길이다.
+
+**정의 (Definition)**
+- KO: **베이스 모델**은 대규모 말뭉치로 다음 단어를 예측하도록 사전학습만 마친 상태의 모델. **인스트럭트 모델**은 그 위에 지도 파인튜닝·정렬 과정을 거쳐 지시 이행과 대화에 맞춰진 모델이다.
+- EN: A *base* model has only been pretrained (next-token prediction on a large corpus); an *instruct* model has additionally been fine-tuned and aligned to follow instructions and behave as an assistant.
+
+**비유 (쉽게):** **읽기를 아주 많이 한 사람과, 그 위에 접객 교육을 받은 사람**의 차이다. 전자는 아는 게 많아도 질문에 답하는 방식이 몸에 배지 않았고, 후자는 "무엇을 물으면 어떻게 답한다"가 훈련돼 있다.
+
+**왜 중요한가 / 언제 쓰나:**
+- **파인튜닝 출발점 선택이 결과를 좌우한다.** 형식·톤을 처음부터 내 데이터로 잡고 싶으면 베이스가, 일반적인 지시 이행을 유지한 채 특화만 얹고 싶으면 인스트럭트가 유리한 경우가 많다.
+- 베이스 모델에 프롬프트만 주면 기대와 다른 출력이 나오기 쉽다 — 지시를 따르는 습관이 학습돼 있지 않기 때문이다.
+- 모델 배포처의 이름표(`-base`, `-instruct`, `-chat`)로 구분되는 경우가 많지만, **명명 규칙은 배포처마다 다르다.**
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 과제를 튜닝할 건데 베이스 모델과 인스트럭트 모델 중 무엇에서 출발할지, 각각의 장단점을 데이터 규모와 함께 설명해줘."
+
+**흔한 오해:**
+- **"인스트럭트가 항상 더 좋다"** — 아니다. 이미 입혀진 응답 습관이 내 형식과 충돌하면 오히려 방해가 된다.
+- **"베이스 = 성능이 낮은 모델"** — 규모·능력의 문제가 아니라 **후속 학습 단계의 차이**다.
+- **"둘은 다른 모델"** — 인스트럭트는 대개 같은 베이스에서 갈라져 나온 것이다.
+
+**함께 보기:** [Pretraining](01-llm-basics.md#pretraining--사전학습), [SFT](04-finetuning.md#sft--지도-파인튜닝-supervised-fine-tuning), [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝), [Alignment](05-alignment-rl.md), [RLHF](05-alignment-rl.md#rlhf--인간-피드백-기반-강화학습-reinforcement-learning-from-human-feedback)
+
+**출처:** Anthropic, *Glossary — Pretraining*, [platform.claude.com/docs](https://platform.claude.com/docs/en/about-claude/glossary) ("These pretrained models are not inherently good at answering questions or following instructions, and often require deep skill in prompt engineering to elicit desired behaviors. Fine-tuning and RLHF are used to refine these pretrained models"; 같은 문서 *Fine-tuning* 항목 "Claude is not a bare language model; it has already been fine-tuned to be a helpful assistant"; 확인 2026-08-27). (일반 개념 — 유일 창시 없음.)
+
+---
+
+### Training / Validation / Test split · 학습·검증·테스트 분리
+
+> **한 줄 요약:** 배운 데이터로 채점하지 않기 위해 데이터를 세 몫으로 나누는 것. 파인튜닝 결과를 믿을 수 있게 만드는 최소 장치다.
+
+**정의 (Definition)**
+- KO: 데이터를 **학습셋**(모델이 학습하는 몫)·**검증셋**(학습 중 초기 점검과 하이퍼파라미터 조정용)·**테스트셋**(학습이 끝난 모델의 최종 평가용)으로 나누는 것.
+- EN: Splitting data into a training set the model trains on, a validation set that performs initial testing while training, and a test set for evaluation of the trained model.
+
+**비유 (쉽게):** **연습문제·모의고사·실제 시험**이다. 연습문제로 배우고, 모의고사로 공부 방법을 조정하고, 실제 시험은 마지막에 딱 한 번 본다. 모의고사를 반복해 보면 그 문제에 익숙해질 뿐이다.
+
+**왜 중요한가 / 언제 쓰나:**
+- **2분할보다 3분할을 권하는 이유가 분명하다** — 검증셋 없이 테스트셋으로 반복 조정하면 모델이 테스트셋의 특성에 맞춰지고, 테스트셋이 독립 평가 도구로서의 신뢰를 잃는다.
+- 파인튜닝에서 [과적합](04-finetuning.md#overfitting--과적합)과 [파국적 망각](04-finetuning.md#catastrophic-forgetting--파국적-망각)을 잡아내는 유일한 실용 수단이다.
+- **"Loss가 내려갔다"는 품질 지표가 아니다.** 학습 손실은 학습셋에서 잰 값이다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 데이터셋을 학습·검증·테스트로 나누고, 테스트셋은 마지막 한 번만 쓰도록 절차를 만들어줘."
+
+**흔한 오해:**
+- **"데이터가 적으니 다 학습에 쓰는 게 낫다"** — 그러면 잘됐는지 알 방법이 사라진다. 평가할 수 없는 개선은 개선인지 알 수 없다.
+- **"테스트셋을 여러 번 봐도 된다"** — 볼수록 그 셋에 맞춰진다. 교사가 시험 문제를 가르치는 것과 같다.
+- **"검증셋과 테스트셋은 같은 말"** — 역할이 다르다. 검증은 조정용, 테스트는 최종 확인용이다.
+
+**함께 보기:** [Overfitting](04-finetuning.md#overfitting--과적합), [Evals](07-dev-stages.md#evals--평가벤치마크-evaluation--benchmarks), [SFT](04-finetuning.md#sft--지도-파인튜닝-supervised-fine-tuning), [Catastrophic forgetting](04-finetuning.md#catastrophic-forgetting--파국적-망각)
+
+**출처:** Google, *Machine Learning Crash Course — Dividing the original dataset*, [developers.google.com](https://developers.google.com/machine-learning/crash-course/overfitting/dividing-datasets) ("a training set that the model trains on", "a validation set performs the initial testing on the model as it is being trained", "a test set for evaluation of the trained model"; "The more often you use the same test set, the more likely the model closely fits the test set."; 확인 2026-08-27). (표준 ML 개념 — 유일 창시 없음.)
+
+---
+
 ### Full fine-tuning · 전체 파인튜닝
 
 > **한 줄 요약:** 모델의 모든 가중치를 다시 학습하는 방식. [PEFT](04-finetuning.md#peft--파라미터-효율-파인튜닝-parameter-efficient-fine-tuning)가 피하려는 바로 그 비용이다.

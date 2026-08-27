@@ -260,6 +260,35 @@
 
 ---
 
+### Harness · 하네스 (에이전트 하네스 / 평가 하네스)
+
+> **한 줄 요약:** 모델을 감싸 도구·권한·컨텍스트·종료 조건을 정하는 실행 껍데기. 같은 모델이라도 하네스가 다르면 결과가 달라진다.
+
+**정의 (Definition)**
+- KO: 모델 자체가 아니라 **모델 바깥에서 실행을 구성하는 층**. 어떤 도구를 노출할지, 무엇을 승인받게 할지, 컨텍스트를 어떻게 실어 나를지, 언제 멈출지를 정한다. 평가 맥락에서는 모델을 정해진 절차로 반복 실행·채점하는 **평가 프레임워크**를 뜻한다.
+- EN: The layer *around* the model that determines which tools are exposed, what needs approval, how context is delivered, and when execution stops. In evaluation contexts it refers to a framework that runs and scores models under a fixed protocol.
+
+**비유 (쉽게):** 같은 요리사라도 **주방이 다르면 다른 음식이 나온다.** 불의 세기, 손 닿는 곳의 재료, 쓸 수 있는 칼, 언제 접시를 내보내는지를 정하는 게 주방(하네스)이다. 요리사(모델)를 바꾸지 않고도 결과가 바뀐다.
+
+**왜 중요한가 / 언제 쓰나:**
+- **벤치마크 점수를 읽을 때 반드시 확인할 변수다.** 같은 모델도 하네스 설정에 따라 성적이 갈리므로, 모델 비교는 하네스를 고정한 상태에서만 성립한다.
+- 실무의 통제점이 대부분 여기 있다 — 권한 승인, 도구 노출 범위, 종료 조건은 모델 파라미터가 아니라 하네스가 정한다.
+- **용어가 아직 정착 중이다.** 초기에는 주로 *평가* 프레임워크를 가리켰고(EleutherAI, 2021), 최근에는 *에이전트 실행* 환경을 가리키는 쓰임이 늘었다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 벤치마크 결과를 비교하기 전에, 두 모델이 같은 하네스에서 측정된 건지 먼저 확인해줘."
+
+**흔한 오해:**
+- **"성능은 모델이 정한다"** — 도구·권한·컨텍스트 구성이 결과를 크게 바꾼다. 모델을 바꾸기 전에 하네스를 점검하는 편이 싸고 빠를 때가 많다.
+- **"하네스는 하나의 뜻"** — 평가 하네스와 에이전트 하네스는 겹치지만 같지 않다. 어느 쪽인지 문맥으로 가려야 한다.
+- **"표준 정의가 있다"** — **없다.** Anthropic 공식 용어집에도 항목이 없다(2026-08-27 확인). 업계 통용어 단계다.
+
+**함께 보기:** [Agent](03-building.md#agent--에이전트-ai-agent), [Evals](07-dev-stages.md#evals--평가벤치마크-evaluation--benchmarks), [Guardrails](12-safety-governance.md), [MCP](03-building.md#mcp--모델-컨텍스트-프로토콜-model-context-protocol)
+
+**출처:** 평가 하네스 — EleutherAI, *lm-evaluation-harness*, [github.com/EleutherAI/lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) ("A framework for few-shot evaluation of language models."; 확인 2026-08-27). 에이전트 하네스 — Anthropic, *A harness for every task: dynamic workflows in Claude Code*(블로그, 2026-06-02), [claude.com/blog](https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code). ⚠ **Anthropic 공식 용어집에는 harness 항목이 없다**(2026-08-27 확인) — 표준 정의가 아직 없는 통용어이며, 유일 창시도 없다.
+
+---
+
 ### Agent memory · 에이전트 메모리
 
 > **한 줄 요약:** 에이전트가 대화·작업이 끝나도 정보를 저장해 두었다가 다시 꺼내 써, 여러 세션에 걸쳐 맥락을 이어 가게 하는 것.
