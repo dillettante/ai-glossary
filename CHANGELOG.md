@@ -10,6 +10,14 @@
 
 ## [Unreleased]
 
+### Changed — 축약어 풀네임 병기 (2026-08-27)
+
+축약어 표제에 풀네임을 병기했다. **다만 공식 확장형이 있는 것만.**
+
+- 병기함: `LoRA(Low-Rank Adaptation)` · `QLoRA(Quantized LoRA)` · `SSH(Secure Shell)` · `CLI(Command-Line Interface)` · `API(Application Programming Interface)`
+- **병기하지 않고 「이름에 관하여」로 사실을 적은 것 3건** — `GGUF`·`MLX`·`BitFit`. 셋 다 **공식 문서·원 논문이 이름을 풀어 쓰지 않는다**(2026-08-27 각 원문 확인). 널리 도는 "GPT-Generated Unified Format" 같은 표기는 비공식 통용어이므로 정본으로 쓰지 않고, 그 사실 자체를 항목에 남겼다.
+- `Vector DB`의 "DB"는 병기 가치가 낮아 두었다.
+
 ### Added — 용어 4개 (2026-08-27)
 
 파인튜닝 자료를 정리하다 **용어집이 쓰면서 정의하지 않은 말**들이 드러나 채웠다.

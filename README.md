@@ -63,7 +63,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 |---|---|
 | PEFT (파라미터 효율 파인튜닝) | 일부 파라미터만 학습하는 기법군의 총칭(4번 카테고리의 상위 개념) |
 | SFT (지도 파인튜닝) | 모범 답안 쌍으로 다시 가르치는 파인튜닝의 기본형 |
-| LoRA / QLoRA | 원본은 얼리고 작은 저계수 행렬만 학습(+4bit 양자화) |
+| LoRA / QLoRA (Low-Rank Adaptation / Quantized LoRA) | 원본은 얼리고 작은 저계수 행렬만 학습(+4bit 양자화) |
 | Prefix / Adapter / P-Tuning / BitFit / Soft Prompts | 소수 파라미터만 학습하는 경량 파인튜닝(PEFT) 계열 |
 | Instruction Tuning | 지시문 데이터로 튜닝(※PEFT 아님·완전 미세조정) |
 | Multi-Task / Federated FT | 여러 과제 동시 / 데이터 반출 없이 분산 학습 |
@@ -118,11 +118,11 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 ### 10. 개발·인프라 기초 — [자세히](terms/10-dev-infra.md)
 | 용어 | 한 줄 요약 |
 |---|---|
-| SSH | 원격 컴퓨터에 암호화 채널로 안전 접속 |
-| CLI (커맨드라인) | 텍스트 명령으로 프로그램 조작 |
+| SSH (Secure Shell) | 원격 컴퓨터에 암호화 채널로 안전 접속 |
+| CLI (커맨드라인 인터페이스 · Command-Line Interface) | 텍스트 명령으로 프로그램 조작 |
 | cron (크론) | 정해둔 시각에 작업 자동 실행 |
 | Docker / Container (컨테이너) | 앱+의존성을 밀봉해 어디서든 동일 실행 |
-| API | 프로그램끼리 약속된 방식으로 소통하는 창구 |
+| API (Application Programming Interface) | 프로그램끼리 약속된 방식으로 소통하는 창구 |
 | Port / localhost | 서비스 구분 번호와 '내 컴퓨터 자신' 주소 |
 | Environment variable (환경변수/.env) | 코드 밖에서 설정·비밀키 주입 |
 

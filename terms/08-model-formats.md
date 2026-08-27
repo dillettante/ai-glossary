@@ -26,7 +26,7 @@
 
 **흔한 오해:** 양자화가 곧 파인튜닝이라고 여기는 것. 양자화는 **표현 비트 수를 줄이는 압축**이지 학습이 아니다(단, QLoRA처럼 양자화된 베이스 위에서 학습하는 결합 기법은 별개다). 또한 "무조건 성능이 크게 떨어진다"는 오해 — 기법에 따라 성능을 거의 유지한다.
 
-**함께 보기:** [QLoRA](04-finetuning.md#qlora--큐로라), [GGUF](08-model-formats.md#gguf), [Parameter/Weight](01-llm-basics.md)
+**함께 보기:** [QLoRA](04-finetuning.md#qlora--큐로라-quantized-lora), [GGUF](08-model-formats.md#gguf), [Parameter/Weight](01-llm-basics.md)
 
 **출처:** Dettmers et al. (2022), *LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*, [arXiv:2208.07339](https://arxiv.org/abs/2208.07339); Frantar et al. (2022), *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*, [arXiv:2210.17323](https://arxiv.org/abs/2210.17323). (양자화는 단일 창시가 아니며, 위는 LLM 저비트 양자화의 대표 논문이다.)
 
@@ -50,6 +50,8 @@
 - "이 모델의 4비트 GGUF 파일을 받아 llama.cpp로 돌려줘."
 
 **흔한 오해:** GGUF 자체가 양자화 "방법"이라고 여기는 것. GGUF는 양자화 **알고리즘이 아니라 저장 포맷**이다 — 양자화된(또는 되지 않은) 모델을 담는 그릇이며, 어떤 비트로 줄일지는 별개 문제다.
+
+**이름에 관하여:** 공식 명세는 **약어를 풀어 쓰지 않는다**(확인 2026-08-27). 널리 도는 "GPT-Generated Unified Format"은 비공식 통용어이므로 정본 표기로 쓰지 않는다. 확실한 것은 GGML 계열 실행기용 포맷이라는 점뿐이다.
 
 **함께 보기:** [Quantization](08-model-formats.md#quantization--양자화), [safetensors](08-model-formats.md#safetensors), [llama.cpp](09-local-run.md)
 
@@ -75,6 +77,8 @@
 - "이 모델을 MLX로 내 맥(M-시리즈)에서 로컬 추론되게 짜줘."
 
 **흔한 오해:** MLX가 애플 전용 "모델"이나 양자화 포맷이라고 여기는 것. MLX는 **프레임워크(연산 라이브러리)**이지 특정 모델도, 파일 포맷도 아니다. 또 애플 실리콘에 최적화되어 있어 범용 엔비디아 GPU 워크플로의 대체가 목적은 아니다.
+
+**이름에 관하여:** 애플 공식 문서·저장소는 **MLX를 약어로 풀어 쓰지 않는다**(확인 2026-08-27). "애플 실리콘용 NumPy 유사 배열·머신러닝 프레임워크"라는 설명만 있으므로, 임의의 확장형을 만들어 쓰지 않는다.
 
 **함께 보기:** [Quantization](08-model-formats.md#quantization--양자화), [safetensors](08-model-formats.md#safetensors)
 

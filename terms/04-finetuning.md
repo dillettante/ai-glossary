@@ -28,7 +28,7 @@
 - **"파라미터를 적게 바꾸니 성능도 그만큼 떨어진다"** — 목표는 전체 파인튜닝에 **준하는** 성능이다. 다만 과제·데이터·기법에 따라 결과가 달라지므로 항상 검증셋으로 확인한다.
 - **"PEFT면 지식을 새로 주입할 수 있다"** — 파인튜닝 일반의 한계가 그대로 적용된다. 최신 사실을 넣는 문제는 대개 [RAG](03-building.md)의 영역이다.
 
-**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응), [QLoRA](04-finetuning.md#qlora--큐로라), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [SFT](04-finetuning.md#sft--지도-파인튜닝-supervised-fine-tuning)
+**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation), [QLoRA](04-finetuning.md#qlora--큐로라-quantized-lora), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [SFT](04-finetuning.md#sft--지도-파인튜닝-supervised-fine-tuning)
 
 **출처:** Hugging Face, *PEFT (Parameter-Efficient Fine-Tuning) documentation*, [huggingface.co/docs/peft](https://huggingface.co/docs/peft/index) ("PEFT methods only fine-tune a small number of (extra) model parameters — significantly decreasing computational and storage costs — while yielding performance comparable to a fully fine-tuned model"; 확인 2026-08-27). (총칭 개념 — 유일 창시 논문 없음.)
 
@@ -63,7 +63,7 @@
 
 ---
 
-### LoRA · 로라(저계수 적응)
+### LoRA · 로라·저계수 적응 (Low-Rank Adaptation)
 
 > **한 줄 요약:** 원본 모델은 통째로 얼려 두고, 각 층에 끼운 작은 행렬만 학습해 저비용으로 모델을 맞춤화한다.
 
@@ -84,13 +84,13 @@
 
 **흔한 오해:** LoRA를 prompt/prefix tuning과 혼동하는 것. LoRA는 **가중치 행렬에 델타(변화량)를 더하는** 방식이지, 입력 앞에 학습된 토큰(soft prompt)을 붙이는 방식이 아니다.
 
-**함께 보기:** [QLoRA](04-finetuning.md#qlora--큐로라), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [Soft Prompts](04-finetuning.md#soft-prompts--prompt-tuning--소프트-프롬프트), [Parameter/Weight](01-llm-basics.md)
+**함께 보기:** [QLoRA](04-finetuning.md#qlora--큐로라-quantized-lora), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [Soft Prompts](04-finetuning.md#soft-prompts--prompt-tuning--소프트-프롬프트), [Parameter/Weight](01-llm-basics.md)
 
 **출처:** Hu et al. (2021), *LoRA: Low-Rank Adaptation of Large Language Models*, [arXiv:2106.09685](https://arxiv.org/abs/2106.09685).
 
 ---
 
-### QLoRA · 큐로라
+### QLoRA · 큐로라 (Quantized LoRA)
 
 > **한 줄 요약:** 원본 모델을 4비트로 압축해 얼려 두고, 그 위에 LoRA 어댑터만 학습해 단일 GPU로도 큰 모델을 파인튜닝한다.
 
@@ -110,7 +110,7 @@
 
 **흔한 오해:** QLoRA를 완전히 새로운 알고리즘으로 여기는 것. **QLoRA = 양자화된 베이스 + LoRA**의 결합이다. 또한 베이스 모델을 4비트로 "학습"하는 것이 아니라, 4비트로 **동결**한 채 어댑터만 학습한다.
 
-**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [Parameter/Weight](01-llm-basics.md)
+**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [Parameter/Weight](01-llm-basics.md)
 
 **출처:** Dettmers et al. (2023), *QLoRA: Efficient Finetuning of Quantized LLMs*, [arXiv:2305.14314](https://arxiv.org/abs/2305.14314).
 
@@ -135,7 +135,7 @@
 
 **흔한 오해:** Prompt tuning과 같다고 여기는 것. **Prefix tuning은 전 층**에 벡터를 붙이지만, prompt tuning은 **입력층 한 곳**에만 붙인다.
 
-**함께 보기:** [Soft Prompts](04-finetuning.md#soft-prompts--prompt-tuning--소프트-프롬프트), [P-Tuning](04-finetuning.md#p-tuning--피튜닝-v1v2), [LoRA](04-finetuning.md#lora--로라저계수-적응)
+**함께 보기:** [Soft Prompts](04-finetuning.md#soft-prompts--prompt-tuning--소프트-프롬프트), [P-Tuning](04-finetuning.md#p-tuning--피튜닝-v1v2), [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation)
 
 **출처:** Li & Liang (2021), *Prefix-Tuning: Optimizing Continuous Prompts for Generation*, [arXiv:2101.00190](https://arxiv.org/abs/2101.00190).
 
@@ -160,7 +160,7 @@
 
 **흔한 오해:** LoRA처럼 추론 비용이 그대로일 거라 여기는 것. 어댑터는 모듈을 실제로 층 사이에 **삽입**하므로, LoRA(병합 가능·지연 없음)와 달리 **추론 지연이 발생**한다.
 
-**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응), [QLoRA](04-finetuning.md#qlora--큐로라)
+**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation), [QLoRA](04-finetuning.md#qlora--큐로라-quantized-lora)
 
 **출처:** Houlsby et al. (2019), *Parameter-Efficient Transfer Learning for NLP*, [arXiv:1902.00751](https://arxiv.org/abs/1902.00751).
 
@@ -185,7 +185,7 @@
 
 **흔한 오해:** Instruction tuning을 LoRA·어댑터 같은 **PEFT로 오해**하는 것. Instruction tuning은 PEFT가 아니라 **완전 미세조정(전체 파라미터 갱신)** 계열이며, "무엇을 학습하나"의 축이지 "무엇을 동결하나"의 축이 아니다.
 
-**함께 보기:** [Multi-Task Fine-Tuning](04-finetuning.md#multi-task-fine-tuning--멀티태스크-미세조정), [LoRA](04-finetuning.md#lora--로라저계수-적응)
+**함께 보기:** [Multi-Task Fine-Tuning](04-finetuning.md#multi-task-fine-tuning--멀티태스크-미세조정), [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation)
 
 **출처:** Wei et al. (2021), *FLAN: Finetuned Language Models Are Zero-Shot Learners*, [arXiv:2109.01652](https://arxiv.org/abs/2109.01652); 보조 — Sanh et al. (2021), *T0: Multitask Prompted Training*, [arXiv:2110.08207](https://arxiv.org/abs/2110.08207).
 
@@ -235,7 +235,9 @@
 
 **흔한 오해:** 새 파라미터를 추가한다고 여기는 것. BitFit은 새 파라미터를 **추가하지 않고**, 모델에 이미 존재하는 **bias 항만** 갱신한다.
 
-**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [Parameter/Weight](01-llm-basics.md)
+**이름에 관하여:** 원 논문은 **이름을 풀어 쓰지 않는다**(확인 2026-08-27). 흔히 "Bias-terms Fine-tuning"으로 읽히지만 논문에 그 표기가 없으므로 정본으로 인용하지 않는다. 이름이 가리키는 바(bias 항만 학습)는 정의로 충분히 드러난다.
+
+**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [Parameter/Weight](01-llm-basics.md)
 
 **출처:** Ben-Zaken et al. (2021), *BitFit: Simple Parameter-efficient Fine-tuning*, [arXiv:2106.10199](https://arxiv.org/abs/2106.10199).
 
@@ -261,7 +263,7 @@
 
 **흔한 오해:** Soft prompt를 우리가 입력하는 **텍스트 프롬프트**로 여기는 것. Soft prompt는 **사람이 읽을 수 없는 학습된 벡터**다. 또한 모델이 클수록 완전 미세조정과의 격차가 소멸하는 경향이 있다.
 
-**함께 보기:** [Prefix Tuning](04-finetuning.md#prefix-tuning--프리픽스-튜닝), [P-Tuning](04-finetuning.md#p-tuning--피튜닝-v1v2), [LoRA](04-finetuning.md#lora--로라저계수-적응)
+**함께 보기:** [Prefix Tuning](04-finetuning.md#prefix-tuning--프리픽스-튜닝), [P-Tuning](04-finetuning.md#p-tuning--피튜닝-v1v2), [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation)
 
 **출처:** Lester et al. (2021), *The Power of Scale for Parameter-Efficient Prompt Tuning*, [arXiv:2104.08691](https://arxiv.org/abs/2104.08691).
 
@@ -311,7 +313,7 @@
 
 **흔한 오해:** 연합 미세조정 자체가 PEFT라고 여기는 것. 연합 학습(FL)과 PEFT는 **직교하는 개념**이며(자주 결합되지만 별개), 연합 미세조정 그 자체가 PEFT는 아니다.
 
-**함께 보기:** [Multi-Task Fine-Tuning](04-finetuning.md#multi-task-fine-tuning--멀티태스크-미세조정), [LoRA](04-finetuning.md#lora--로라저계수-적응)
+**함께 보기:** [Multi-Task Fine-Tuning](04-finetuning.md#multi-task-fine-tuning--멀티태스크-미세조정), [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation)
 
 **출처:** McMahan et al. (*FedAvg*, 개념 창시 — arXiv 2016 / AISTATS 2017), [arXiv:1602.05629](https://arxiv.org/abs/1602.05629); LLM 적용 — Zhang et al. (2023), *FedIT*, [arXiv:2305.05644](https://arxiv.org/abs/2305.05644).
 

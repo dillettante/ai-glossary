@@ -5,7 +5,7 @@
 
 ---
 
-### SSH
+### SSH · 시큐어 셸 (Secure Shell)
 
 > **한 줄 요약:** 멀리 있는 컴퓨터에 암호로 잠긴 안전한 통로를 뚫고 접속해, 내 컴퓨터 앞에 앉은 것처럼 명령을 내리는 방식.
 
@@ -25,13 +25,13 @@
 
 **흔한 오해:** SSH는 파일을 옮기는 도구가 "아니라" 안전한 접속·명령 통로다(그 통로 위에서 파일 전송 `scp`·`sftp`가 얹혀 돌 뿐이다). 또 개인키(private key)는 비밀번호처럼 다뤄야 한다 — 공개키(public key)만 서버에 올리고, 개인키를 넘겨달라는 요구는 정상적인 접속에 필요 없다.
 
-**함께 보기:** [CLI](#cli--커맨드라인-인터페이스), [Port / localhost](#port--localhost--포트로컬호스트), [09-local-run.md](09-local-run.md)
+**함께 보기:** [CLI](#cli--커맨드라인-인터페이스-command-line-interface), [Port / localhost](#port--localhost--포트로컬호스트), [09-local-run.md](09-local-run.md)
 
 **출처:** T. Ylonen & C. Lonvick (Ed.), *The Secure Shell (SSH) Protocol Architecture*, IETF **RFC 4251** (2006-01), [rfc-editor.org/rfc/rfc4251](https://www.rfc-editor.org/rfc/rfc4251). (프로토콜의 정본.)
 
 ---
 
-### CLI · 커맨드라인 인터페이스
+### CLI · 커맨드라인 인터페이스 (Command-Line Interface)
 
 > **한 줄 요약:** 버튼을 누르는 대신, 글자로 된 명령을 타이핑해서 프로그램을 다루는 방식.
 
@@ -51,7 +51,7 @@
 
 **흔한 오해:** CLI가 GUI보다 "더 어렵고 위험한 전문가 전용"이라는 인식은 절반만 맞다 — 진입 장벽은 있지만, 명령이 **글자로 남으므로 복사·검토·재현이 쉽다**는 장점이 있다. 다만 검증 없이 받은 명령을 그대로 붙여넣는 것은 위험하다(무슨 일을 하는지 먼저 확인).
 
-**함께 보기:** [SSH](#ssh), [cron](#cron--크론), [Environment variable](#environment-variable--환경변수-env)
+**함께 보기:** [SSH](#ssh--시큐어-셸-secure-shell), [cron](#cron--크론), [Environment variable](#environment-variable--환경변수-env)
 
 **출처:** The Open Group / IEEE, POSIX *Shell Command Language & Utilities*, **IEEE Std 1003.1-2017**, [pubs.opengroup.org](https://pubs.opengroup.org/onlinepubs/9699919799/). (단일 정본 없는 일반 개념 — 명령행 유틸리티의 권위 있는 표준 레퍼런스로 인용.)
 
@@ -77,7 +77,7 @@
 
 **흔한 오해:** cron은 "컴퓨터가 꺼져 있어도 나중에 몰아서 실행"해주지 않는다 — 예정 시각에 **기기가 켜져 있고 cron 서비스가 돌고 있어야** 실행된다(잠자기·종료 중 놓친 작업은 그냥 지나간다). 또 cron이 실행하는 작업의 실행 환경(PATH·환경변수)은 내 평소 터미널과 다를 수 있어, "손으로는 되는데 cron에선 안 되는" 일이 흔하다.
 
-**함께 보기:** [CLI](#cli--커맨드라인-인터페이스), [Environment variable](#environment-variable--환경변수-env), [SSH](#ssh)
+**함께 보기:** [CLI](#cli--커맨드라인-인터페이스-command-line-interface), [Environment variable](#environment-variable--환경변수-env), [SSH](#ssh--시큐어-셸-secure-shell)
 
 **출처:** The Open Group / IEEE, POSIX `crontab` 유틸리티, **IEEE Std 1003.1-2017**, [pubs.opengroup.org …/crontab.html](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/crontab.html); 보조: 시스템 매뉴얼 `man 5 crontab` / `man 8 cron`. (확인 — POSIX 표준 정의.)
 
@@ -109,7 +109,7 @@
 
 ---
 
-### API
+### API · 응용 프로그램 인터페이스 (Application Programming Interface)
 
 > **한 줄 요약:** 프로그램끼리 "이렇게 요청하면 이런 답을 준다"는 약속으로 소통하는 창구.
 
@@ -155,7 +155,7 @@
 
 **흔한 오해:** `localhost`에 띄운 서비스는 기본적으로 **내 컴퓨터에서만 접근**된다 — 같은 네트워크의 다른 기기에서 그 주소로는 못 들어온다(그래서 로컬 테스트엔 안전하지만, 남에게 열어주려면 별도 설정이 필요하다). 또 1024번 미만의 낮은 포트(시스템 포트)는 보통 관리자 권한이 있어야 열 수 있다.
 
-**함께 보기:** [Docker / Container](#docker--container--컨테이너), [API](#api), [09-local-run.md](09-local-run.md)
+**함께 보기:** [Docker / Container](#docker--container--컨테이너), [API](#api--응용-프로그램-인터페이스-application-programming-interface), [09-local-run.md](09-local-run.md)
 
 **출처:** 포트: M. Cotton et al., *IANA Procedures for … Port Number Registry*, IETF **RFC 6335** (2011-08), [rfc-editor.org/rfc/rfc6335](https://www.rfc-editor.org/rfc/rfc6335); localhost 특수도메인: **RFC 6761** (2013-02); 루프백 `127.0.0.0/8`: **RFC 1122** §3.2.1.3. (일반 네트워킹 개념 — 해당 RFC가 정본.)
 
@@ -181,6 +181,6 @@
 
 **흔한 오해 / 모범관행:** 비밀키는 코드나 저장소(Git)에 절대 넣지 말고 `.env` 같은 환경변수에 두며, `.env` 파일 자체도 저장소에 커밋하지 않는다(`.gitignore`로 제외). Twelve-Factor App의 기준처럼 "코드베이스를 언제 공개해도 자격증명이 새지 않아야" 한다. 다만 `.env`는 하나의 관례일 뿐 표준 규격이 아니며, 값은 실행 환경으로 로드되어야 실제 환경변수가 된다.
 
-**함께 보기:** [cron](#cron--크론), [Docker / Container](#docker--container--컨테이너), [SSH](#ssh)
+**함께 보기:** [cron](#cron--크론), [Docker / Container](#docker--container--컨테이너), [SSH](#ssh--시큐어-셸-secure-shell)
 
 **출처:** POSIX *Environment Variables*, **IEEE Std 1003.1-2017** (Base Definitions ch. 8), [pubs.opengroup.org](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html); 모범관행: *The Twelve-Factor App* — III. Config, [12factor.net/config](https://12factor.net/config). (`.env`는 관례이며 단일 정본 없음 — 개념은 POSIX, 비밀키 분리 관행은 Twelve-Factor.)
