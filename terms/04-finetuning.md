@@ -5,6 +5,35 @@
 
 ---
 
+### Full fine-tuning · 전체 파인튜닝
+
+> **한 줄 요약:** 모델의 모든 가중치를 다시 학습하는 방식. [PEFT](04-finetuning.md#peft--파라미터-효율-파인튜닝-parameter-efficient-fine-tuning)가 피하려는 바로 그 비용이다.
+
+**정의 (Definition)**
+- KO: 사전학습된 모델의 **전체 파라미터를 다시 학습**하는 파인튜닝. 모델이 커질수록 실행 가능성이 떨어지고, 과제마다 별도 사본을 배포해야 해 비용이 급격히 커진다.
+- EN: Fine-tuning that retrains all model parameters; it "becomes less feasible" as models grow, and deploying independent fine-tuned instances is prohibitively expensive at scale.
+
+**비유 (쉽게):** 메뉴 하나 바꾸려고 **주방 설비를 통째로 새로 들이는 것**. 되긴 되고 결과도 좋지만, 지점마다 주방을 새로 지어야 한다면 감당이 안 된다.
+
+**왜 중요한가 / 언제 쓰나:**
+- **PEFT의 대조군**이다. 이 항목이 없으면 "일부만 학습한다"는 말의 기준점이 사라진다.
+- 학습해야 할 것은 가중치만이 아니다 — **옵티마이저 상태·그래디언트·활성화값**이 함께 메모리에 올라가므로, "가중치가 몇 GB니까 그만큼이면 되겠지"라는 추정이 크게 빗나간다.
+- 그럼에도 선택지로 남는 경우가 있다 — 데이터가 충분하고, 과제가 하나이며, 장비가 받쳐 주고, 최고 품질이 필요할 때.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 과제를 전체 파인튜닝으로 하면 필요한 GPU 메모리를 가중치·옵티마이저·그래디언트·활성화값으로 나눠서 추산해줘."
+
+**흔한 오해:**
+- **"전체를 학습하니 항상 더 좋다"** — LoRA 논문은 학습 파라미터를 대폭 줄이고도 "**on-par or better**"인 결과를 보고한다. 과제·데이터에 따라 갈린다.
+- **"가중치 크기 = 필요한 메모리"** — 아니다. 학습 시에는 옵티마이저 상태 등이 더해져 몇 배가 된다.
+- **"파인튜닝이면 다 전체 파인튜닝"** — 실무에서 파인튜닝이라 부르는 것의 상당수는 PEFT 계열이다.
+
+**함께 보기:** [PEFT](04-finetuning.md#peft--파라미터-효율-파인튜닝-parameter-efficient-fine-tuning), [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation), [SFT](04-finetuning.md#sft--지도-파인튜닝-supervised-fine-tuning), [Catastrophic forgetting](04-finetuning.md#catastrophic-forgetting--파국적-망각)
+
+**출처:** Hu et al. (2021), *LoRA: Low-Rank Adaptation of Large Language Models*, [arXiv:2106.09685](https://arxiv.org/abs/2106.09685) ("full fine-tuning, which retrains all model parameters, becomes less feasible"; "deploying independent instances of fine-tuned models, each with 175B parameters, is prohibitively expensive"; 확인 2026-08-27). 보조 — Hugging Face, *PEFT documentation*, [huggingface.co/docs/peft](https://huggingface.co/docs/peft/index) ("without fine-tuning all of a model's parameters because it is prohibitively costly"). (표준 개념 — 유일 창시 없음.)
+
+---
+
 ### PEFT · 파라미터 효율 파인튜닝 (Parameter-Efficient Fine-Tuning)
 
 > **한 줄 요약:** 모델 전체를 다시 학습하는 대신, 아주 일부 파라미터만 손봐서 같은 효과를 훨씬 싸게 얻는 방법들의 총칭.

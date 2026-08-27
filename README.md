@@ -8,7 +8,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 
 **원칙:** 모든 정의에 검증된 출처를 답니다. 추측·할루시네이션을 넣지 않습니다. → [SOURCES](research/SOURCES.md) · [집필 규칙](CONTRIBUTING.md)
 
-**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (92개 항목 한눈에)
+**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (93개 항목 한눈에)
 
 ---
 
@@ -61,6 +61,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 ### 4. 모델 커스터마이징 (파인튜닝) — [자세히](terms/04-finetuning.md)
 | 용어 | 한 줄 요약 |
 |---|---|
+| Full fine-tuning (전체 파인튜닝) | 모든 가중치를 다시 학습 — PEFT의 대조군 |
 | PEFT (파라미터 효율 파인튜닝) | 일부 파라미터만 학습하는 기법군의 총칭(4번 카테고리의 상위 개념) |
 | SFT (지도 파인튜닝) | 모범 답안 쌍으로 다시 가르치는 파인튜닝의 기본형 |
 | LoRA / QLoRA (Low-Rank Adaptation / Quantized LoRA) | 원본은 얼리고 작은 저계수 행렬만 학습(+4bit 양자화) |
