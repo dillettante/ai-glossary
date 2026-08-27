@@ -136,6 +136,93 @@
 
 ---
 
+### Pruning · 프루닝(가지치기)
+
+> **한 줄 요약:** 중요도가 낮은 연결을 잘라내 모델을 가볍게 만드는 경량화. 양자화·증류와 나란한 세 번째 갈래다.
+
+**정의 (Definition)**
+- KO: 학습된 신경망에서 **중요하지 않은 연결(가중치)을 제거**해 파라미터 수와 연산량을 줄이는 기법. 원 논문은 3단계로 제시한다 — ①어떤 연결이 중요한지 학습 ②중요하지 않은 연결 제거 ③남은 가중치를 재학습해 미세조정.
+- EN: Removing unimportant connections from a trained network. The original method is three-step: train to learn which connections are important, prune the unimportant ones, then retrain to fine-tune the remaining weights.
+
+**비유 (쉽게):** **가지치기**다. 나무의 모든 가지가 열매를 맺지는 않는다. 쓸모가 적은 가지를 쳐내면 나무는 가벼워지고 남은 가지에 양분이 간다. 다만 **자른 뒤 다시 키우는 기간**(재학습)이 필요하다.
+
+**왜 중요한가 / 언제 쓰나:**
+- [양자화](08-model-formats.md#quantization--양자화)가 **표현의 정밀도**를 낮춘다면, 프루닝은 **연결의 수**를 줄인다. [증류](08-model-formats.md#distillation--증류지식-증류)는 아예 작은 모델을 새로 가르친다. 셋은 목적이 겹치지만 손대는 곳이 다르다.
+- 원 논문은 정확도 손실 없이 AlexNet 6,100만 → 670만(9배), VGG-16 1억 3,800만 → 1,030만(13배)을 보고한다. **다만 2015년 비전 모델 기준이다** — LLM에 같은 비율을 기대하면 안 된다.
+- 실무에서는 **재학습 비용**이 관건이다. 자르는 것 자체는 싸지만 성능을 되찾는 단계가 붙는다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 모델을 가볍게 하려는데 양자화·프루닝·증류 중 무엇이 맞는지, 각각 재학습이 필요한지로 나눠 설명해줘."
+
+**흔한 오해:**
+- **"자르면 바로 빨라진다"** — 구조를 유지한 채 값만 0으로 만드는 비정형 프루닝은 **전용 하드웨어·커널 지원이 없으면 실제 속도 이득이 작을 수 있다.**
+- **"프루닝 = 양자화"** — 다르다. 양자화는 비트 수를, 프루닝은 연결 수를 줄인다. 함께 쓰기도 한다.
+- **"정확도 손실이 없다"** — 원 논문의 조건에서 그랬다는 뜻이다. 모델·과제·비율에 따라 달라진다.
+
+**함께 보기:** [Quantization](08-model-formats.md#quantization--양자화), [Distillation](08-model-formats.md#distillation--증류지식-증류), [MoE](08-model-formats.md#moe--전문가-혼합mixture-of-experts), [SLM](08-model-formats.md#slm--소형-언어-모델-small-language-model)
+
+**출처:** Han et al. (2015), *Learning both Weights and Connections for Efficient Neural Networks*, [arXiv:1506.02626](https://arxiv.org/abs/1506.02626) ("prunes redundant connections using a three-step method. First, we train the network to learn which connections are important. Next, we prune the unimportant connections. Finally, we retrain the network to fine tune the weights of the remaining connections."; AlexNet 61M→6.7M, VGG-16 138M→10.3M; 확인 2026-08-27). (대표 논문 — 프루닝 개념 자체의 유일 창시는 아님.)
+
+---
+
+### SLM · 소형 언어 모델 (Small Language Model)
+
+> **한 줄 요약:** 기기 안에서 돌릴 수 있을 만큼 작은 언어 모델. **크기 기준에 합의된 정의가 없다**는 점이 이 용어의 핵심이다.
+
+**정의 (Definition)**
+- KO: 대형 모델(LLM)에 견줘 파라미터가 적어 개인 기기·엣지에서 실행 가능한 언어 모델. 서베이마다 범위가 달라 **1억~50억**, **10억~80억**, **최대 100억** 등으로 잡는다.
+- EN: A language model small enough to run on personal or edge devices. Parameter ranges differ by survey — one focuses on "transformer-based, decoder-only language models with 100M-5B parameters."
+
+**비유 (쉽게):** **경차와 대형차**의 관계다. 어디까지가 경차인지는 나라마다 기준이 다르고, 큰 차가 늘 나은 것도 아니다. 골목에 들어가야 하면 작은 차가 유일한 선택이다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 로컬 실행의 실질적 단위다. 무엇을 [VRAM](09-local-run.md#vram--지피유-전용-메모리-video-ram)에 올릴 수 있느냐가 곧 무엇을 쓸 수 있느냐다.
+- **기밀 자료를 외부로 내보내지 않아야 할 때** 성능을 조금 내주고 얻는 선택지가 된다.
+- 파인튜닝 대상으로도 현실적이다 — 작을수록 단일 GPU에서 손볼 수 있다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 문서 분류 작업을 외부 전송 없이 하려는데, 내 VRAM에서 돌릴 수 있는 소형 모델 후보와 각각의 한계를 알려줘."
+
+**흔한 오해:**
+- **"SLM은 명확한 규격이다"** — 아니다. **보편적으로 합의된 파라미터 기준이 없다.** 문서마다 범위가 다르므로 숫자를 인용할 때는 어느 기준인지 밝혀야 한다.
+- **"작으면 무조건 성능이 낮다"** — 좁은 과제에서는 특화된 소형 모델이 범용 대형 모델보다 나을 수 있다.
+- **"SLM = 양자화된 LLM"** — 다르다. 양자화는 같은 모델을 저비트로 담는 것이고, SLM은 애초에 파라미터가 적은 모델이다.
+
+**함께 보기:** [LLM](01-llm-basics.md#llm--대규모-언어-모델-large-language-model--foundation-model--파운데이션-모델), [Quantization](08-model-formats.md#quantization--양자화), [Distillation](08-model-formats.md#distillation--증류지식-증류), [Pruning](08-model-formats.md#pruning--프루닝가지치기)
+
+**출처:** Lu et al. (2024), *Small Language Models: Survey, Measurements, and Insights*, [arXiv:2409.15790](https://arxiv.org/abs/2409.15790) ("transformer-based, decoder-only language models with 100M-5B parameters"; 확인 2026-08-27). ⚠ **파라미터 기준은 문헌마다 다르다** — 다른 서베이는 1B~8B, 최대 10B 등을 쓴다. 유일 정의 없음.
+
+---
+
+### Active parameters · 활성 파라미터
+
+> **한 줄 요약:** 토큰 하나를 처리할 때 실제로 쓰이는 파라미터 수. 전체 파라미터와 달라서, 모델 크기를 하나의 숫자로 말할 수 없게 만든다.
+
+**정의 (Definition)**
+- KO: [MoE](08-model-formats.md#moe--전문가-혼합mixture-of-experts) 구조에서 **토큰마다 실제로 활성화되어 계산에 참여하는 파라미터의 수**. 전체 파라미터는 메모리에 올려야 하지만, 연산량은 활성 파라미터가 좌우한다.
+- EN: In a sparse mixture-of-experts model, the number of parameters actually used per token — e.g., "Each token has access to 47B parameters, but only uses 13B active parameters during inference."
+
+**비유 (쉽게):** **큰 병원에 의사가 47명 있지만, 환자 한 명은 그중 13명만 만난다.** 병원은 47명분의 자리를 늘 유지해야 하지만(메모리), 진료 한 건의 비용은 13명분이다(연산).
+
+**왜 중요한가 / 언제 쓰나:**
+- **로컬 실행 판단이 두 숫자로 갈린다.** 전체 파라미터는 [VRAM](09-local-run.md#vram--지피유-전용-메모리-video-ram) 요구량을, 활성 파라미터는 속도·단가를 좌우한다. 하나만 보면 오판한다.
+- 모델 비교에서 "몇 B 모델"이라는 표현이 애매해지는 지점이다 — 총량인지 활성인지 밝혀야 한다.
+- 오픈 모델 발표에서 "총 320B / 활성 18B" 같은 표기가 늘어난 이유이기도 하다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 MoE 모델의 총 파라미터와 활성 파라미터를 각각 알려주고, 내 GPU에서 메모리와 속도 중 무엇이 병목일지 판단해줘."
+
+**흔한 오해:**
+- **"활성 파라미터만큼만 메모리에 올리면 된다"** — 아니다. 어느 전문가가 선택될지 미리 알 수 없으므로 **전체를 적재**하는 것이 일반적이다.
+- **"활성 13B면 13B 모델과 같다"** — 연산량은 비슷해도 표현력은 전체 파라미터에서 온다.
+- **"모든 모델에 활성 파라미터가 있다"** — 조밀(dense) 모델에서는 전체가 곧 활성이라 구분이 무의미하다.
+
+**함께 보기:** [MoE](08-model-formats.md#moe--전문가-혼합mixture-of-experts), [VRAM](09-local-run.md#vram--지피유-전용-메모리-video-ram), [Quantization](08-model-formats.md#quantization--양자화), [Parameter / Weight](01-llm-basics.md#parameter--weight--파라미터가중치)
+
+**출처:** Jiang et al. (2024), *Mixtral of Experts*, [arXiv:2401.04088](https://arxiv.org/abs/2401.04088) ("Each token has access to 47B parameters, but only uses 13B active parameters during inference."; 확인 2026-08-27). (MoE 계열의 대표 사례 — 유일 창시 아님.)
+
+---
+
 ### Distillation · 증류(지식 증류)
 
 > **한 줄 요약:** 크고 똑똑한 '교사' 모델의 지식을 작고 가벼운 '학생' 모델로 옮겨, 작은 모델의 성능을 끌어올리는 압축 기법.

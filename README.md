@@ -8,7 +8,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 
 **원칙:** 모든 정의에 검증된 출처를 답니다. 추측·할루시네이션을 넣지 않습니다. → [SOURCES](research/SOURCES.md) · [집필 규칙](CONTRIBUTING.md)
 
-**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (96개 항목 한눈에)
+**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (101개 항목 한눈에)
 
 ---
 
@@ -108,11 +108,15 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | MLX | 애플 실리콘용 ML 프레임워크 |
 | safetensors | 안전·고속 텐서 저장 포맷(pickle 대체) |
 | MoE (전문가 혼합) | 입력마다 일부 전문가만 켜는 구조 |
+| Pruning (프루닝) | 중요도 낮은 연결을 잘라 경량화 — 양자화·증류와 나란한 갈래 |
+| SLM (소형 언어 모델) | 기기에서 돌릴 만큼 작은 모델 — ⚠크기 기준에 합의된 정의 없음 |
+| Active parameters (활성 파라미터) | MoE에서 토큰당 실제로 쓰이는 파라미터 수 |
 | Distillation (증류) | 큰 교사 모델 지식을 작은 모델로 이전 |
 
 ### 9. 로컬 실행·셀프호스팅 — [자세히](terms/09-local-run.md)
 | 용어 | 한 줄 요약 |
 |---|---|
+| VRAM (GPU 전용 메모리) | 로컬에서 무엇을 돌릴 수 있는지를 사실상 혼자 정한다 |
 | llama.cpp | 평범한 하드웨어용 경량 LLM 추론 엔진 |
 | Ollama | 명령 한 줄로 오픈 모델 로컬 실행 |
 | LM Studio | 로컬 LLM 실행·API 서버 GUI 앱 |
@@ -133,6 +137,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 ### 11. 버전 관리·협업 — [자세히](terms/11-version-control.md)
 | 용어 | 한 줄 요약 |
 |---|---|
+| CommonMark / GFM | 마크다운 표준과 GitHub 확장 — 렌더러마다 결과가 다른 이유 |
 | Git vs GitHub (깃/깃허브) | Git=이력관리 도구, GitHub=온라인 호스팅 장소 |
 | Repository (repo) | 프로젝트 파일 + 변경 이력 저장 단위 |
 | Commit (커밋) | 변경을 메시지와 함께 남기는 스냅샷 |

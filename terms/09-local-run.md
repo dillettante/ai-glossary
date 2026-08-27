@@ -5,6 +5,35 @@
 
 ---
 
+### VRAM · 지피유 전용 메모리 (Video RAM)
+
+> **한 줄 요약:** GPU에 붙은 전용 메모리. 로컬에서 무엇을 돌릴 수 있고 무엇을 못 돌리는지를 사실상 혼자 정한다.
+
+**정의 (Definition)**
+- KO: GPU가 직접 읽고 쓰는 전용 메모리. 모델 가중치·활성값·중간 버퍼가 여기 올라가야 연산이 되며, 용량을 넘기면 실행이 실패한다(OOM).
+- EN: Memory attached to the GPU that the device reads and writes directly; model weights and intermediate tensors must fit in it, and exceeding it causes out-of-memory failures.
+
+**비유 (쉽게):** **작업대의 넓이**다. 창고(디스크)에 재료가 아무리 많아도, 작업대에 못 올리면 지금 만들 수 없다. 작업대를 넓히는 것이 곧 다룰 수 있는 물건의 크기를 정한다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 로컬 실행·파인튜닝의 **첫 번째 제약**이다. 모델을 고르기 전에 재야 할 값이다.
+- **학습은 추론보다 훨씬 많이 쓴다.** 가중치 말고도 옵티마이저 상태·그래디언트·활성값이 함께 올라간다(→ [Full fine-tuning](04-finetuning.md#full-fine-tuning--전체-파인튜닝)).
+- 그래서 [양자화](08-model-formats.md#quantization--양자화)·[QLoRA](04-finetuning.md#qlora--큐로라-quantized-lora)·[SLM](08-model-formats.md#slm--소형-언어-모델-small-language-model)이 전부 같은 문제를 다른 방향에서 푼다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "내 GPU의 VRAM이 24GB인데, 이 모델을 4비트로 올리면 추론과 파인튜닝 각각 가능한지 계산해줘."
+
+**흔한 오해:**
+- **"모니터링 도구에 표시된 사용량 = 실제 텐서가 쓰는 양"** — 아니다. PyTorch는 **캐싱 할당자**를 쓰기 때문에, 반환된 메모리도 외부 도구에는 사용 중으로 보인다. 실제 텐서 사용량은 별도 함수로 봐야 한다.
+- **"캐시를 비우면 GPU 메모리가 늘어난다"** — 이미 텐서가 점유한 메모리는 해제되지 않는다. 비워지는 것은 **쓰이지 않는 캐시**뿐이다.
+- **"시스템 RAM으로 대체된다"** — 일부 오프로딩이 가능하지만 속도가 크게 떨어진다. 통합 메모리 구조(→ [MLX](08-model-formats.md#mlx))는 사정이 다르다.
+
+**함께 보기:** [Quantization](08-model-formats.md#quantization--양자화), [SLM](08-model-formats.md#slm--소형-언어-모델-small-language-model), [Active parameters](08-model-formats.md#active-parameters--활성-파라미터), [Self-hosting](09-local-run.md#self-hosting--셀프호스팅)
+
+**출처:** PyTorch, *CUDA semantics — Memory management*, [docs.pytorch.org](https://docs.pytorch.org/docs/stable/notes/cuda.html) ("PyTorch uses a caching memory allocator to speed up memory allocations."; "the unused memory managed by the allocator will still show as if used in `nvidia-smi`"; "the occupied GPU memory by tensors will not be freed so it can not increase the amount of GPU memory available for PyTorch"; 확인 2026-08-27). (하드웨어 일반 용어 — 유일 창시 없음.)
+
+---
+
 ### llama.cpp · 라마씨피피
 
 > **한 줄 요약:** 노트북·데스크톱 같은 평범한 하드웨어에서도 LLM을 돌릴 수 있게 만든 C/C++ 경량 추론 엔진.

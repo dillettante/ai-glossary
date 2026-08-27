@@ -5,6 +5,35 @@
 
 ---
 
+### CommonMark / GFM · 마크다운 표준과 GitHub 확장
+
+> **한 줄 요약:** 마크다운에는 표준(CommonMark)이 있고, GitHub이 표·체크박스·취소선을 더한 확장(GFM)이 있다. 렌더러마다 결과가 달라지는 이유가 여기 있다.
+
+**정의 (Definition)**
+- KO: **CommonMark**는 마크다운의 동작을 엄밀히 규정한 명세. **GFM(GitHub Flavored Markdown)**은 GitHub.com의 사용자 콘텐츠에서 지원되는 마크다운 방언으로, **CommonMark의 엄격한 상위집합(strict superset)**이다.
+- EN: "GitHub Flavored Markdown, often shortened as GFM, is the dialect of Markdown that is currently supported for user content on GitHub.com and GitHub Enterprise." — "GFM is a strict superset of CommonMark."
+
+**비유 (쉽게):** **표준어와 지역 방언**이다. 방언을 쓰는 사람은 표준어를 다 알아듣지만, 표준어만 아는 사람은 방언의 일부 표현을 못 알아듣는다. 표(table)와 체크박스가 그 방언 표현이다.
+
+**왜 중요한가 / 언제 쓰나:**
+- **한 곳에서 잘 보이던 문서가 다른 곳에서 깨지는 원인**이다. 표·체크박스·취소선은 CommonMark 표준이 아니라 GFM 확장이다.
+- GFM이 CommonMark에 더한 확장은 다섯 가지 — **표, 취소선, 작업 목록(체크박스), 자동 링크 확장, 위험한 원시 HTML 차단**.
+- 볼트·문서를 마크다운으로 운영한다면, **어느 방언을 전제하는지**가 곧 이식 가능성이다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 문서를 표준 CommonMark만 쓰도록 고쳐줘. 표는 유지해야 하니 어디가 GFM 확장인지 표시해줘."
+
+**흔한 오해:**
+- **"마크다운은 하나다"** — 아니다. 표준(CommonMark)과 여러 방언이 있고, 렌더러마다 지원 범위가 다르다.
+- **"GFM은 마크다운을 바꾼 것"** — 상위집합이라 CommonMark 문서는 GFM에서 그대로 동작한다. 반대 방향이 안 될 뿐이다.
+- **"표는 마크다운 기본 기능"** — GFM 확장이다.
+
+**함께 보기:** [Repository (repo)](11-version-control.md#repository-repo--리포지터리저장소), [Git vs GitHub](11-version-control.md#git-vs-github--깃-vs-깃허브)
+
+**출처:** GitHub, *GitHub Flavored Markdown Spec*, [github.github.com/gfm](https://github.github.com/gfm/) ("GitHub Flavored Markdown, often shortened as GFM, is the dialect of Markdown that is currently supported for user content on GitHub.com and GitHub Enterprise."; "GFM is a strict superset of CommonMark."; 확장 5종; 확인 2026-08-27). (공식 명세.)
+
+---
+
 ### Git vs GitHub · 깃 vs 깃허브
 
 > **한 줄 요약:** Git은 변경 이력을 관리하는 "도구"이고, GitHub은 그 결과물을 인터넷에 올려 남과 함께 쓰는 "장소"다 — 둘은 다른 것이다.
