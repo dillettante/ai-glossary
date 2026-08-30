@@ -314,3 +314,34 @@
 **함께 보기:** [Context window](01-llm-basics.md#context-window--컨텍스트-윈도우), [Agent](03-building.md#agent--에이전트-ai-agent), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Context engineering](02-prompting.md#context-engineering--컨텍스트-엔지니어링)
 
 **출처:** LangChain, *LangMem — Core Concepts*, [langchain-ai.github.io/langmem](https://langchain-ai.github.io/langmem/concepts/conceptual_guide/) ("Long-term memory allows agents to remember important information across conversations"; 단기=현재 대화 컨텍스트 / 장기=대화를 넘어 지속; 확인 2026-07-12). 참고: Anthropic도 별도 *Agent memory* 문서를 둔다([platform.claude.com](https://platform.claude.com/docs/en/docs/build-with-claude/agent-memory)). (프레임워크·제공사별 구현 — 단일 정본 없음.)
+
+---
+
+### Prompt caching · 프롬프트 캐싱
+
+> **한 줄 요약:** 매번 똑같이 들어가는 프롬프트 앞부분을 서버가 재사용해, 같은 내용을 다시 계산하지 않고 더 싸고 빠르게 처리하는 것.
+
+**정의 (Definition)**
+- KO: 요청마다 반복되는 프롬프트의 **앞부분(접두부)**을 제공사 서버가 저장해 두었다가 다음 요청에서 재사용하는 기능. 재사용된 부분은 일반 입력 토큰보다 싸게 과금되고 처리도 빨라진다.
+- EN: A feature where the provider caches a repeated **prefix** of the prompt and reuses it on later requests, so the reused portion is billed at a lower rate and processed faster than ordinary input tokens.
+
+**비유 (쉽게):** 매번 같은 서류 뭉치를 들고 창구에 가는 것과 같다. 원래는 갈 때마다 직원이 **처음부터 다시 읽어야** 하는데, 캐싱은 "앞의 50장은 지난번 그대로입니다"라고 말해 두는 것이다. 직원은 그 부분을 다시 읽지 않고 **바뀐 뒷장부터** 본다. 다만 서류를 맡겨 두는 데도 비용이 든다.
+
+**왜 중요한가 / 언제 쓰나:**
+- **비용이 실제로 정해지는 지점이다.** 긴 시스템 프롬프트·지시문·참고 문서를 매 요청에 넣는 구조라면, 캐싱 여부가 청구서를 좌우한다.
+- 벤더마다 **설계가 다르다.** Anthropic은 어디까지 캐시할지 요청에서 명시하고(`cache_control`), OpenAI는 일정 길이를 넘으면 **자동으로** 적용된다.
+- 캐시는 **앞에서부터 연속으로만** 맞는다. 그래서 자주 바뀌는 내용을 앞에 두면 뒤의 고정 부분까지 캐시가 깨진다 — **고정된 것을 앞에, 바뀌는 것을 뒤에** 두는 것이 설계 원칙이 된다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "시스템 프롬프트와 참고 문서는 앞에 고정하고 사용자 질문만 뒤에 붙이도록 요청 구조를 바꿔줘 — 캐시가 깨지지 않게."
+- "응답에서 캐시 읽기·쓰기 토큰이 각각 얼마나 잡히는지 찍어 줘."
+
+**흔한 오해:**
+- **"캐싱은 언제나 이득"** — 아니다. Anthropic 문서는 **캐시 쓰기가 일반 입력 토큰보다 비싸다**고 명시한다. 저장해 둔 것을 충분히 재사용하지 못하면 오히려 손해다.
+- **"짧은 프롬프트도 반복하면 할인된다"** — OpenAI 쪽은 **1,024 토큰을 넘는 프롬프트**에만 적용되며, 그보다 짧으면 아무리 반복해도 캐시 할인이 없다고 문서가 못 박는다.
+- **[KV 캐시](01-llm-basics.md#kv-cache--kv-캐시)와 같은 것이 아니다** — KV 캐시는 답 한 번을 생성하는 **모델 내부**의 재사용이고, 프롬프트 캐싱은 **요청과 요청 사이**에 걸친 서비스 기능이다.
+
+**함께 보기:** [Token](01-llm-basics.md#token--토큰), [Context window](01-llm-basics.md#context-window--컨텍스트-윈도우), [KV cache](01-llm-basics.md#kv-cache--kv-캐시), [System prompt](02-prompting.md#system-prompt--시스템-프롬프트), [Context engineering](02-prompting.md#context-engineering--컨텍스트-엔지니어링)
+
+**출처:** 제공사 공식 문서(벤더별 구현이 병존하는 기능 — 유일 창시 없음). Anthropic, *Prompt caching*, [docs.anthropic.com](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) (`cache_control`로 캐시 지점을 지정, 기본 수명 5분·1시간 옵션, 응답에 `cache_creation_input_tokens`·`cache_read_input_tokens` 표시, **"Cache writes cost more than normal input tokens"**). OpenAI, *Prompt Caching in the API*, [openai.com/index/api-prompt-caching](https://openai.com/index/api-prompt-caching/) ("No code changes or opt-in are required", **1,024 토큰 초과** 프롬프트에 자동 적용, 가장 긴 기존 접두부를 128토큰 단위로 확장). ⚠ **할인율·수명·최소 길이는 제공사가 수시로 바꾼다** — 금액을 계산에 넣기 전 원문을 다시 확인할 것(확인 2026-08-30).
+

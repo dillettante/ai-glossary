@@ -109,3 +109,33 @@
 **함께 보기:** [MVP](07-dev-stages.md#mvp--최소-기능-제품-minimum-viable-product), [Production Ready](07-dev-stages.md#production-ready--프로덕션-레디-production-readiness), [LLM 기초](01-llm-basics.md#llm--대규모-언어-모델-large-language-model--foundation-model--파운데이션-모델), [파인튜닝](04-finetuning.md#full-fine-tuning--전체-파인튜닝)
 
 **출처:** 대표 벤치마크 — Hendrycks et al. (2020), *Measuring Massive Multitask Language Understanding* (MMLU), [arXiv:2009.03300](https://arxiv.org/abs/2009.03300); Liang et al. (2022), *Holistic Evaluation of Language Models* (HELM), [arXiv:2211.09110](https://arxiv.org/abs/2211.09110). ('evals'는 단일 정본 없는 넓은 실무 개념 — 대표 출처이며 유일 정의 아님.)
+
+---
+
+### LLM-as-a-judge · 엘엘엠 심판
+
+> **한 줄 요약:** 사람 대신 강한 언어모델에게 다른 모델의 답을 채점시키는 평가 방식. 빠르고 싸지만, 심판도 편향을 가진다.
+
+**정의 (Definition)**
+- KO: 사람의 채점 대신 강력한 LLM에게 모델의 출력을 평가·비교하게 하는 평가 방법. 열린 형식의 답변처럼 정답이 하나로 정해지지 않는 과제에서 인간 평가의 대체·보완으로 쓰인다.
+- EN: Using a strong LLM as a judge to evaluate or compare model outputs in place of human raters, particularly for open-ended tasks where no single reference answer exists.
+
+**비유 (쉽게):** 논술 시험을 채점할 때 **채점 위원을 사람 대신 우등생 한 명으로 세우는 것**. 채점은 훨씬 빨라지고 값도 싸다. 그런데 이 우등생에게도 버릇이 있다 — 먼저 읽은 답안을 후하게 보거나, 자기가 쓴 것과 비슷한 문체를 좋아하는 식이다. 그래서 **심판을 따로 검증해야** 한다.
+
+**왜 중요한가 / 언제 쓰나:**
+- [Evals](07-dev-stages.md#evals--평가벤치마크-evaluation--benchmarks)를 실제로 돌리면 곧장 "누가 채점하나"에 부딪힌다 — 객관식은 자동 채점되지만 요약·상담·글쓰기는 그렇지 않다.
+- 인간 평가는 느리고 비싸다. LLM 심판은 반복 실행이 가능해, 개발 중 빠른 피드백 루프를 만든다.
+- 이 방식은 평가를 넘어 **학습 신호**로도 쓰인다 — 이 용어집의 [OpenPipe ART / RULER 사례](05-alignment-rl.md#사례-openpipe-art--ruler--수작업-보상-설계를-건너뛰는-에이전트-rl)가 심판 점수를 보상으로 바로 쓰는 예다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "두 답변을 채점하되, 순서를 바꿔 한 번 더 채점하고 결과가 뒤집히는지 알려줘."
+- "점수만 주지 말고 채점 기준별 근거를 함께 적어줘."
+
+**흔한 오해:**
+- **"모델이 채점하면 객관적이다"** — 아니다. 원 논문의 제목 자체가 *심판을 심판한다*(Judging LLM-as-a-Judge)이며, 위치 편향·장황함 선호·자기 선호 같은 한계를 다룬다. 심판을 쓰기 전에 **심판이 사람 판단과 얼마나 맞는지**부터 재야 한다.
+- **"심판이 셀수록 정확하다"가 아니라, 심판의 편향 방향이 같으면 여러 번 돌려도 같은 쪽으로 틀린다.**
+
+**함께 보기:** [Evals](07-dev-stages.md#evals--평가벤치마크-evaluation--benchmarks), [Hallucination](01-llm-basics.md#hallucination--환각할루시네이션), [RLAIF](05-alignment-rl.md#rlaif--ai-피드백-기반-강화학습-reinforcement-learning-from-ai-feedback), [Harness](03-building.md#harness--하네스-에이전트-하네스--평가-하네스)
+
+**출처:** Zheng et al. (2023), *Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena*, [arXiv:2306.05685](https://arxiv.org/abs/2306.05685) (저자 13인, 2023-06-09 게재 — 제목·제1저자·연도 확인 2026-08-30). ⚠ 편향 유형의 정확한 원문 표현은 초록·본문 대조가 남아 있다 — **원문 확인 권장.** (평가 관행으로 널리 쓰이며 **유일 창시 논문은 아니다** — 위는 이 방식을 체계적으로 검증한 대표 문헌이다.)
+

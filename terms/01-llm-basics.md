@@ -407,3 +407,31 @@
 **함께 보기:** [Generative AI](01-llm-basics.md#generative-ai--생성형-ai-genai), [Multimodal](01-llm-basics.md#multimodal--멀티모달), [LLM](01-llm-basics.md#llm--대규모-언어-모델-large-language-model--foundation-model--파운데이션-모델)
 
 **출처:** Ho et al. (2020), *Denoising Diffusion Probabilistic Models* (DDPM), [arXiv:2006.11239](https://arxiv.org/abs/2006.11239) — 현대 디퓨전 생성모델을 정립한 대표 논문(검증). 원류로는 Sohl-Dickstein et al. (2015), *Deep Unsupervised Learning using Nonequilibrium Thermodynamics*, [arXiv:1503.03585](https://arxiv.org/abs/1503.03585)를 병기한다(검증).
+
+---
+
+### KV cache · KV 캐시
+
+> **한 줄 요약:** 모델이 답을 한 글자씩 이어 쓸 때, 앞에서 이미 계산한 값을 저장해 두고 다시 쓰는 내부 장치. 이것이 없으면 매 글자마다 처음부터 다시 읽어야 한다.
+
+**정의 (Definition)**
+- KO: 트랜스포머가 토큰을 하나씩 생성할 때, 앞선 토큰들에 대해 계산해 둔 어텐션의 키(Key)·값(Value) 텐서를 메모리에 보관해 재사용하는 기법. 매 단계마다 전체를 다시 계산하는 낭비를 없앤다.
+- EN: A technique in which the Key and Value tensors already computed for previous tokens are kept in memory and reused at each decoding step, avoiding recomputation over the whole sequence.
+
+**비유 (쉽게):** 긴 회의록을 이어 쓰는 서기와 같다. 한 줄 쓸 때마다 **앞의 회의록 전체를 처음부터 다시 읽는다면** 뒤로 갈수록 한없이 느려진다. KV 캐시는 앞부분을 요약해 **책상 위에 펼쳐 둔 메모**여서, 서기는 그 메모만 흘긋 보고 다음 줄을 쓴다. 다만 회의가 길어질수록 메모가 책상을 점점 더 많이 차지한다.
+
+**왜 중요한가 / 언제 쓰나:**
+- 로컬에서 모델을 돌릴 때 **[VRAM](09-local-run.md#vram--지피유-전용-메모리-video-ram)을 잡아먹는 주범**이 가중치 말고 이것이다. 대화가 길어질수록 캐시가 커져, 같은 모델도 긴 대화에서 먼저 메모리가 터진다.
+- 동시 사용자가 많은 서비스에서는 캐시 관리 방식이 처리량을 좌우한다 — 이 문제를 운영체제의 페이지 기법으로 푼 것이 PagedAttention(vLLM)이다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 모델을 8K 컨텍스트로 돌릴 때 가중치 말고 KV 캐시가 VRAM을 얼마나 더 먹는지 계산해줘."
+
+**흔한 오해:**
+- **"모델 크기만 보면 VRAM을 가늠할 수 있다"** — 아니다. 가중치는 고정이지만 KV 캐시는 **대화 길이에 따라 계속 늘어난다.** 짧은 대화에서 돌아가던 설정이 긴 대화에서 터지는 이유다.
+- **[프롬프트 캐싱](03-building.md#prompt-caching--프롬프트-캐싱)과 다르다** — KV 캐시는 답 하나를 만드는 **모델 내부**의 재사용이고, 프롬프트 캐싱은 요청과 요청 **사이**에 걸친 서비스 기능이다.
+
+**함께 보기:** [Transformer / Attention](01-llm-basics.md#transformer--attention--트랜스포머--어텐션), [Inference](01-llm-basics.md#inference--추론실행단계), [VRAM](09-local-run.md#vram--지피유-전용-메모리-video-ram), [Prompt caching](03-building.md#prompt-caching--프롬프트-캐싱)
+
+**출처:** Shazeer (2019), *Fast Transformer Decoding: One Write-Head is All You Need*, [arXiv:1911.02150](https://arxiv.org/abs/1911.02150) — 디코딩 시 키·값 재사용의 메모리 대역폭 병목을 다루며 멀티쿼리 어텐션(MQA)을 제안한 대표 문헌(단독 저자, 2019-11-06 확인 2026-08-30). 운영 측면 — Kwon et al. (2023), *Efficient Memory Management for Large Language Model Serving with PagedAttention*, [arXiv:2309.06180](https://arxiv.org/abs/2309.06180) (vLLM). (KV 캐시 자체는 트랜스포머 디코딩의 표준 기법으로 **유일 창시 논문이 없다** — 위는 대표 문헌이다.)
+

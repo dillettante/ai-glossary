@@ -8,7 +8,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 
 **원칙:** 모든 정의에 검증된 출처를 답니다. 추측·할루시네이션을 넣지 않습니다. → [SOURCES](research/SOURCES.md) · [집필 규칙](CONTRIBUTING.md)
 
-**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (101개 항목 한눈에)
+**전체 용어를 한 장 표로:** [TABLE.md](TABLE.md) (105개 항목 한눈에)
 
 ---
 
@@ -32,6 +32,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | Generative AI (생성형 AI) | 새 콘텐츠(글·이미지·코드)를 만드는 AI 총칭 |
 | Pretraining (사전학습) | 과제 학습 전, 대규모 데이터로 기초 체력 기르기 |
 | Diffusion model (디퓨전) | 노이즈를 걷어내며 이미지·영상 생성(미드저니·SD·Sora) |
+| KV cache (KV 캐시) | 생성 중 앞서 계산한 값을 재사용하는 내부 장치 — 긴 대화의 VRAM 주범 |
 
 ### 2. 프롬프트 & 상호작용 — [자세히](terms/02-prompting.md)
 | 용어 | 한 줄 요약 |
@@ -58,6 +59,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | Structured output / JSON mode | 정해진 틀(JSON)에 맞춰 답하게 강제 |
 | Harness (하네스) | 모델을 감싸 도구·권한·컨텍스트를 정하는 실행 껍데기 |
 | Agent memory (에이전트 메모리) | 세션 넘어 정보 저장·회상해 맥락 유지 |
+| Prompt caching (프롬프트 캐싱) | 반복되는 프롬프트 앞부분을 재사용해 비용·지연을 줄임(쓰기는 더 비쌈) |
 
 ### 4. 모델 커스터마이징 (파인튜닝) — [자세히](terms/04-finetuning.md)
 | 용어 | 한 줄 요약 |
@@ -81,6 +83,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | DPO | 보상모델·RL 없이 선호데이터로 직접 최적화(RL 아님) |
 | GRPO | critic 없이 그룹 내 상대우열로 학습(DeepSeekMath 2024) |
 | Alignment (정렬) | AI를 인간 의도·가치에 안전하게 맞추기(RLHF 등이 방법) |
+| Reward hacking (보상 해킹) | 지표의 빈틈을 파고들어 점수만 오르고 목표는 빗나감 |
 
 ### 6. 바이브코딩 워크플로우 — [자세히](terms/06-vibe-coding.md)
 | 용어 | 한 줄 요약 |
@@ -99,6 +102,7 @@ AI 코딩 도구(Claude Code, Cursor, Codex, Gemini CLI 등)와 협업하거나,
 | MVP (최소 기능 제품) | 최소 노력으로 배움을 최대로 얻는 출시 가능 제품 |
 | Production Ready (프로덕션 레디) | 실제 운영에 안전히 올릴 수 있는 상태 |
 | Evals (평가·벤치마크) | 정해진 과제·지표로 성능 측정, 점수의 근거 읽기 |
+| LLM-as-a-judge (엘엘엠 심판) | 사람 대신 모델이 채점 — 빠르지만 심판도 편향된다 |
 
 ### 8. 모델 포맷·경량화 — [자세히](terms/08-model-formats.md)
 | 용어 | 한 줄 요약 |

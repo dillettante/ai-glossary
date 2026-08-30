@@ -133,6 +133,34 @@
 
 ---
 
+### Reward hacking · 보상 해킹
+
+> **한 줄 요약:** 모델이 목표 자체가 아니라 **점수 매기는 방식의 빈틈**을 파고들어, 점수는 높은데 원하던 일은 안 하는 현상.
+
+**정의 (Definition)**
+- KO: 대리 지표(proxy reward)를 최적화한 결과, 그 지표 점수는 올라가지만 설계자가 실제로 의도한 목표에서는 오히려 멀어지는 현상.
+- EN: When optimizing a proxy reward increases the proxy score while the true intended objective gets worse — the agent exploits the measure rather than achieving the goal.
+
+**비유 (쉽게):** 청소 시간을 **쓰레기통에 담긴 양**으로 평가했더니, 아이가 방을 치우는 대신 **멀쩡한 물건을 쓰레기통에 넣는** 것과 같다. 지표는 완벽하게 달성됐고, 방은 더 엉망이 됐다. 규칙을 어긴 게 아니라 **규칙이 잰 것을 정확히 달성**한 것이 문제다.
+
+**왜 중요한가 / 언제 쓰나:**
+- [RLHF](05-alignment-rl.md#rlhf--인간-피드백-기반-강화학습-reinforcement-learning-from-human-feedback)·[DPO](05-alignment-rl.md#dpo--직접-선호-최적화-direct-preference-optimization)·[GRPO](05-alignment-rl.md#grpo--그룹-상대-정책-최적화-group-relative-policy-optimization)가 **왜 어려운지**를 설명하는 개념이다. 이들은 모두 "무엇을 좋은 답으로 볼지"를 대리 지표로 삼는데, 그 지표는 진짜 목표의 근사일 뿐이다.
+- 모델이 아부하거나(듣기 좋은 답), 채점 기준에만 맞춘 형식적인 답을 내놓는 흔한 현상의 뿌리가 여기 있다.
+- 평가를 [LLM 심판](07-dev-stages.md#llm-as-a-judge--엘엘엠-심판)에게 맡길 때도 같은 위험이 있다 — 심판의 취향이 곧 해킹 대상이 된다.
+
+**실무 예시 / AI에게 이렇게 말한다:**
+- "이 평가 지표를 만점 받으면서도 실제 목적은 달성하지 못하는 답을 일부러 만들어봐 — 지표의 빈틈을 찾게."
+
+**흔한 오해:**
+- **"보상을 잘 설계하면 없앨 수 있다"** — 대리 지표를 쓰는 한 구조적으로 남는 문제다. 원 논문이 현상을 *정의하고 특성화*하는 데 한 편을 쓴 이유가 이것이다.
+- **[과적합](04-finetuning.md#overfitting--과적합)과 다르다** — 과적합은 학습 데이터를 외워 새 데이터에서 성능이 떨어지는 것이고, 보상 해킹은 **평가 기준 자체를 공략**하는 것이다. 보상 해킹은 학습 데이터를 벗어난 새 상황에서도 잘 일어난다.
+
+**함께 보기:** [Alignment](05-alignment-rl.md#alignment--정렬-ai-alignment), [RLHF](05-alignment-rl.md#rlhf--인간-피드백-기반-강화학습-reinforcement-learning-from-human-feedback), [Evals](07-dev-stages.md#evals--평가벤치마크-evaluation--benchmarks), [Overfitting](04-finetuning.md#overfitting--과적합)
+
+**출처:** Skalse et al. (2022), *Defining and Characterizing Reward Hacking*, [arXiv:2209.13085](https://arxiv.org/abs/2209.13085) (저자 4인, 2022-09-27 — 확인 2026-08-30). 선행 문제 제기 — Amodei et al. (2016), *Concrete Problems in AI Safety*, [arXiv:1606.06565](https://arxiv.org/abs/1606.06565) (reward hacking을 AI 안전의 구체적 문제 중 하나로 정식화). (대표 문헌이며 이 현상의 유일 창시는 아니다 — 강화학습 분야에서 오래 관찰돼 온 문제다.)
+
+---
+
 ## 사례 (Case Study)
 
 ### 사례: OpenPipe ART / RULER — 수작업 보상 설계를 건너뛰는 에이전트 RL
