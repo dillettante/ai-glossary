@@ -25,7 +25,7 @@
 
 **흔한 오해:** SSH는 파일을 옮기는 도구가 "아니라" 안전한 접속·명령 통로다(그 통로 위에서 파일 전송 `scp`·`sftp`가 얹혀 돌 뿐이다). 또 개인키(private key)는 비밀번호처럼 다뤄야 한다 — 공개키(public key)만 서버에 올리고, 개인키를 넘겨달라는 요구는 정상적인 접속에 필요 없다.
 
-**함께 보기:** [CLI](#cli--커맨드라인-인터페이스-command-line-interface), [Port / localhost](#port--localhost--포트로컬호스트), [09-local-run.md](09-local-run.md)
+**함께 보기:** [CLI](#cli--커맨드라인-인터페이스-command-line-interface), [Port / localhost](#port--localhost--포트로컬호스트), [Self-hosting](09-local-run.md#self-hosting--셀프호스팅)
 
 **출처:** T. Ylonen & C. Lonvick (Ed.), *The Secure Shell (SSH) Protocol Architecture*, IETF **RFC 4251** (2006-01), [rfc-editor.org/rfc/rfc4251](https://www.rfc-editor.org/rfc/rfc4251). (프로토콜의 정본.)
 
@@ -103,7 +103,7 @@
 
 **흔한 오해:** 컨테이너는 가상머신(VM)과 다르다. VM은 가상의 컴퓨터 한 대를 통째로(각자 별도 운영체제까지) 흉내 내지만, **컨테이너는 호스트의 운영체제 커널을 공유**하고 앱과 그 의존성만 격리한다 — 그래서 훨씬 가볍고 빠르게 뜬다. 또 "Docker = 컨테이너"가 아니다: Docker는 대표 구현일 뿐, 규격은 개방형 표준 **OCI**라 다른 런타임(containerd, Podman 등)도 같은 컨테이너를 실행한다.
 
-**함께 보기:** [Port / localhost](#port--localhost--포트로컬호스트), [Environment variable](#environment-variable--환경변수-env), [09-local-run.md](09-local-run.md), [03-building.md](03-building.md)
+**함께 보기:** [Port / localhost](#port--localhost--포트로컬호스트), [Environment variable](#environment-variable--환경변수-env), [Self-hosting](09-local-run.md#self-hosting--셀프호스팅), [Vector DB / Embedding search](03-building.md#vector-db--embedding-search--벡터db--임베딩-검색)
 
 **출처:** Docker 공식 문서, *Docker overview*, [docs.docker.com](https://docs.docker.com/get-started/docker-overview/); 규격 표준: Open Container Initiative, *Runtime/Image Specification*, [opencontainers.org](https://opencontainers.org/). (확인 — Docker는 대표 도구, 컨테이너 규격의 정본은 OCI. 특정 벤더 전용 개념 아님.)
 
@@ -129,7 +129,7 @@
 
 **흔한 오해:** API는 특정 언어·회사의 물건이 아니라 "소통 규약(약속)"이다. 또 웹 API(REST/HTTP)만 API인 것도 아니다 — 라이브러리 함수 호출 규격도 API다. AI 맥락에서 흔히 "API"라고만 하면 대개 **웹(HTTP) API**를 가리키지만, 개념 자체는 더 넓다.
 
-**함께 보기:** [Port / localhost](#port--localhost--포트로컬호스트), [03-building.md](03-building.md)
+**함께 보기:** [Port / localhost](#port--localhost--포트로컬호스트), [Tool use / Function calling](03-building.md#tool-use--function-calling--도구-사용--함수-호출)
 
 **출처:** 단일 정본 없는 일반 개념. 권위 있는 레퍼런스로 REST: R. Fielding, *Architectural Styles and the Design of Network-based Software Architectures* (2000, 박사학위논문 5장), [ics.uci.edu/~fielding/pubs/dissertation](https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm); HTTP 시맨틱스: IETF **RFC 9110** (2022), [rfc-editor.org/rfc/rfc9110](https://www.rfc-editor.org/rfc/rfc9110). (유일 창시 아님 — 대표 권위 출처.)
 
@@ -155,7 +155,7 @@
 
 **흔한 오해:** `localhost`에 띄운 서비스는 기본적으로 **내 컴퓨터에서만 접근**된다 — 같은 네트워크의 다른 기기에서 그 주소로는 못 들어온다(그래서 로컬 테스트엔 안전하지만, 남에게 열어주려면 별도 설정이 필요하다). 또 1024번 미만의 낮은 포트(시스템 포트)는 보통 관리자 권한이 있어야 열 수 있다.
 
-**함께 보기:** [Docker / Container](#docker--container--컨테이너), [API](#api--응용-프로그램-인터페이스-application-programming-interface), [09-local-run.md](09-local-run.md)
+**함께 보기:** [Docker / Container](#docker--container--컨테이너), [API](#api--응용-프로그램-인터페이스-application-programming-interface), [Self-hosting](09-local-run.md#self-hosting--셀프호스팅)
 
 **출처:** 포트: M. Cotton et al., *IANA Procedures for … Port Number Registry*, IETF **RFC 6335** (2011-08), [rfc-editor.org/rfc/rfc6335](https://www.rfc-editor.org/rfc/rfc6335); localhost 특수도메인: **RFC 6761** (2013-02); 루프백 `127.0.0.0/8`: **RFC 1122** §3.2.1.3. (일반 네트워킹 개념 — 해당 RFC가 정본.)
 

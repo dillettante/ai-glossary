@@ -56,7 +56,7 @@
 - **"모델을 학습(훈련)하는 도구다"** — 아니다. 학습이 아니라 이미 만들어진 모델을 실행하는 **추론 엔진**이다.
 - **"로컬 실행의 유일한 방법이다"** — 아니다. MLX(Apple)·vLLM·ExLlama 등 다른 실행 엔진도 병존한다. llama.cpp는 그중 가장 널리 쓰이는 하나일 뿐이다.
 
-**함께 보기:** [GGUF / 모델 포맷](08-model-formats.md), [Inference](01-llm-basics.md), [Ollama](#ollama--올라마), [LM Studio](#lm-studio--엘엠-스튜디오)
+**함께 보기:** [GGUF / 모델 포맷](08-model-formats.md#gguf), [Inference](01-llm-basics.md#inference--추론실행단계), [Ollama](#ollama--올라마), [LM Studio](#lm-studio--엘엠-스튜디오)
 
 **출처:** ggml-org, *llama.cpp — LLM inference in C/C++*, [github.com/ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp) (확인 2026-07-11). GGML 프로젝트 창시: Georgi Gerganov. (특정 도구 — 유일 창시 아님)
 
@@ -84,7 +84,7 @@
 - **"밑바닥부터 새 추론 엔진을 짰다"** — 아니다. Ollama는 처음엔 llama.cpp를 백엔드로 썼고, 이후 GGML 텐서 라이브러리 위에 자체 러너(Go)를 더했다. 커널을 맨땅에서 짜기보다 **기존 엔진·라이브러리 위에 모델 관리·배포·API를 편하게 얹은 계층**에 가깝다.
 - **"로컬 실행은 Ollama뿐"** — 아니다. LM Studio(GUI)나 llama.cpp 직접 실행 등 대안이 있다. 용도(CLI·GUI·서버)에 따라 고른다.
 
-**함께 보기:** [llama.cpp](#llamacpp--라마씨피피), [LM Studio](#lm-studio--엘엠-스튜디오), [GGUF / 모델 포맷](08-model-formats.md)
+**함께 보기:** [llama.cpp](#llamacpp--라마씨피피), [LM Studio](#lm-studio--엘엠-스튜디오), [GGUF / 모델 포맷](08-model-formats.md#gguf)
 
 **출처:** Ollama, [github.com/ollama/ollama](https://github.com/ollama/ollama) (MIT, 확인 2026-07-11) · [ollama.com](https://ollama.com). (특정 도구 — 유일 창시 아님)
 
@@ -113,7 +113,7 @@
 - **"OpenAI 호환 API = OpenAI를 쓰는 것"** — 아니다. 응답 **형식**만 OpenAI와 같게 맞춘 로컬 서버이며, 실제 연산은 내 기기에서 로컬 모델이 한다.
 - **"유일한 GUI 실행 도구"** — 아니다. Ollama(+GUI 프런트엔드)나 다른 데스크톱 앱도 있다.
 
-**함께 보기:** [llama.cpp](#llamacpp--라마씨피피), [Ollama](#ollama--올라마), [Tool use / API](03-building.md), [GGUF / 모델 포맷](08-model-formats.md)
+**함께 보기:** [llama.cpp](#llamacpp--라마씨피피), [Ollama](#ollama--올라마), [Tool use / API](03-building.md#tool-use--function-calling--도구-사용--함수-호출), [GGUF / 모델 포맷](08-model-formats.md#gguf)
 
 **출처:** LM Studio, *Run AI models, locally and privately*, [lmstudio.ai](https://lmstudio.ai) · 엔진·API: [lmstudio.ai/docs](https://lmstudio.ai/docs) (확인 2026-07-11). (특정 제품 — 유일 창시 아님)
 

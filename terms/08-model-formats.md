@@ -26,7 +26,7 @@
 
 **흔한 오해:** 양자화가 곧 파인튜닝이라고 여기는 것. 양자화는 **표현 비트 수를 줄이는 압축**이지 학습이 아니다(단, QLoRA처럼 양자화된 베이스 위에서 학습하는 결합 기법은 별개다). 또한 "무조건 성능이 크게 떨어진다"는 오해 — 기법에 따라 성능을 거의 유지한다.
 
-**함께 보기:** [QLoRA](04-finetuning.md#qlora--큐로라-quantized-lora), [GGUF](08-model-formats.md#gguf), [Parameter/Weight](01-llm-basics.md)
+**함께 보기:** [QLoRA](04-finetuning.md#qlora--큐로라-quantized-lora), [GGUF](08-model-formats.md#gguf), [Parameter/Weight](01-llm-basics.md#parameter--weight--파라미터가중치)
 
 **출처:** Dettmers et al. (2022), *LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*, [arXiv:2208.07339](https://arxiv.org/abs/2208.07339); Frantar et al. (2022), *GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers*, [arXiv:2210.17323](https://arxiv.org/abs/2210.17323). (양자화는 단일 창시가 아니며, 위는 LLM 저비트 양자화의 대표 논문이다.)
 
@@ -53,7 +53,7 @@
 
 **이름에 관하여:** 공식 명세는 **약어를 풀어 쓰지 않는다**(확인 2026-08-27). 널리 도는 "GPT-Generated Unified Format"은 비공식 통용어이므로 정본 표기로 쓰지 않는다. 확실한 것은 GGML 계열 실행기용 포맷이라는 점뿐이다.
 
-**함께 보기:** [Quantization](08-model-formats.md#quantization--양자화), [safetensors](08-model-formats.md#safetensors), [llama.cpp](09-local-run.md)
+**함께 보기:** [Quantization](08-model-formats.md#quantization--양자화), [safetensors](08-model-formats.md#safetensors), [llama.cpp](09-local-run.md#llamacpp--라마씨피피)
 
 **출처:** (원전 논문 없음 — 공식 스펙 문서) ggml-org, *GGUF 파일 포맷 명세*, [github.com/ggml-org/ggml/blob/master/docs/gguf.md](https://github.com/ggml-org/ggml/blob/master/docs/gguf.md); 상위 프로젝트 [github.com/ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp).
 
@@ -130,7 +130,7 @@
 
 **흔한 오해:** MoE 모델이 "선언된 전체 파라미터를 매 입력마다 다 쓴다"고 여기는 것. **입력당 실제 활성 파라미터는 일부**다(그래서 총 파라미터 수와 계산량이 다르다). 또한 MoE는 단일 창시가 아니며, 아래는 현대 딥러닝에서의 대표 출처다.
 
-**함께 보기:** [Distillation](08-model-formats.md#distillation--증류지식-증류), [Parameter/Weight](01-llm-basics.md)
+**함께 보기:** [Distillation](08-model-formats.md#distillation--증류지식-증류), [Parameter/Weight](01-llm-basics.md#parameter--weight--파라미터가중치)
 
 **출처:** Shazeer et al. (2017), *Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer*, [arXiv:1701.06538](https://arxiv.org/abs/1701.06538); 확장 사례 — Fedus et al. (2021), *Switch Transformers*, [arXiv:2101.03961](https://arxiv.org/abs/2101.03961). (MoE 개념은 이보다 오래되었으며, 위는 딥러닝 대표 출처로 유일 창시가 아님.)
 

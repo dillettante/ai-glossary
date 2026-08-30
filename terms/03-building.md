@@ -28,7 +28,7 @@
 - **"RAG = 파인튜닝의 대체"** — 아니다. 파인튜닝은 모델의 *행동·문체·능력*을 바꾸고, RAG는 *최신·특정 지식*을 주입한다. 상호 배타가 아니라 보완재.
 - **"문서만 넣으면 환각이 사라진다"** — 검색 품질이 낮으면(엉뚱한 문서 회수) 오히려 그럴듯한 오답을 만든다. RAG는 검색 정확도에 종속된다.
 
-**함께 보기:** [Embedding](01-llm-basics.md), [Vector DB / Embedding search](03-building.md), [Hallucination](01-llm-basics.md), [Agent](03-building.md)
+**함께 보기:** [Embedding](01-llm-basics.md#embedding--임베딩), [Vector DB / Embedding search](03-building.md#vector-db--embedding-search--벡터db--임베딩-검색), [Hallucination](01-llm-basics.md#hallucination--환각할루시네이션), [Agent](03-building.md#agent--에이전트-ai-agent)
 
 **출처:** Lewis et al. (2020), *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*, [arXiv:2005.11401](https://arxiv.org/abs/2005.11401) (NeurIPS 2020).
 
@@ -56,7 +56,7 @@
 - **"Anthropic/Claude 전용이다"** — 아니다. 2024-11 Anthropic이 처음 공개했지만 **개방형 표준**이며, 2025-12 Linux Foundation 산하 **Agentic AI Foundation(AAIF)**에 기부되어(OpenAI·Block 공동 창립) 벤더 중립 거버넌스로 이관됐다.
 - **"MCP = 에이전트다"** — 아니다. MCP는 앱과 도구를 잇는 **연결 규격(프로토콜)**일 뿐, 스스로 판단·행동하는 주체가 아니다.
 
-**함께 보기:** [Agent](03-building.md), [Tool use / Function calling](03-building.md), [RAG](03-building.md)
+**함께 보기:** [Agent](03-building.md#agent--에이전트-ai-agent), [Tool use / Function calling](03-building.md#tool-use--function-calling--도구-사용--함수-호출), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation)
 
 **출처:** Anthropic, *Introducing the Model Context Protocol* (2024-11-25), [modelcontextprotocol.io](https://modelcontextprotocol.io). 기부 사실: Anthropic, *Donating the Model Context Protocol…* (2025-12-09), [anthropic.com](https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation).
 
@@ -84,7 +84,7 @@
 - **"항상 에이전트가 낫다"** — 아니다. 경로가 고정된 일은 예측 가능한 **워크플로우**가 더 싸고 안정적이다.
 - **단일 표준 정의 없음** — 아래 정의는 Anthropic(한 회사)의 정의이며, 업계 공통 표준 정의가 아니다.
 
-**함께 보기:** [MCP](03-building.md), [Tool use / Function calling](03-building.md), [RAG](03-building.md)
+**함께 보기:** [MCP](03-building.md#mcp--모델-컨텍스트-프로토콜-model-context-protocol), [Tool use / Function calling](03-building.md#tool-use--function-calling--도구-사용--함수-호출), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation)
 
 **출처:** Anthropic, *Building Effective Agents* (2024-12-19), [anthropic.com](https://www.anthropic.com). (특정 벤더 정의 — 유일 창시 아님)
 
@@ -112,7 +112,7 @@
 - **"도구가 많을수록 좋다"** — 아니다. 도구의 설명과 스키마 품질이 성패를 가른다.
 - **단일 표준 정의 없음** — 아래는 Anthropic 문서 기준이며, OpenAI의 2023년 function calling 등 벤더별 구현이 병존한다.
 
-**함께 보기:** [Agent](03-building.md), [MCP](03-building.md), [RAG](03-building.md)
+**함께 보기:** [Agent](03-building.md#agent--에이전트-ai-agent), [MCP](03-building.md#mcp--모델-컨텍스트-프로토콜-model-context-protocol), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation)
 
 **출처:** Anthropic, *Tool use (function calling)* 문서, [platform.claude.com](https://platform.claude.com). (OpenAI function calling 2023 등 병존 — 유일 창시 아님)
 
@@ -141,7 +141,7 @@
 - **"키워드 검색이 필요 없어진다"** — 아니다. 의미 검색과 키워드 검색을 섞은 **하이브리드**가 흔히 더 낫다.
 - **단일 표준 정의 없음** — 특정 벤더에 묶이지 않는 개념. 아래는 대표 논문 출처이며 유일 창시가 아니다.
 
-**함께 보기:** [Embedding](01-llm-basics.md), [RAG](03-building.md)
+**함께 보기:** [Embedding](01-llm-basics.md#embedding--임베딩), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation)
 
 **출처:** word2vec: Mikolov et al. (2013), [arXiv:1301.3781](https://arxiv.org/abs/1301.3781) · HNSW: Malkov & Yashunin (2016), [arXiv:1603.09320](https://arxiv.org/abs/1603.09320). 정의 보조: Elastic/Google/IBM. (벤더 중립 — 유일 창시 아님)
 
@@ -169,7 +169,7 @@
 - **"GPT 같은 생성 모델이 임베딩도 다 한다"** — 겹치기도 하지만, 임베딩은 보통 **별도의 전용 모델**(또는 전용 엔드포인트)로 만든다. 생성용 LLM과 임베딩 모델은 목적·출력이 다르다(하나는 텍스트, 하나는 벡터).
 - **"임베딩 모델이 다르면 벡터를 섞어 써도 된다"** — 아니다. 모델마다 좌표계(벡터 공간)가 달라, 문서와 질문은 **같은 모델**로 임베딩해야 비교가 성립한다.
 
-**함께 보기:** [Embedding](01-llm-basics.md), [Vector DB / Embedding search](03-building.md#vector-db--embedding-search--벡터db--임베딩-검색), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Chunking](03-building.md#chunking--청킹)
+**함께 보기:** [Embedding](01-llm-basics.md#embedding--임베딩), [Vector DB / Embedding search](03-building.md#vector-db--embedding-search--벡터db--임베딩-검색), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Chunking](03-building.md#chunking--청킹)
 
 **출처:** Reimers & Gurevych (2019), *Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks*, [arXiv:1908.10084](https://arxiv.org/abs/1908.10084) (EMNLP 2019). 보조: OpenAI, *Embeddings* 문서, [platform.openai.com](https://platform.openai.com/docs/guides/embeddings). (대표 문헌 — 유일 창시 아님)
 
@@ -197,7 +197,7 @@
 - **"조각은 작을수록 좋다"** — 아니다. 지나치게 작으면 맥락이 사라져, 그 자체로는 쓸모없는 조각이 되어 검색에서 안 떠오를 수 있다. 크기·겹침에는 균형점이 있다.
 - **"정답 청킹 규칙이 있다"** — 아니다. 문서 종류·질의 성격에 따라 달라지는 **실무 튜닝 영역**이며, 단일 정본 방식은 없다.
 
-**함께 보기:** [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Embedding model](03-building.md#embedding-model--임베딩-모델), [Vector DB / Embedding search](03-building.md#vector-db--embedding-search--벡터db--임베딩-검색), [Embedding](01-llm-basics.md)
+**함께 보기:** [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Embedding model](03-building.md#embedding-model--임베딩-모델), [Vector DB / Embedding search](03-building.md#vector-db--embedding-search--벡터db--임베딩-검색), [Embedding](01-llm-basics.md#embedding--임베딩)
 
 **출처:** Pinecone, *Chunking Strategies for LLM Applications*, [pinecone.io](https://www.pinecone.io/learn/chunking-strategies/) ("chunking is the process of breaking down large text into smaller segments called chunks"). (RAG 실무 개념 — 단일 정본·유일 창시 없음)
 
@@ -254,7 +254,7 @@
 - **"JSON mode면 스키마까지 지켜진다"** — 아니다. 단순 JSON mode는 *유효한 JSON*만 보장하고, 내가 정한 *스키마 준수*까지는 보장하지 않는다. 스키마 강제는 Structured Outputs 계열의 기능이다.
 - **"형식만 맞으면 내용도 맞다"** — 아니다. 틀은 맞아도 값이 틀릴 수 있다. 구조화 출력은 **형식**을 보장할 뿐 사실 정확성까지 보장하지는 않는다.
 
-**함께 보기:** [Tool use / Function calling](03-building.md), [Agent](03-building.md)
+**함께 보기:** [Tool use / Function calling](03-building.md#tool-use--function-calling--도구-사용--함수-호출), [Agent](03-building.md#agent--에이전트-ai-agent)
 
 **출처:** OpenAI, *Structured Outputs*, [developers.openai.com](https://developers.openai.com/api/docs/guides/structured-outputs) ("ensures the model will always generate responses that adhere to your supplied JSON Schema"; "only Structured Outputs ensure schema adherence"; 확인 2026-07-12). 보조: Anthropic, *Increase output consistency / Structured outputs*, [platform.claude.com](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) ("guaranteed schema compliance"). (벤더별 구현 병존 — 유일 창시 아님.)
 
@@ -283,7 +283,7 @@
 - **"하네스는 하나의 뜻"** — 평가 하네스와 에이전트 하네스는 겹치지만 같지 않다. 어느 쪽인지 문맥으로 가려야 한다.
 - **"표준 정의가 있다"** — **없다.** Anthropic 공식 용어집에도 항목이 없다(2026-08-27 확인). 업계 통용어 단계다.
 
-**함께 보기:** [Agent](03-building.md#agent--에이전트-ai-agent), [Evals](07-dev-stages.md#evals--평가벤치마크-evaluation--benchmarks), [Guardrails](12-safety-governance.md), [MCP](03-building.md#mcp--모델-컨텍스트-프로토콜-model-context-protocol)
+**함께 보기:** [Agent](03-building.md#agent--에이전트-ai-agent), [Evals](07-dev-stages.md#evals--평가벤치마크-evaluation--benchmarks), [Guardrails](12-safety-governance.md#guardrails--가드레일), [MCP](03-building.md#mcp--모델-컨텍스트-프로토콜-model-context-protocol)
 
 **출처:** 평가 하네스 — EleutherAI, *lm-evaluation-harness*, [github.com/EleutherAI/lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) ("A framework for few-shot evaluation of language models."; 확인 2026-08-27). 에이전트 하네스 — Anthropic, *A harness for every task: dynamic workflows in Claude Code*(블로그, 2026-06-02), [claude.com/blog](https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code). ⚠ **Anthropic 공식 용어집에는 harness 항목이 없다**(2026-08-27 확인) — 표준 정의가 아직 없는 통용어이며, 유일 창시도 없다.
 
@@ -311,6 +311,6 @@
 - **"컨텍스트 윈도우가 곧 기억이다"** — 아니다. 그건 단기 기억일 뿐, 창 밖으로 밀려나거나 세션이 끝나면 사라진다. 장기 기억은 **별도 저장소**가 있어야 한다.
 - **단일 표준 정의·정본 없음** — 아래는 대표적 프레임워크 문서 기준이며, "에이전트 메모리"의 구현·구분(단기/장기)은 표준화돼 있지 않다(제품마다 다르다).
 
-**함께 보기:** [Context window](01-llm-basics.md), [Agent](03-building.md), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Context engineering](02-prompting.md)
+**함께 보기:** [Context window](01-llm-basics.md#context-window--컨텍스트-윈도우), [Agent](03-building.md#agent--에이전트-ai-agent), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Context engineering](02-prompting.md#context-engineering--컨텍스트-엔지니어링)
 
 **출처:** LangChain, *LangMem — Core Concepts*, [langchain-ai.github.io/langmem](https://langchain-ai.github.io/langmem/concepts/conceptual_guide/) ("Long-term memory allows agents to remember important information across conversations"; 단기=현재 대화 컨텍스트 / 장기=대화를 넘어 지속; 확인 2026-07-12). 참고: Anthropic도 별도 *Agent memory* 문서를 둔다([platform.claude.com](https://platform.claude.com/docs/en/docs/build-with-claude/agent-memory)). (프레임워크·제공사별 구현 — 단일 정본 없음.)

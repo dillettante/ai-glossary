@@ -54,7 +54,7 @@
 
 **흔한 오해:** "Git = GitHub"이 가장 흔한 오해다. **Git은 인터넷 없이 내 노트북 안에서도 완전히 돌아가는 도구**이고, GitHub은 그 저장소를 온라인에 올려 공유하는 여러 서비스 중 하나다(Git ≠ GitHub). Git이 GitHub의 소유물도 아니다 — Git은 오픈소스이고, GitHub은 이를 호스팅하는 별개 회사 서비스다.
 
-**함께 보기:** [Repository (repo)](#repository-repo--리포지터리저장소), [Clone / Pull / Push](#clone--pull--push--클론풀푸시), [10-dev-infra.md](10-dev-infra.md)
+**함께 보기:** [Repository (repo)](#repository-repo--리포지터리저장소), [Clone / Pull / Push](#clone--pull--push--클론풀푸시), [CLI](10-dev-infra.md#cli--커맨드라인-인터페이스-command-line-interface)
 
 **출처:** Scott Chacon & Ben Straub, *Pro Git* (2판) — "What is Git?" 및 "A Short History of Git", [git-scm.com/book](https://git-scm.com/book/en/v2/Getting-Started-A-Short-History-of-Git); git 매뉴얼, [git-scm.com/docs/git](https://git-scm.com/docs/git); GitHub 소유권: Microsoft, *Microsoft to acquire GitHub for $7.5 billion* (2018-06-04), [news.microsoft.com](https://news.microsoft.com/source/2018/06/04/microsoft-to-acquire-github-for-7-5-billion/). (확인 — Git은 Torvalds가 2005년 창시, 단일 도구; GitHub은 별개 상용 서비스.)
 

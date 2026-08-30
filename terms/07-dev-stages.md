@@ -23,9 +23,9 @@
 - "이 아이디어의 MVP를 만들어줘 — 핵심 기능 하나만, 실제 사용자가 쓸 수 있게."
 - "부가 기능은 빼고, 가입 → 핵심 가치 경험까지만 되는 MVP로 좁혀줘."
 
-**흔한 오해:** MVP는 조잡하게 대충 만든 반쪽 제품이 아니다. 최소지만 **실제로 가치를 주고 학습을 얻을 만큼은 '작동(viable)'해야** 한다. 또 [PoC](07-dev-stages.md)와 달리 **고객에게 실제로 내놓는다**(PoC는 기술 검증용 실험으로 대개 검증 뒤 폐기한다).
+**흔한 오해:** MVP는 조잡하게 대충 만든 반쪽 제품이 아니다. 최소지만 **실제로 가치를 주고 학습을 얻을 만큼은 '작동(viable)'해야** 한다. 또 [PoC](07-dev-stages.md#poc--개념-증명-proof-of-concept)와 달리 **고객에게 실제로 내놓는다**(PoC는 기술 검증용 실험으로 대개 검증 뒤 폐기한다).
 
-**함께 보기:** [PoC](07-dev-stages.md), [Production Ready](07-dev-stages.md)
+**함께 보기:** [PoC](07-dev-stages.md#poc--개념-증명-proof-of-concept), [Production Ready](07-dev-stages.md#production-ready--프로덕션-레디-production-readiness)
 
 **출처:** Eric Ries, *The Lean Startup* — 원문 정의: [startuplessonslearned.com (2009)](https://www.startuplessonslearned.com/2009/08/minimum-viable-product-guide.html). (용어 대중화는 Ries, 초기 개념은 Frank Robinson(2001) — 유일 창시 아님.)
 
@@ -49,9 +49,9 @@
 - "이 방식이 되는지만 확인하는 PoC를 짜줘 — 예쁠 필요 없고, 핵심 동작 하나만 증명되면 돼."
 - "이 API로 원하는 데이터가 실제로 나오는지 PoC로 빠르게 검증해줘."
 
-**흔한 오해:** PoC는 **제품의 첫 버전이 아니다.** 오직 "기술적으로 실현 가능한가"라는 질문에만 답하는 실험이며, [MVP](07-dev-stages.md)와 달리 **고객에게 내놓지 않고** 검증이 끝나면 대개 폐기한다.
+**흔한 오해:** PoC는 **제품의 첫 버전이 아니다.** 오직 "기술적으로 실현 가능한가"라는 질문에만 답하는 실험이며, [MVP](07-dev-stages.md#mvp--최소-기능-제품-minimum-viable-product)와 달리 **고객에게 내놓지 않고** 검증이 끝나면 대개 폐기한다.
 
-**함께 보기:** [MVP](07-dev-stages.md), [Production Ready](07-dev-stages.md)
+**함께 보기:** [MVP](07-dev-stages.md#mvp--최소-기능-제품-minimum-viable-product), [Production Ready](07-dev-stages.md#production-ready--프로덕션-레디-production-readiness)
 
 **출처:** 단일 창시 정본이 없는 업계·학술 통용어로, 대표 서술은 [Wikipedia, *Proof of concept*](https://en.wikipedia.org/wiki/Proof_of_concept) 등 표준 정의를 따른다(특정 논문·벤더의 유일 창시 아님).
 
@@ -77,7 +77,7 @@
 
 **흔한 오해:** **"로컬에서 잘 돎"은 프로덕션 레디가 아니다.** 관측성·장애 복구·용량·보안·변경 관리가 함께 갖춰져야 한다. 또한 단 하나의 "정의 문장"이 있는 게 아니라, 구글 SRE의 **프로덕션 준비도 검토(PRR, Production Readiness Review) 체크리스트**가 사실상의 표준 역할을 한다(특정 논문의 유일 창시 개념이 아님).
 
-**함께 보기:** [PoC](07-dev-stages.md), [MVP](07-dev-stages.md)
+**함께 보기:** [PoC](07-dev-stages.md#poc--개념-증명-proof-of-concept), [MVP](07-dev-stages.md#mvp--최소-기능-제품-minimum-viable-product)
 
 **출처:** Google, *Site Reliability Engineering* — Production Readiness Review: [sre.google/sre-book](https://sre.google/sre-book/evolving-sre-engagement-model/). (특정 벤더의 실무 표준이며 유일 창시 정의가 아님.)
 
@@ -106,6 +106,6 @@
 - **"벤치마크 점수 = 실사용 성능"** — 아니다. 점수는 특정 문제지에서의 성적일 뿐이다. **데이터 오염**(시험 문제가 학습 데이터에 섞임)·**과적합**(그 벤치마크에만 맞춰 튜닝)·**도메인 불일치**(내 업무와 다른 과제)로, 높은 점수가 실무 성능을 보장하지 않는다.
 - **"evals에는 하나의 정본 정의가 있다"** — 아니다. 'evals'는 단일 정본이 없는 넓은 실무 개념이다. MMLU·HELM 같은 대표 벤치마크는 있으나, 무엇을·어떻게 재느냐는 목적마다 다르다.
 
-**함께 보기:** [MVP](07-dev-stages.md), [Production Ready](07-dev-stages.md), [LLM 기초](01-llm-basics.md), [파인튜닝](04-finetuning.md)
+**함께 보기:** [MVP](07-dev-stages.md#mvp--최소-기능-제품-minimum-viable-product), [Production Ready](07-dev-stages.md#production-ready--프로덕션-레디-production-readiness), [LLM 기초](01-llm-basics.md#llm--대규모-언어-모델-large-language-model--foundation-model--파운데이션-모델), [파인튜닝](04-finetuning.md#full-fine-tuning--전체-파인튜닝)
 
 **출처:** 대표 벤치마크 — Hendrycks et al. (2020), *Measuring Massive Multitask Language Understanding* (MMLU), [arXiv:2009.03300](https://arxiv.org/abs/2009.03300); Liang et al. (2022), *Holistic Evaluation of Language Models* (HELM), [arXiv:2211.09110](https://arxiv.org/abs/2211.09110). ('evals'는 단일 정본 없는 넓은 실무 개념 — 대표 출처이며 유일 정의 아님.)

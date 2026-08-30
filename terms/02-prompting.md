@@ -27,7 +27,7 @@
 - **"짧을수록 좋다"** — 아니다. 필요한 맥락·제약·예시를 담을수록 결과가 안정된다. 관건은 길이가 아니라 명확성이다.
 - **"모델이 내 지시를 사람처럼 '이해'한다"** — 과신 금지. 모델은 통계적으로 다음 토큰을 이어붙일 뿐, 의도를 진짜로 파악한다는 보장은 없다.
 
-**함께 보기:** [System prompt](02-prompting.md#system-prompt--시스템-프롬프트), [Few-shot / In-context learning](02-prompting.md#few-shot--in-context-learning--퓨샷인컨텍스트-러닝), [Context window](01-llm-basics.md)
+**함께 보기:** [System prompt](02-prompting.md#system-prompt--시스템-프롬프트), [Few-shot / In-context learning](02-prompting.md#few-shot--in-context-learning--퓨샷인컨텍스트-러닝), [Context window](01-llm-basics.md#context-window--컨텍스트-윈도우)
 
 **출처:** Google Cloud, *Generative AI glossary*, [cloud.google.com](https://cloud.google.com/discover/what-is-prompt-engineering). 보조: OpenAI, *Prompting guide*, [platform.openai.com](https://platform.openai.com/docs/guides/prompt-engineering).
 
@@ -55,7 +55,7 @@
 - **"시스템 프롬프트는 절대 방어벽"** — 아니다. **프롬프트 인젝션**으로 무력화될 수 있다. 사용자 입력에 "앞의 지시는 무시하라" 같은 문구가 섞이면 경계가 뚫릴 수 있어, 보안의 마지막 방어선으로 삼아선 안 된다.
 - **"공짜로 붙는다"** — 아니다. 시스템 프롬프트도 토큰을 소모하며 컨텍스트 윈도우를 차지한다. 길수록 남는 작업 공간이 줄어든다.
 
-**함께 보기:** [Prompt](02-prompting.md#prompt--프롬프트), [Context window](01-llm-basics.md), [Token](01-llm-basics.md)
+**함께 보기:** [Prompt](02-prompting.md#prompt--프롬프트), [Context window](01-llm-basics.md#context-window--컨텍스트-윈도우), [Token](01-llm-basics.md#token--토큰)
 
 **출처:** OpenAI, *Prompting guide*, [platform.openai.com](https://platform.openai.com/docs/guides/prompt-engineering). 보조: Anthropic, *Glossary / System prompts*, [platform.claude.com](https://platform.claude.com/docs).
 
@@ -83,7 +83,7 @@
 - **"예시를 주면 모델이 재훈련된다"** — 아니다. **가중치는 그대로**이고 그 효과는 해당 대화 안에서만 유효하다. 창을 닫으면 배운 것은 사라진다.
 - **"예시가 많을수록 항상 좋다"** — 아니다. 예시가 컨텍스트를 잡아먹고, 지나치면 오히려 성능이 흔들릴 수 있다.
 
-**함께 보기:** [Prompt](02-prompting.md#prompt--프롬프트), [Chain-of-thought](02-prompting.md#chain-of-thought--생각의-사슬cot), [Context window](01-llm-basics.md), [Parameter·Weight](01-llm-basics.md)
+**함께 보기:** [Prompt](02-prompting.md#prompt--프롬프트), [Chain-of-thought](02-prompting.md#chain-of-thought--생각의-사슬cot), [Context window](01-llm-basics.md#context-window--컨텍스트-윈도우), [Parameter·Weight](01-llm-basics.md#parameter--weight--파라미터가중치)
 
 **출처:** Brown et al. (2020), *Language Models are Few-Shot Learners*, [arXiv:2005.14165](https://arxiv.org/abs/2005.14165) (NeurIPS 2020). 보조: Google Cloud, *GenAI glossary*.
 
@@ -111,7 +111,7 @@
 - **"출력된 추론 = 모델의 진짜 속마음"** — 아니다. 밖으로 적히는 단계는 그럴듯한 **사후 합리화**일 수 있고, 실제 내부 연산과 일치한다는 보장은 없다.
 - **"어떤 모델에서든 효과가 같다"** — 아니다. 원 논문 관찰상 이득은 주로 **충분히 큰 모델**에서 나타났고, 작은 모델에선 효과가 제한적이었다.
 
-**함께 보기:** [Few-shot / In-context learning](02-prompting.md#few-shot--in-context-learning--퓨샷인컨텍스트-러닝), [Prompt](02-prompting.md#prompt--프롬프트), [Hallucination](01-llm-basics.md)
+**함께 보기:** [Few-shot / In-context learning](02-prompting.md#few-shot--in-context-learning--퓨샷인컨텍스트-러닝), [Prompt](02-prompting.md#prompt--프롬프트), [Hallucination](01-llm-basics.md#hallucination--환각할루시네이션)
 
 **출처:** Wei et al. (2022), *Chain-of-Thought Prompting Elicits Reasoning in Large Language Models*, [arXiv:2201.11903](https://arxiv.org/abs/2201.11903) (NeurIPS 2022).
 
@@ -140,7 +140,7 @@
 - **"보이는(또는 요약된) 생각 = 모델의 진짜 속마음"** — 아니다. 노출되는 추론은 그럴듯한 서술일 수 있고, 실제 내부 연산과 일치한다는 보장은 없다(CoT와 같은 한계).
 - **"항상 켜는 게 낫다"** — 아니다. 추론 토큰은 비용·지연·컨텍스트를 소모하므로 단순 과제엔 비효율적이다.
 
-**함께 보기:** [Chain-of-thought](02-prompting.md#chain-of-thought--생각의-사슬cot), [Prompt](02-prompting.md#prompt--프롬프트), [Context window](01-llm-basics.md)
+**함께 보기:** [Chain-of-thought](02-prompting.md#chain-of-thought--생각의-사슬cot), [Prompt](02-prompting.md#prompt--프롬프트), [Context window](01-llm-basics.md#context-window--컨텍스트-윈도우)
 
 **출처:** OpenAI, *Reasoning models* 가이드, [developers.openai.com](https://developers.openai.com/api/docs/guides/reasoning) ("Reasoning models … use internal reasoning tokens before producing a response"). 보조: Anthropic, *Extended thinking*, [platform.claude.com](https://platform.claude.com/docs/en/docs/build-with-claude/extended-thinking) ("step-by-step thought process before it delivers its final answer"). (벤더별 구현 병존 — 유일 창시 아님)
 
@@ -169,7 +169,7 @@
 - **"많이 넣을수록 똑똑해진다"** — 아니다. 컨텍스트가 길어질수록 성능이 떨어지는 현상이 보고된다. 관건은 양이 아니라 신호 대 잡음이다.
 - **신생 용어 · 단일 정본 없음** — 아직 표준 정의가 굳지 않은 업계 신생 용어다. 아래는 대표 출처이며 유일한 정의가 아니다.
 
-**함께 보기:** [Prompt](02-prompting.md#prompt--프롬프트), [System prompt](02-prompting.md#system-prompt--시스템-프롬프트), [Context window](01-llm-basics.md), [RAG](03-building.md)
+**함께 보기:** [Prompt](02-prompting.md#prompt--프롬프트), [System prompt](02-prompting.md#system-prompt--시스템-프롬프트), [Context window](01-llm-basics.md#context-window--컨텍스트-윈도우), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation)
 
 **출처:** Anthropic, *Effective context engineering for AI agents*, [anthropic.com](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) (컨텍스트 = "the set of tokens included when sampling from an LLM"; 프롬프트 엔지니어링과의 구분·"context rot" 서술). (신생 용어 — 유일 창시·표준 정의 없음)
 
@@ -200,6 +200,6 @@
 - **"인젝션과 탈옥은 같은 말"** — 아니다. **인젝션 = 지시 출처 탈취**(신뢰할 수 없는 데이터가 명령이 됨), **탈옥 = 안전정책 우회**(금지된 출력 유도). 겹칠 때도 있지만(탈옥용 문구를 문서에 숨겨 인젝션하는 식) 개념은 다르다. (다만 OWASP 등 일부 분류는 탈옥을 인젝션의 한 하위 유형으로 보기도 한다.)
 - **"시스템 프롬프트로 막으면 끝"** — 아니다. [System prompt](02-prompting.md#system-prompt--시스템-프롬프트)에 "지시를 무시당하지 마라"라고 적어도, 프롬프트 인젝션으로 무력화될 수 있다. 시스템 프롬프트는 보안의 마지막 방어선이 아니다(→ System prompt 항목의 '흔한 오해'와 연결).
 
-**함께 보기:** [System prompt](02-prompting.md#system-prompt--시스템-프롬프트), [Prompt](02-prompting.md#prompt--프롬프트), [에이전트·도구 사용](03-building.md)
+**함께 보기:** [System prompt](02-prompting.md#system-prompt--시스템-프롬프트), [Prompt](02-prompting.md#prompt--프롬프트), [에이전트·도구 사용](03-building.md#tool-use--function-calling--도구-사용--함수-호출)
 
 **출처:** 인젝션 명명 — Simon Willison, *Prompt injection attacks against GPT-3* (2022-09-12), [simonwillison.net](https://simonwillison.net/2022/Sep/12/prompt-injection/) ("I propose that the obvious name for this should be prompt injection"; 유일 창시 아님, 대표 명명). 실무 표준 — OWASP, *Top 10 for LLM Applications* LLM01: Prompt Injection, [genai.owasp.org](https://genai.owasp.org/llmrisk/llm01-prompt-injection/) ("occurs when user prompts alter the LLM's behavior or output in unintended ways"). 탈옥 학술 — Wei et al. (2023), *Jailbroken: How Does LLM Safety Training Fail?*, [arXiv:2307.02483](https://arxiv.org/abs/2307.02483).

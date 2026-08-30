@@ -24,7 +24,7 @@
 
 **흔한 오해:** 사람이 **정답을 직접 써 주는 게 아니다.** 사람은 두 답 중 어느 쪽이 나은지 **선호 비교(순위)**만 하고, 그 비교로 보상모델을 학습시킨다.
 
-**함께 보기:** [RLAIF](05-alignment-rl.md#rlaif--ai-피드백-기반-강화학습-reinforcement-learning-from-ai-feedback), [DPO](05-alignment-rl.md#dpo--직접-선호-최적화-direct-preference-optimization), [GRPO](05-alignment-rl.md#grpo--그룹-상대-정책-최적화-group-relative-policy-optimization), [Instruction Tuning](04-finetuning.md)
+**함께 보기:** [RLAIF](05-alignment-rl.md#rlaif--ai-피드백-기반-강화학습-reinforcement-learning-from-ai-feedback), [DPO](05-alignment-rl.md#dpo--직접-선호-최적화-direct-preference-optimization), [GRPO](05-alignment-rl.md#grpo--그룹-상대-정책-최적화-group-relative-policy-optimization), [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝)
 
 **출처:** Christiano et al. (2017), *Deep Reinforcement Learning from Human Preferences*, [arXiv:1706.03741](https://arxiv.org/abs/1706.03741) (기원). LLM 표준화: Ouyang et al. (2022), *Training Language Models to Follow Instructions with Human Feedback* (통칭 InstructGPT), [arXiv:2203.02155](https://arxiv.org/abs/2203.02155).
 
@@ -127,7 +127,7 @@
 - **"정렬 = 성능 향상"** — 아니다. 정렬은 *유능함*이 아니라 *의도·가치와의 부합*을 다룬다. 둘은 별개 축이다.
 - **단일 표준 정의 없음** — 아래는 대표적 서술이며, "정렬"은 넓은 개념이라 단일 정본 정의가 없다(연구자·기관마다 강조점이 다르다).
 
-**함께 보기:** [RLHF](05-alignment-rl.md#rlhf--인간-피드백-기반-강화학습-reinforcement-learning-from-human-feedback), [RLAIF](05-alignment-rl.md#rlaif--ai-피드백-기반-강화학습-reinforcement-learning-from-ai-feedback), [DPO](05-alignment-rl.md#dpo--직접-선호-최적화-direct-preference-optimization), [Guardrails](12-safety-governance.md)
+**함께 보기:** [RLHF](05-alignment-rl.md#rlhf--인간-피드백-기반-강화학습-reinforcement-learning-from-human-feedback), [RLAIF](05-alignment-rl.md#rlaif--ai-피드백-기반-강화학습-reinforcement-learning-from-ai-feedback), [DPO](05-alignment-rl.md#dpo--직접-선호-최적화-direct-preference-optimization), [Guardrails](12-safety-governance.md#guardrails--가드레일)
 
 **출처:** 대표 서술 — *AI alignment*, [en.wikipedia.org/wiki/AI_alignment](https://en.wikipedia.org/wiki/AI_alignment) ("steer AI systems toward a person's or group's intended goals, preferences, or ethical principles"; 확인 2026-07-12). 기관 예시 — Anthropic은 정렬 목표를 "helpful, honest, and harmless(도움되고·정직하고·해롭지 않게)"로 서술한다(*Alignment faking in large language models*, [anthropic.com](https://www.anthropic.com/research/alignment-faking)). (넓은 개념 — 단일 정본 정의 없음.)
 

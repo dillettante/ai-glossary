@@ -25,7 +25,7 @@
 
 **흔한 오해:** **"토큰 = 단어"가 아니다.** 긴 단어 하나가 여러 토큰으로 쪼개지기도 하고, 공백·문장부호도 토큰을 차지한다. 또 한국어는 같은 의미를 담는 데 영어보다 토큰을 더 쓰는 경우가 많다.
 
-**함께 보기:** [Context window](01-llm-basics.md), [Temperature](01-llm-basics.md)
+**함께 보기:** [Context window](01-llm-basics.md#context-window--컨텍스트-윈도우), [Temperature](01-llm-basics.md#temperature--온도)
 
 **출처:** Anthropic, *Glossary* (platform.claude.com/docs), [https://platform.claude.com/docs](https://platform.claude.com/docs); 보조: Google Cloud, *Generative AI glossary*.
 
@@ -80,7 +80,7 @@
 
 **흔한 오해:** 컨텍스트 윈도우는 모델이 **학습한 데이터의 양**과 다르다(그건 훈련 때 이미 굳은 지식이다). 또 창 밖으로 밀려난 초반 대화는 **자동으로 기억되지 않는다** — 필요하면 다시 넣어줘야 한다.
 
-**함께 보기:** [Token](01-llm-basics.md), [Inference](01-llm-basics.md)
+**함께 보기:** [Token](01-llm-basics.md#token--토큰), [Inference](01-llm-basics.md#inference--추론실행단계)
 
 **출처:** Anthropic, *Glossary* (platform.claude.com/docs), [https://platform.claude.com/docs](https://platform.claude.com/docs); 보조: Google Cloud, *Generative AI glossary*.
 
@@ -97,7 +97,7 @@
 **비유 (쉽게):** 모든 단어에 **지도 좌표를 붙이는 것**. 뜻이 비슷한 단어는 지도에서 가까이 모인다 — '왕'과 '여왕'이 이웃이 되는 식이다. 컴퓨터는 이 좌표 사이의 거리를 재서 "의미가 얼마나 가까운가"를 계산한다.
 
 **왜 중요한가 / 언제 쓰나:**
-- 의미 기반 검색·추천·[RAG](03-building.md)의 바탕이 된다 — 키워드가 달라도 뜻이 가까우면 찾아낸다.
+- 의미 기반 검색·추천·[RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation)의 바탕이 된다 — 키워드가 달라도 뜻이 가까우면 찾아낸다.
 - 텍스트를 숫자로 바꿔야 기계가 "유사도"를 계산할 수 있는데, 그 다리 역할을 한다.
 
 **실무 예시 / AI에게 이렇게 말한다:**
@@ -106,7 +106,7 @@
 
 **흔한 오해:** **임베딩 자체가 검색(RAG)은 아니다** — 임베딩은 "의미를 좌표로 바꾸는 표현"이고, 그 좌표로 가까운 것을 찾아 답에 쓰는 것이 검색·RAG다. 임베딩은 그 재료일 뿐이다.
 
-**함께 보기:** [Vector DB / Embedding search](03-building.md), [RAG](03-building.md), [Token](01-llm-basics.md)
+**함께 보기:** [Vector DB / Embedding search](03-building.md#vector-db--embedding-search--벡터db--임베딩-검색), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Token](01-llm-basics.md#token--토큰)
 
 **출처:** Mikolov et al. (2013), *Efficient Estimation of Word Representations in Vector Space* (word2vec), [arXiv:1301.3781](https://arxiv.org/abs/1301.3781); 보조 정의: Google Cloud, *Generative AI glossary*. (word2vec은 임베딩을 대표하는 출처이며 이 용어의 **유일한 창시 논문은 아니다** — 임베딩 개념은 그 이전·이후 여러 계보를 가진다.)
 
@@ -124,15 +124,15 @@
 
 **왜 중요한가 / 언제 쓰나:**
 - 법률·의료·수치처럼 **정확성이 생명인 영역**에서 특히 위험하다 — 출력이 유창할수록 오히려 속기 쉽다.
-- 그래서 중요한 답은 [RAG](03-building.md)로 근거 문서를 붙이거나, 사람이 출처를 검증하는 절차가 필요하다.
+- 그래서 중요한 답은 [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation)로 근거 문서를 붙이거나, 사람이 출처를 검증하는 절차가 필요하다.
 
 **실무 예시 / AI에게 이렇게 말한다:**
 - "확실하지 않으면 지어내지 말고 '모른다'고 해줘."
 - "각 주장 옆에 근거 출처를 달고, 없으면 '확인 필요'로 표시해줘."
 
-**흔한 오해:** 환각을 **"거짓말"로 의인화하지 말 것** — 모델이 속이려는 의도가 있는 게 아니라, 다음 토큰을 확률적으로 잇는 과정에서 나오는 부산물이다. 또 [Temperature](01-llm-basics.md)를 0으로 낮춰도 환각은 **완전히 사라지지 않는다.**
+**흔한 오해:** 환각을 **"거짓말"로 의인화하지 말 것** — 모델이 속이려는 의도가 있는 게 아니라, 다음 토큰을 확률적으로 잇는 과정에서 나오는 부산물이다. 또 [Temperature](01-llm-basics.md#temperature--온도)를 0으로 낮춰도 환각은 **완전히 사라지지 않는다.**
 
-**함께 보기:** [RAG](03-building.md), [Temperature](01-llm-basics.md), [Inference](01-llm-basics.md)
+**함께 보기:** [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation), [Temperature](01-llm-basics.md#temperature--온도), [Inference](01-llm-basics.md#inference--추론실행단계)
 
 **출처:** Ji et al. (2022), *Survey of Hallucination in Natural Language Generation*, [arXiv:2202.03629](https://arxiv.org/abs/2202.03629) (ACM Computing Surveys); 보조 정의: Google Cloud, *Generative AI glossary*. (이는 현상을 정리한 **서베이(2차 문헌)**로, 환각을 처음 규정한 단일 창시 논문을 특정하기는 어렵다.)
 
@@ -157,10 +157,10 @@
 - "추론 속도가 느린데, 응답 길이를 줄여서 빠르게 해줘."
 
 **흔한 오해:**
-- **추론(inference)은 학습(training)과 다르다** — 추론 중에는 모델의 [가중치](01-llm-basics.md)가 바뀌지 않는다(실력이 고정된 채로 쓰기만 한다).
+- **추론(inference)은 학습(training)과 다르다** — 추론 중에는 모델의 [가중치](01-llm-basics.md#parameter--weight--파라미터가중치)가 바뀌지 않는다(실력이 고정된 채로 쓰기만 한다).
 - 한글 "추론"이 겹쳐 **reasoning(사고력·단계적 사고)과 혼동되기 쉽다.** 여기서 inference는 "모델을 실행하는 단계"를 뜻하고, reasoning은 "문제를 단계적으로 풀어내는 능력"을 뜻하는 별개 개념이다.
 
-**함께 보기:** [Parameter / Weight](01-llm-basics.md), [Context window](01-llm-basics.md)
+**함께 보기:** [Parameter / Weight](01-llm-basics.md#parameter--weight--파라미터가중치), [Context window](01-llm-basics.md#context-window--컨텍스트-윈도우)
 
 **출처:** Google, *Machine Learning Glossary*, [https://developers.google.com/machine-learning/glossary](https://developers.google.com/machine-learning/glossary).
 
@@ -178,7 +178,7 @@
 
 **왜 중요한가 / 언제 쓰나:**
 - "70억(7B)·700억(70B) 파라미터 모델" 같은 표현이 모델의 크기를 가리킬 때 쓰인다.
-- 파인튜닝·[LoRA](04-finetuning.md) 같은 커스터마이징은 결국 "어떤 손잡이를, 얼마나 건드리느냐"의 문제다.
+- 파인튜닝·[LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation) 같은 커스터마이징은 결국 "어떤 손잡이를, 얼마나 건드리느냐"의 문제다.
 
 **실무 예시 / AI에게 이렇게 말한다:**
 - "이 작업엔 굳이 큰 모델이 필요 없으니, 작은 파라미터 모델로 충분한지 보자."
@@ -186,9 +186,9 @@
 
 **흔한 오해:**
 - **"파라미터가 많을수록 항상 더 똑똑"한 것은 아니다** — 데이터 품질·학습 방법·용도 적합성이 크기만큼 중요하다.
-- 학습으로 조정되는 파라미터(weight·bias)와, 사람이 실행 전에 손으로 정하는 **하이퍼파라미터([온도](01-llm-basics.md) 등)를 혼동하지 말 것.**
+- 학습으로 조정되는 파라미터(weight·bias)와, 사람이 실행 전에 손으로 정하는 **하이퍼파라미터([온도](01-llm-basics.md#temperature--온도) 등)를 혼동하지 말 것.**
 
-**함께 보기:** [Inference](01-llm-basics.md), [Temperature](01-llm-basics.md)
+**함께 보기:** [Inference](01-llm-basics.md#inference--추론실행단계), [Temperature](01-llm-basics.md#temperature--온도)
 
 **출처:** Google Cloud, *Generative AI glossary*; IBM, *What are LLM parameters?*, [https://www.ibm.com/think/topics/llm-parameters](https://www.ibm.com/think/topics/llm-parameters).
 
@@ -216,7 +216,7 @@
 - **온도 0이라고 매번 완전히 똑같은 출력이 나오는 것은 아니다** — Anthropic도 온도 0이 완전한 결정론을 보장하지는 않는다고 명시한다.
 - 온도가 높다고 해서 답이 **"더 똑똑"해지는 것도 아니다** — 다양해질 뿐, 정확도가 올라가는 게 아니다.
 
-**함께 보기:** [Token](01-llm-basics.md), [Hallucination](01-llm-basics.md), [Parameter / Weight](01-llm-basics.md)
+**함께 보기:** [Token](01-llm-basics.md#token--토큰), [Hallucination](01-llm-basics.md#hallucination--환각할루시네이션), [Parameter / Weight](01-llm-basics.md#parameter--weight--파라미터가중치)
 
 **출처:** Anthropic, *Glossary* (platform.claude.com/docs), [https://platform.claude.com/docs](https://platform.claude.com/docs); 보조: Google Cloud, *Generative AI glossary*.
 
@@ -240,9 +240,9 @@
 - "이 계약서 스캔 이미지를 읽고 핵심 조항을 정리해줘."
 - "이 도표 사진에서 숫자를 뽑아 표로 만들어줘."
 
-**흔한 오해:** **"이미지도 되니 모델이 진짜로 본다"는 뜻이 아니다** — 사람처럼 이해하는 게 아니라 여전히 확률적으로 처리하므로, 사진 속 글자를 잘못 읽거나 없는 것을 지어내는 [환각](01-llm-basics.md)이 얼마든지 생길 수 있다. 또 **형식마다 성능이 고르지 않다** — 텍스트는 잘해도 음성·영상은 약할 수 있다.
+**흔한 오해:** **"이미지도 되니 모델이 진짜로 본다"는 뜻이 아니다** — 사람처럼 이해하는 게 아니라 여전히 확률적으로 처리하므로, 사진 속 글자를 잘못 읽거나 없는 것을 지어내는 [환각](01-llm-basics.md#hallucination--환각할루시네이션)이 얼마든지 생길 수 있다. 또 **형식마다 성능이 고르지 않다** — 텍스트는 잘해도 음성·영상은 약할 수 있다.
 
-**함께 보기:** [Hallucination](01-llm-basics.md), [Token](01-llm-basics.md), [Embedding](01-llm-basics.md)
+**함께 보기:** [Hallucination](01-llm-basics.md#hallucination--환각할루시네이션), [Token](01-llm-basics.md#token--토큰), [Embedding](01-llm-basics.md#embedding--임베딩)
 
 **출처:** Radford et al. (2021), *Learning Transferable Visual Models From Natural Language Supervision* (CLIP), [arXiv:2103.00020](https://arxiv.org/abs/2103.00020); 보조 정의: Google Cloud, *Generative AI glossary*. (CLIP은 이미지·텍스트를 잇는 **대표적 멀티모달 학습 사례**일 뿐, 멀티모달이라는 넓은 개념의 **유일한 창시 논문은 아니다** — 음성·영상 등 다른 계보가 병존한다.)
 
@@ -260,15 +260,15 @@
 
 **왜 중요한가 / 언제 쓰나:**
 - 최신 뉴스·법령 개정·시세처럼 **컷오프 이후의 사실**을 물으면, 모델이 모르거나 옛 정보로 답할 수 있어 반드시 별도 확인이 필요하다.
-- 그래서 최신성이 중요한 작업은 [RAG](03-building.md)·검색·도구로 **바깥의 최신 자료를 붙여** 컷오프의 빈틈을 메운다.
+- 그래서 최신성이 중요한 작업은 [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation)·검색·도구로 **바깥의 최신 자료를 붙여** 컷오프의 빈틈을 메운다.
 
 **실무 예시 / AI에게 이렇게 말한다:**
 - "네 지식 컷오프가 언제인지 먼저 알려주고, 그 이후 내용은 추측하지 말아줘."
 - "최근 개정된 조문이 필요하니, 기억에 의존하지 말고 검색해서 출처와 함께 확인해줘."
 
-**흔한 오해:** **"AI가 인터넷에 실시간으로 연결돼 있다"는 뜻이 아니다** — 기본 상태의 모델은 컷오프까지의 고정된 지식만 가지며, 실시간으로 웹을 뒤지지 않는다. 컷오프 이후를 알려면 검색·[RAG](03-building.md)·도구를 따로 붙여야 한다. 또 컷오프는 "그 날짜 이후 전부 완벽히 안다"는 뜻도 아니다 — 제공사 문서도 지식이 **가장 두텁고 신뢰할 만한 시점**과 학습 데이터의 넓은 범위를 구분해 표기한다.
+**흔한 오해:** **"AI가 인터넷에 실시간으로 연결돼 있다"는 뜻이 아니다** — 기본 상태의 모델은 컷오프까지의 고정된 지식만 가지며, 실시간으로 웹을 뒤지지 않는다. 컷오프 이후를 알려면 검색·[RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation)·도구를 따로 붙여야 한다. 또 컷오프는 "그 날짜 이후 전부 완벽히 안다"는 뜻도 아니다 — 제공사 문서도 지식이 **가장 두텁고 신뢰할 만한 시점**과 학습 데이터의 넓은 범위를 구분해 표기한다.
 
-**함께 보기:** [Hallucination](01-llm-basics.md), [Inference](01-llm-basics.md), [RAG](03-building.md)
+**함께 보기:** [Hallucination](01-llm-basics.md#hallucination--환각할루시네이션), [Inference](01-llm-basics.md#inference--추론실행단계), [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation)
 
 **출처:** 제공사 모델 문서(검증) — Anthropic, *Models overview*, [https://platform.claude.com/docs/en/about-claude/models/overview](https://platform.claude.com/docs/en/about-claude/models/overview) (모델별 "Reliable knowledge cutoff"·"Training data cutoff" 명시); OpenAI, *Models*, [https://developers.openai.com/api/docs/models](https://developers.openai.com/api/docs/models) (모델별 "Knowledge cutoff" 명시). 단일 논문이 아니라 제공사 모델 문서에 근거한 개념이다.
 
@@ -290,13 +290,13 @@
 
 **실무 예시 / AI에게 이렇게 말한다:**
 - "이 작업에 굳이 최상위 LLM이 필요한지, 작은 모델로 충분한지 먼저 따져줘."
-- "범용 파운데이션 모델을 우리 업무 데이터로 [파인튜닝](04-finetuning.md)하면 뭐가 좋아지는지 설명해줘."
+- "범용 파운데이션 모델을 우리 업무 데이터로 [파인튜닝](04-finetuning.md#full-fine-tuning--전체-파인튜닝)하면 뭐가 좋아지는지 설명해줘."
 
 **흔한 오해:**
-- **LLM은 "정답 데이터베이스"가 아니다** — 사실을 찾아 꺼내는 게 아니라 다음 토큰을 확률적으로 이어 붙이는 것이라, 그럴듯한 [환각](01-llm-basics.md)이 섞일 수 있다.
+- **LLM은 "정답 데이터베이스"가 아니다** — 사실을 찾아 꺼내는 게 아니라 다음 토큰을 확률적으로 이어 붙이는 것이라, 그럴듯한 [환각](01-llm-basics.md#hallucination--환각할루시네이션)이 섞일 수 있다.
 - **"LLM = 파운데이션 모델"로 등치하지 말 것** — 파운데이션 모델은 이미지·음성 등 언어가 아닌 것도 포함하는 더 넓은 개념이고, LLM은 그중 언어를 다루는 대표 갈래다.
 
-**함께 보기:** [Token](01-llm-basics.md), [Parameter / Weight](01-llm-basics.md), [Inference](01-llm-basics.md), [Multimodal](01-llm-basics.md), [Pretraining](01-llm-basics.md), [Transformer / Attention](01-llm-basics.md), [Fine-tuning](04-finetuning.md)
+**함께 보기:** [Token](01-llm-basics.md#token--토큰), [Parameter / Weight](01-llm-basics.md#parameter--weight--파라미터가중치), [Inference](01-llm-basics.md#inference--추론실행단계), [Multimodal](01-llm-basics.md#multimodal--멀티모달), [Pretraining](01-llm-basics.md#pretraining--사전학습), [Transformer / Attention](01-llm-basics.md#transformer--attention--트랜스포머--어텐션), [Fine-tuning](04-finetuning.md#full-fine-tuning--전체-파인튜닝)
 
 **출처:** "파운데이션 모델"이라는 명명·정식화는 Bommasani et al. (2021), *On the Opportunities and Risks of Foundation Models*, [arXiv:2108.07258](https://arxiv.org/abs/2108.07258) (Stanford CRFM)에서 검증됨. **LLM은 단일 정본 논문이 없는 넓은 용어**로, 이 항목의 정의는 대표 문헌과 제공사 문서를 종합한 것이며 유일 창시를 특정하지 않는다.
 
@@ -314,7 +314,7 @@
 
 **왜 중요한가 / 언제 쓰나:**
 - **왜 요즘 AI가 갑자기 잘하게 됐는지**를 설명하는 핵심 전환점이다 — 트랜스포머는 문장을 앞에서부터 차례로만 읽던 이전 방식과 달리 병렬 처리가 가능해, 훨씬 크고 빠른 학습을 열었다.
-- [컨텍스트 윈도우](01-llm-basics.md)·[파라미터](01-llm-basics.md) 같은 개념이 왜 성능·비용을 좌우하는지 이해하려면 이 아키텍처가 밑그림이 된다.
+- [컨텍스트 윈도우](01-llm-basics.md#context-window--컨텍스트-윈도우)·[파라미터](01-llm-basics.md#parameter--weight--파라미터가중치) 같은 개념이 왜 성능·비용을 좌우하는지 이해하려면 이 아키텍처가 밑그림이 된다.
 
 **실무 예시 / AI에게 이렇게 말한다:**
 - "어텐션이 긴 문서에서 왜 앞뒤 문맥을 연결할 수 있는지 쉬운 말로 설명해줘."
@@ -322,9 +322,9 @@
 
 **흔한 오해:**
 - **어텐션은 사람의 "집중력"과 같지 않다** — 의식적으로 주의를 기울이는 게 아니라, 단어들 사이 관련도를 숫자 가중치로 계산하는 수학 연산이다.
-- **트랜스포머라고 문장 전체를 무제한으로 보는 것은 아니다** — 한 번에 다룰 수 있는 양은 [컨텍스트 윈도우](01-llm-basics.md)로 제한된다.
+- **트랜스포머라고 문장 전체를 무제한으로 보는 것은 아니다** — 한 번에 다룰 수 있는 양은 [컨텍스트 윈도우](01-llm-basics.md#context-window--컨텍스트-윈도우)로 제한된다.
 
-**함께 보기:** [Parameter / Weight](01-llm-basics.md), [Context window](01-llm-basics.md), [Token](01-llm-basics.md), [Pretraining](01-llm-basics.md), [LLM](01-llm-basics.md)
+**함께 보기:** [Parameter / Weight](01-llm-basics.md#parameter--weight--파라미터가중치), [Context window](01-llm-basics.md#context-window--컨텍스트-윈도우), [Token](01-llm-basics.md#token--토큰), [Pretraining](01-llm-basics.md#pretraining--사전학습), [LLM](01-llm-basics.md#llm--대규모-언어-모델-large-language-model--foundation-model--파운데이션-모델)
 
 **출처:** Vaswani et al. (2017), *Attention Is All You Need*, [arXiv:1706.03762](https://arxiv.org/abs/1706.03762) — 트랜스포머 아키텍처와 어텐션 메커니즘을 정식화한 원 논문(검증).
 
@@ -348,9 +348,9 @@
 - "이 업무 중 생성형 AI로 자동화할 부분과, 전통적 분류·예측이 더 맞는 부분을 나눠줘."
 - "'생성형 AI'라는 표현이 우리 계약서에서 무엇을 가리키는지 범위를 정의해줘."
 
-**흔한 오해:** **"생성형 AI = LLM"이 아니다** — LLM(텍스트)은 생성형 AI의 한 갈래일 뿐, 이미지의 [디퓨전 모델](01-llm-basics.md)처럼 언어가 아닌 생성 방식도 포함한다. 또 **하나의 창시자·정본 정의가 있는 용어가 아니다** — 여러 계보가 합류한 우산 용어다.
+**흔한 오해:** **"생성형 AI = LLM"이 아니다** — LLM(텍스트)은 생성형 AI의 한 갈래일 뿐, 이미지의 [디퓨전 모델](01-llm-basics.md#diffusion-model--디퓨전-모델)처럼 언어가 아닌 생성 방식도 포함한다. 또 **하나의 창시자·정본 정의가 있는 용어가 아니다** — 여러 계보가 합류한 우산 용어다.
 
-**함께 보기:** [LLM](01-llm-basics.md), [Diffusion model](01-llm-basics.md), [Multimodal](01-llm-basics.md), [Hallucination](01-llm-basics.md)
+**함께 보기:** [LLM](01-llm-basics.md#llm--대규모-언어-모델-large-language-model--foundation-model--파운데이션-모델), [Diffusion model](01-llm-basics.md#diffusion-model--디퓨전-모델), [Multimodal](01-llm-basics.md#multimodal--멀티모달), [Hallucination](01-llm-basics.md#hallucination--환각할루시네이션)
 
 **출처:** **단일 창시·정본 정의가 없는 우산 용어**로, 권위 있는 공식 문서의 정의를 인용한다 — Google Cloud, *Generative AI glossary*; IBM, *What is generative AI?*, [https://www.ibm.com/think/topics/generative-ai](https://www.ibm.com/think/topics/generative-ai). 어느 것도 이 용어의 유일 창시가 아니다.
 
@@ -368,17 +368,17 @@
 
 **왜 중요한가 / 언제 쓰나:**
 - 오늘날 LLM의 힘은 대부분 이 단계에서 나온다 — 방대한 데이터로 한 번 크게 사전학습해 두면, 이후엔 비교적 적은 데이터로 여러 과제에 맞춰 쓸 수 있다.
-- 사전학습은 막대한 비용이 드는 **한 번의 큰 투자**이고, 그 위에 [파인튜닝](04-finetuning.md)·[인스트럭션 튜닝](04-finetuning.md)이라는 저렴한 특화 단계가 얹힌다는 구조를 이해하면, 커스터마이징 논의가 명확해진다.
+- 사전학습은 막대한 비용이 드는 **한 번의 큰 투자**이고, 그 위에 [파인튜닝](04-finetuning.md#full-fine-tuning--전체-파인튜닝)·[인스트럭션 튜닝](04-finetuning.md#instruction-tuning--인스트럭션-튜닝)이라는 저렴한 특화 단계가 얹힌다는 구조를 이해하면, 커스터마이징 논의가 명확해진다.
 
 **실무 예시 / AI에게 이렇게 말한다:**
 - "사전학습된 범용 모델을 우리 판례 데이터로 파인튜닝하는 게 나은지, 사전학습부터 새로 하는 건 비현실적인지 판단해줘."
 - "이 모델이 사전학습에서 얻은 일반 지식과, 우리가 파인튜닝으로 더할 전문 지식을 구분해서 설명해줘."
 
 **흔한 오해:**
-- **사전학습과 [파인튜닝](04-finetuning.md)은 다른 단계다** — 사전학습은 미분류 데이터로 기초 능력을 넓게 쌓는 단계, 파인튜닝은 그 위에 특정 과제를 특화하는 단계다.
-- **사전학습만으로 곧바로 유용한 비서가 되는 것은 아니다** — 지시를 잘 따르게 하려면 [인스트럭션 튜닝](04-finetuning.md)·정렬([RLHF](05-alignment-rl.md)) 같은 후속 단계가 필요하다.
+- **사전학습과 [파인튜닝](04-finetuning.md#full-fine-tuning--전체-파인튜닝)은 다른 단계다** — 사전학습은 미분류 데이터로 기초 능력을 넓게 쌓는 단계, 파인튜닝은 그 위에 특정 과제를 특화하는 단계다.
+- **사전학습만으로 곧바로 유용한 비서가 되는 것은 아니다** — 지시를 잘 따르게 하려면 [인스트럭션 튜닝](04-finetuning.md#instruction-tuning--인스트럭션-튜닝)·정렬([RLHF](05-alignment-rl.md#rlhf--인간-피드백-기반-강화학습-reinforcement-learning-from-human-feedback)) 같은 후속 단계가 필요하다.
 
-**함께 보기:** [LLM](01-llm-basics.md), [Parameter / Weight](01-llm-basics.md), [Fine-tuning](04-finetuning.md), [Instruction Tuning](04-finetuning.md), [RLHF](05-alignment-rl.md)
+**함께 보기:** [LLM](01-llm-basics.md#llm--대규모-언어-모델-large-language-model--foundation-model--파운데이션-모델), [Parameter / Weight](01-llm-basics.md#parameter--weight--파라미터가중치), [Fine-tuning](04-finetuning.md#full-fine-tuning--전체-파인튜닝), [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝), [RLHF](05-alignment-rl.md#rlhf--인간-피드백-기반-강화학습-reinforcement-learning-from-human-feedback)
 
 **출처:** 대규모 미분류 데이터 기반 사전학습을 대중화한 대표 계보(검증) — Devlin et al. (2018), *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*, [arXiv:1810.04805](https://arxiv.org/abs/1810.04805); GPT 계열도 이 "사전학습→특화" 패러다임을 널리 확산시켰다. 사전학습은 특정 단일 논문의 창안이라기보다 여러 계보를 통해 표준이 된 개념이다.
 
@@ -395,7 +395,7 @@
 **비유 (쉽게):** **안개 낀 유리창을 조금씩 닦아 그림을 드러내는 것**과 같다. 처음엔 아무 형체 없는 얼룩(노이즈)뿐이지만, 여러 번에 걸쳐 조금씩 닦아 나가면 점점 또렷한 그림이 나타난다. "무엇을 그릴지"의 지시(프롬프트)가 어느 얼룩을 어떻게 닦을지를 이끈다.
 
 **왜 중요한가 / 언제 쓰나:**
-- 오늘날 이미지·영상 생성 도구의 주류 원리다 — 텍스트는 LLM, 이미지·영상은 디퓨전이라는 큰 구도를 알면 [생성형 AI](01-llm-basics.md)의 지형이 잡힌다.
+- 오늘날 이미지·영상 생성 도구의 주류 원리다 — 텍스트는 LLM, 이미지·영상은 디퓨전이라는 큰 구도를 알면 [생성형 AI](01-llm-basics.md#generative-ai--생성형-ai-genai)의 지형이 잡힌다.
 - 저작권·딥페이크 같은 실무 쟁점이 자주 이 계열 모델에서 불거지므로, 작동 원리의 개요를 아는 것이 유용하다.
 
 **실무 예시 / AI에게 이렇게 말한다:**
@@ -404,6 +404,6 @@
 
 **흔한 오해:** **디퓨전은 LLM과 같은 방식으로 작동하지 않는다** — LLM은 다음 토큰을 순서대로 잇지만, 디퓨전은 전체 화면의 노이즈를 여러 번 걷어내며 한꺼번에 다듬는다. 또 **"노이즈에서 그림을 뽑아낸다"고 무에서 창조하는 마법은 아니다** — 학습한 데이터의 분포를 되짚어 그럴듯한 결과를 복원하는 것이다.
 
-**함께 보기:** [Generative AI](01-llm-basics.md), [Multimodal](01-llm-basics.md), [LLM](01-llm-basics.md)
+**함께 보기:** [Generative AI](01-llm-basics.md#generative-ai--생성형-ai-genai), [Multimodal](01-llm-basics.md#multimodal--멀티모달), [LLM](01-llm-basics.md#llm--대규모-언어-모델-large-language-model--foundation-model--파운데이션-모델)
 
 **출처:** Ho et al. (2020), *Denoising Diffusion Probabilistic Models* (DDPM), [arXiv:2006.11239](https://arxiv.org/abs/2006.11239) — 현대 디퓨전 생성모델을 정립한 대표 논문(검증). 원류로는 Sohl-Dickstein et al. (2015), *Deep Unsupervised Learning using Nonequilibrium Thermodynamics*, [arXiv:1503.03585](https://arxiv.org/abs/1503.03585)를 병기한다(검증).

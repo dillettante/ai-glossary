@@ -25,7 +25,7 @@
 
 **흔한 오해:** 가드레일은 모델을 "안전하게 만드는" 것이 아니라 **모델 바깥에 덧대는 통제층**이다 — 우회(탈옥)될 수 있고, 완벽한 차단을 보장하지 않는다. 또 "가드레일"은 한 회사·한 제품의 고유 기능이 아니라 여러 도구·기법을 아우르는 일반 용어다(단일 정본 없음).
 
-**함께 보기:** [Red-teaming · 레드팀](#red-teaming--레드팀), [프롬프트 인젝션·탈옥 → 02-prompting.md](02-prompting.md)
+**함께 보기:** [Red-teaming · 레드팀](#red-teaming--레드팀), [프롬프트 인젝션·탈옥](02-prompting.md#prompt-injection--jailbreak--프롬프트-인젝션--탈옥)
 
 **출처:** 단일 정본 없는 일반 개념(유일 창시 아님). 권위 있는 대표 문서로 NVIDIA, *NeMo Guardrails* 공식 문서, [docs.nvidia.com/nemo/guardrails](https://docs.nvidia.com/nemo/guardrails/latest/index.html) 및 GitHub [github.com/NVIDIA/NeMo-Guardrails](https://github.com/NVIDIA/NeMo-Guardrails). (특정 벤더 구현이며 개념의 유일 창시가 아님 — 안전 통제층을 부르는 여러 도구·관행의 통칭.)
 
@@ -51,7 +51,7 @@
 
 **흔한 오해:** 레드팀은 한 번 통과하면 끝나는 '합격 도장'이 아니다 — 새로운 공격 기법이 계속 나오므로 **반복해야 하는 과정**이고, 취약점이 없음을 증명하지 못한다(있음을 찾아낼 뿐). 또 AI 고유 발명이 아니라 보안 분야에서 온 개념이며, 단일 정본이 없다.
 
-**함께 보기:** [Guardrails · 가드레일](#guardrails--가드레일), [프롬프트 인젝션·탈옥 → 02-prompting.md](02-prompting.md), [Evals → 07-dev-stages.md](07-dev-stages.md)
+**함께 보기:** [Guardrails · 가드레일](#guardrails--가드레일), [프롬프트 인젝션·탈옥](02-prompting.md#prompt-injection--jailbreak--프롬프트-인젝션--탈옥), [Evals](07-dev-stages.md#evals--평가벤치마크-evaluation--benchmarks)
 
 **출처:** 단일 정본 없는 일반 개념(보안 분야 유래, 유일 창시 아님). 대표 문서: OpenAI, *Red teaming*(안전 접근법 문서), [openai.com/index/red-teaming-network](https://openai.com/index/red-teaming-network/); Anthropic, *Challenges in red teaming AI systems*, [anthropic.com/news/challenges-in-red-teaming-ai-systems](https://www.anthropic.com/news/challenges-in-red-teaming-ai-systems). (두 곳 모두 실제 열람 — 개념의 대표 권위 문서.)
 
@@ -77,7 +77,7 @@
 
 **흔한 오해:** 모델 카드는 '성능 자랑 문서'가 아니라 **한계와 부적합한 용도까지 밝히는 문서**가 핵심이다. 또 법으로 강제된 단일 표준 양식이 있는 게 아니라 — 2019년 제안된 관행이 널리 채택된 것이며, 조직마다 항목이 조금씩 다르다.
 
-**함께 보기:** [EU AI Act 위험등급 · EU AI 법 위험 분류](#eu-ai-act-위험등급--eu-ai-법-위험-분류), [Evals → 07-dev-stages.md](07-dev-stages.md)
+**함께 보기:** [EU AI Act 위험등급 · EU AI 법 위험 분류](#eu-ai-act-위험등급--eu-ai-법-위험-분류), [Evals](07-dev-stages.md#evals--평가벤치마크-evaluation--benchmarks)
 
 **출처(검증):** Mitchell, Wu, Zaldivar, Barnes, Vasserman, Hutchinson, Spitzer, Raji & Gebru (2019), *Model Cards for Model Reporting*, [arXiv:1810.03993](https://arxiv.org/abs/1810.03993). (초록 실제 열람 — 2018-10 제출·2019-01 개정. 제안 관행이며 법정 단일 양식은 아님.)
 
@@ -124,18 +124,32 @@
 - 도입·계약 단계에서 "이 AI가 고위험에 해당하는가"를 먼저 가려야 리스크·비용을 가늠할 수 있다.
 
 **등급별 요지(공식 요약 기준):**
-- **허용 불가 위험 (Article 5):** 사람의 안전·권리를 명백히 위협하는 관행을 **금지**(예: 조작적 시스템, 사회적 점수화, 일정한 실시간 원격 생체인식 등).
-- **고위험 (Article 6 및 부속서/Annex III 등):** 건강·안전·기본권에 중대한 위험 → **엄격한 의무**(위험관리·양질의 데이터·기록(로깅)·문서화·인적 감독·견고성·보안 등, 시장 출시 전 충족).
-- **투명성 위험(제한적 위험) — Article 50:** 사람이 AI와 상호작용함을 알리고, AI 생성·조작 콘텐츠(예: 딥페이크)를 식별 가능하게 표시하는 **투명성 의무**(제공자·배포자). 적용 시점은 단계적(투명성 의무는 2026-08 적용).
+- **허용 불가 위험 (Article 5):** 사람의 안전·권리를 명백히 위협하는 관행을 **금지**(예: 조작적 시스템, 사회적 점수화, 일정한 실시간 원격 생체인식 등). 금지 규정은 Chapter I·II와 함께 **2025-02-02부터 적용 중**이다. 다만 개정 Article 113은 **옴니버스가 Article 5에 신설한 일부 금지 조항에 한해 2026-12-02 적용**을 정한다(해당 호의 정확한 번호는 **확인 필요**).
+- **고위험 (Article 6 및 부속서/Annex III 등):** 건강·안전·기본권에 중대한 위험 → **엄격한 의무**(위험관리·양질의 데이터·기록(로깅)·문서화·인적 감독·견고성·보안 등, 시장 출시 전 충족). **2026년 7월 발효된 이른바 'AI 옴니버스'(Regulation (EU) 2026/1744)로 고위험 의무의 적용 시점이 뒤로 미뤄졌다** — 아래 표 참조. 다만 이는 **Article 113(적용일) 개정**이지 Article 6의 분류 기준 자체를 바꾼 것이 아니다.
+- **투명성 위험(제한적 위험) — Article 50:** 사람이 AI와 상호작용함을 알리고, AI 생성·조작 콘텐츠(예: 딥페이크)를 식별 가능하게 표시하는 **투명성 의무**(제공자·배포자). 적용 시점은 단계적이다(아래 표).
 - **최소·무위험:** 대부분의 AI(예: 스팸 필터, 게임) — **새로운 의무 없음**.
-- **범용 AI(GPAI) — Chapter V, Article 51–56:** 모든 GPAI 제공자에 기본 의무(기술문서·다운스트림 정보·저작권 정책·학습데이터 요약, **Article 53**); '시스템적 위험'으로 분류되는 모델(**Article 51**)에는 추가 의무(모델 평가·적대적 테스트·리스크 완화·중대사고 보고·사이버보안, **Article 55**).
+- **범용 AI(GPAI) — Chapter V, Article 51–56:** 모든 GPAI 제공자에 기본 의무(기술문서·다운스트림 정보·저작권 정책·학습데이터 요약, **Article 53**); '시스템적 위험'으로 분류되는 모델(**Article 51**)에는 추가 의무(모델 평가·적대적 테스트·리스크 완화·중대사고 보고·사이버보안, **Article 55**). **Chapter V는 2025-08-02부터 이미 적용 중**이다(고위험과 달리 연기되지 않았다). 2025-08-02 이전에 시장에 출시된 GPAI 모델에 대한 경과규정(2027-08-02까지 유예)이 있다고 알려져 있으나 조항·문언은 **확인 필요**.
+
+**적용 일정(개정 Article 113 기준):**
+
+| 트랙 | 조문 | 적용일 |
+|---|---|---|
+| 금지 관행 | Article 5 (Ch. I–II) | **2025-02-02** 적용 중 (단 옴니버스가 신설한 일부 Art. 5 조항은 2026-12-02 — 호 번호 확인 필요) |
+| 범용 AI(GPAI) | Chapter V (Art. 51·53·55) | **2025-08-02** 적용 중 |
+| 투명성 | Article 50 | **2026-08-02** (2026-08-02 이전 출시 시스템의 표시 의무에 경과 유예가 있다고 알려져 있으나 조항·문언은 **확인 필요**) |
+| 고위험 — Annex III 유형 | Article 6(2) + Annex III (Ch. III §1–3, Art. 6(5) 제외) | **2027-12-02** (종전 2026-08-02에서 연기) |
+| 고위험 — 제품 안전요소 유형 | Article 6(1) + Annex I (Ch. III §1–3, Art. 6(5) 제외) | **2028-08-02** |
+
+연기의 근거는 **Regulation (EU) 2026/1744**(이른바 'Digital Omnibus on AI')로, **2026-07-27 발효**되면서 AI Act의 Article 113(적용일)과 Article 111(경과규정)을 개정했다. **분류 기준(4단계·GPAI 축)이나 의무의 내용이 폐지된 것이 아니라 적용 시점만 미뤄진 것**이다. 규정 전체의 일반 적용일은 여전히 2026-08-02이다.
 
 **실무 예시 / AI에게 이렇게 말한다:**
 - "우리 서비스가 EU AI Act에서 고위험에 해당하는지 판단하는 데 필요한 질문 목록을 만들어줘 — 다만 최종 판단은 공식 조문·법률자문으로 확인한다는 전제로."
 - "허용 불가·고위험·투명성·최소 위험 4단계의 의무 차이를 표로 정리해줘, 각 항목은 공식 출처 확인 필요 표시와 함께."
 
-**흔한 오해:** ⚠️ **이 항목은 개괄 안내이며 법률자문이 아니다.** 정확한 등급·의무·조문은 반드시 공식 원문(EUR-Lex)과 법률 검토로 확정해야 한다. 흔한 오해로 (1) '4단계' 외에 **범용 AI(GPAI)라는 별도 축**이 있음을 놓치는 것, (2) 세 번째 단계를 '제한적 위험'이라 부르지만 **유럽위원회 공식 요약은 'transparency risk'로 표기**한다는 점, (3) **금지(Article 5)와 고위험(Article 6)은 서로 다른 단계**라는 점(금지는 아예 못 쓰고, 고위험은 의무를 지키면 쓸 수 있음)이 있다.
+**흔한 오해:** ⚠️ **이 항목은 개괄 안내이며 법률자문이 아니다.** 정확한 등급·의무·조문은 반드시 공식 원문(EUR-Lex)과 법률 검토로 확정해야 한다. 흔한 오해로 (1) '4단계' 외에 **범용 AI(GPAI)라는 별도 축**이 있음을 놓치는 것, (2) 세 번째 단계를 '제한적 위험'이라 부르지만 **유럽위원회 공식 요약은 'transparency risk'로 표기**한다는 점, (3) **금지(Article 5)와 고위험(Article 6)은 서로 다른 단계**라는 점(금지는 아예 못 쓰고, 고위험은 의무를 지키면 쓸 수 있음), (4) **"연기됐으니 GPAI도 아직 유예"라는 오해** — 2026년 연기는 **고위험(Ch. III §1–3)에 한정**되고 GPAI(Chapter V)는 2025-08-02부터, 금지(Article 5)는 2025-02-02부터 이미 적용 중이다, (5) **"고위험 연기 = 의무 소멸"이라는 오해** — 개정은 적용일만 미뤘고 위험관리·데이터 거버넌스·문서화·인적 감독·적합성 평가 등 의무 자체는 그대로다, (6) **"기존 생성형 서비스는 표시 의무를 한동안 안 지켜도 된다"는 오해** — 경과 유예가 있더라도 그것은 **기존 출시 시스템의 일부 표시 의무에 한정**되고, Article 50의 나머지 의무는 2026-08-02부터 적용된다(유예의 조항·범위는 **확인 필요**).
 
 **함께 보기:** [Model card · 모델 카드](#model-card--모델-카드), [Watermarking · 워터마킹](#watermarking--워터마킹), [Red-teaming · 레드팀](#red-teaming--레드팀)
 
-**출처(검증):** 유럽연합, *Regulation (EU) 2024/1689 of the European Parliament and of the Council of 13 June 2024 … (Artificial Intelligence Act)*, OJ L, 2024-07-12, EUR-Lex [eur-lex.europa.eu/eli/reg/2024/1689/oj](https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng) (CELEX: 32024R1689); 공식 요약: European Commission, *AI Act — Regulatory framework for AI*, [digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai). (실제 열람 — 4단계 명칭·Article 5(금지)·Article 6·Annex III(고위험)·규정 번호/일자 확인. **투명성·GPAI 조문 번호는 공식 원문 재확인 필요**로 표시.)
+**출처(검증):** 유럽연합, *Regulation (EU) 2024/1689 … (Artificial Intelligence Act)*, OJ L, 2024-07-12, EUR-Lex [eur-lex.europa.eu/eli/reg/2024/1689/oj](https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng) (CELEX: 32024R1689); 개정: *Regulation (EU) 2026/1744* (Digital Omnibus on AI), 채택 2026-07-08 · OJ 게재 2026-07-24 · 발효 2026-07-27, [eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:32026R1744](https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX%3A32026R1744) (OJ L_202601744); 개정 반영 통합본 [eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng](https://eur-lex.europa.eu/eli/reg/2024/1689/2026-07-27/eng) (CELEX: 02024R1689-20260727); European Commission, *AI Act — Regulatory framework for AI*, [digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai](https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai) 및 *AI Omnibus enters into force*, [digital-strategy.ec.europa.eu/en/news/ai-omnibus-enters-force](https://digital-strategy.ec.europa.eu/en/news/ai-omnibus-enters-force).
+
+> **확인 범위(2026-08-30).** 확인된 것 — 옴니버스 규정의 실재(CELEX 32026R1744)·발효일, 개정 Article 113의 **고위험 적용일(Annex III형 2027-12-02, Annex I형 2028-08-02)**, Chapter I·II의 2025-02-02 적용, 규정 전체 일반 적용일 2026-08-02. **미확인(확인 필요)** — ① Article 5 신설 조항의 2026-12-02 적용은 "specified new Article 5 provisions" 수준까지만 확인되었고 **개별 호 번호는 미확인**, ② 기존 출시 시스템의 Article 50 표시의무 유예의 **조항·문언**, ③ Article 50 적용일을 명시한 원문, ④ Chapter V가 개정되지 않았다는 점(확인된 개정 목록에 없다는 정황 근거만 있음), ⑤ 2025-08-02 이전 출시 GPAI 모델의 2027-08-02 경과규정(**원 AI Act Article 111(3)로 추정되나 미확인**). 위 미확인 항목은 EUR-Lex 통합본의 Article 111·113 전문을 직접 열람해 확정해야 한다.

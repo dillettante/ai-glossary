@@ -28,7 +28,7 @@
 - **"베이스 = 성능이 낮은 모델"** — 규모·능력의 문제가 아니라 **후속 학습 단계의 차이**다.
 - **"둘은 다른 모델"** — 인스트럭트는 대개 같은 베이스에서 갈라져 나온 것이다.
 
-**함께 보기:** [Pretraining](01-llm-basics.md#pretraining--사전학습), [SFT](04-finetuning.md#sft--지도-파인튜닝-supervised-fine-tuning), [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝), [Alignment](05-alignment-rl.md), [RLHF](05-alignment-rl.md#rlhf--인간-피드백-기반-강화학습-reinforcement-learning-from-human-feedback)
+**함께 보기:** [Pretraining](01-llm-basics.md#pretraining--사전학습), [SFT](04-finetuning.md#sft--지도-파인튜닝-supervised-fine-tuning), [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝), [Alignment](05-alignment-rl.md#alignment--정렬-ai-alignment), [RLHF](05-alignment-rl.md#rlhf--인간-피드백-기반-강화학습-reinforcement-learning-from-human-feedback)
 
 **출처:** Anthropic, *Glossary — Pretraining*, [platform.claude.com/docs](https://platform.claude.com/docs/en/about-claude/glossary) ("These pretrained models are not inherently good at answering questions or following instructions, and often require deep skill in prompt engineering to elicit desired behaviors. Fine-tuning and RLHF are used to refine these pretrained models"; 같은 문서 *Fine-tuning* 항목 "Claude is not a bare language model; it has already been fine-tuned to be a helpful assistant"; 확인 2026-08-27). (일반 개념 — 유일 창시 없음.)
 
@@ -113,7 +113,7 @@
 **흔한 오해:**
 - **"PEFT = LoRA"** — 아니다. LoRA는 PEFT의 여러 기법 중 하나이고, 무엇을 학습하고 무엇을 얼리는지가 기법마다 다르다.
 - **"파라미터를 적게 바꾸니 성능도 그만큼 떨어진다"** — 목표는 전체 파인튜닝에 **준하는** 성능이다. 다만 과제·데이터·기법에 따라 결과가 달라지므로 항상 검증셋으로 확인한다.
-- **"PEFT면 지식을 새로 주입할 수 있다"** — 파인튜닝 일반의 한계가 그대로 적용된다. 최신 사실을 넣는 문제는 대개 [RAG](03-building.md)의 영역이다.
+- **"PEFT면 지식을 새로 주입할 수 있다"** — 파인튜닝 일반의 한계가 그대로 적용된다. 최신 사실을 넣는 문제는 대개 [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation)의 영역이다.
 
 **함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation), [QLoRA](04-finetuning.md#qlora--큐로라-quantized-lora), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [SFT](04-finetuning.md#sft--지도-파인튜닝-supervised-fine-tuning)
 
@@ -140,11 +140,11 @@
 - "우리 의견서 30건을 입력–출력 쌍으로 만들어 SFT용 데이터셋 형식으로 정리해줘. 사건 식별 정보는 전부 빼고."
 
 **흔한 오해:**
-- **"SFT로 새 지식을 넣는다"** — 형식·문체·과제 수행 방식을 맞추는 데 강하고, 최신 사실을 주입하는 용도로는 신뢰하기 어렵다. 사실 갱신은 [RAG](03-building.md) 쪽 문제다.
+- **"SFT로 새 지식을 넣는다"** — 형식·문체·과제 수행 방식을 맞추는 데 강하고, 최신 사실을 주입하는 용도로는 신뢰하기 어렵다. 사실 갱신은 [RAG](03-building.md#rag--검색-증강-생성-retrieval-augmented-generation) 쪽 문제다.
 - **"SFT = RLHF"** — 아니다. SFT는 RLHF 이전 단계이며, 선호 비교나 보상 모델 없이 모범 답안만으로 학습한다.
 - **"데이터가 많을수록 무조건 낫다"** — 품질·일관성이 양보다 중요하며, 과하면 [과적합](04-finetuning.md#overfitting--과적합)과 [파국적 망각](04-finetuning.md#catastrophic-forgetting--파국적-망각)을 부른다.
 
-**함께 보기:** [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝), [PEFT](04-finetuning.md#peft--파라미터-효율-파인튜닝-parameter-efficient-fine-tuning), [RLHF](05-alignment-rl.md), [Overfitting](04-finetuning.md#overfitting--과적합)
+**함께 보기:** [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝), [PEFT](04-finetuning.md#peft--파라미터-효율-파인튜닝-parameter-efficient-fine-tuning), [RLHF](05-alignment-rl.md#rlhf--인간-피드백-기반-강화학습-reinforcement-learning-from-human-feedback), [Overfitting](04-finetuning.md#overfitting--과적합)
 
 **출처:** Ouyang et al. (2022), *Training language models to follow instructions with human feedback*, [arXiv:2203.02155](https://arxiv.org/abs/2203.02155) ("we collect a dataset of labeler demonstrations of the desired model behavior, which we use to fine-tune GPT-3 using supervised learning"; 확인 2026-08-27). (대표 출처이며 지도학습식 파인튜닝의 유일 창시는 아님.)
 
@@ -171,7 +171,7 @@
 
 **흔한 오해:** LoRA를 prompt/prefix tuning과 혼동하는 것. LoRA는 **가중치 행렬에 델타(변화량)를 더하는** 방식이지, 입력 앞에 학습된 토큰(soft prompt)을 붙이는 방식이 아니다.
 
-**함께 보기:** [QLoRA](04-finetuning.md#qlora--큐로라-quantized-lora), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [Soft Prompts](04-finetuning.md#soft-prompts--prompt-tuning--소프트-프롬프트), [Parameter/Weight](01-llm-basics.md)
+**함께 보기:** [QLoRA](04-finetuning.md#qlora--큐로라-quantized-lora), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [Soft Prompts](04-finetuning.md#soft-prompts--prompt-tuning--소프트-프롬프트), [Parameter/Weight](01-llm-basics.md#parameter--weight--파라미터가중치)
 
 **출처:** Hu et al. (2021), *LoRA: Low-Rank Adaptation of Large Language Models*, [arXiv:2106.09685](https://arxiv.org/abs/2106.09685).
 
@@ -197,7 +197,7 @@
 
 **흔한 오해:** QLoRA를 완전히 새로운 알고리즘으로 여기는 것. **QLoRA = 양자화된 베이스 + LoRA**의 결합이다. 또한 베이스 모델을 4비트로 "학습"하는 것이 아니라, 4비트로 **동결**한 채 어댑터만 학습한다.
 
-**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [Parameter/Weight](01-llm-basics.md)
+**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [Parameter/Weight](01-llm-basics.md#parameter--weight--파라미터가중치)
 
 **출처:** Dettmers et al. (2023), *QLoRA: Efficient Finetuning of Quantized LLMs*, [arXiv:2305.14314](https://arxiv.org/abs/2305.14314).
 
@@ -324,7 +324,7 @@
 
 **이름에 관하여:** 원 논문은 **이름을 풀어 쓰지 않는다**(확인 2026-08-27). 흔히 "Bias-terms Fine-tuning"으로 읽히지만 논문에 그 표기가 없으므로 정본으로 인용하지 않는다. 이름이 가리키는 바(bias 항만 학습)는 정의로 충분히 드러난다.
 
-**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [Parameter/Weight](01-llm-basics.md)
+**함께 보기:** [LoRA](04-finetuning.md#lora--로라저계수-적응-low-rank-adaptation), [Adapter Tuning](04-finetuning.md#adapter-tuning--어댑터-튜닝), [Parameter/Weight](01-llm-basics.md#parameter--weight--파라미터가중치)
 
 **출처:** Ben-Zaken et al. (2021), *BitFit: Simple Parameter-efficient Fine-tuning*, [arXiv:2106.10199](https://arxiv.org/abs/2106.10199).
 
@@ -428,7 +428,7 @@
 - **"학습셋 점수가 높으면 좋은 모델"** — 아니다. 학습셋만 높고 검증·실데이터에서 낮으면 과적합이다. 좋고 나쁨은 **처음 보는 데이터** 성능으로 가린다.
 - **"과적합은 무조건 학습을 오래 해서 생긴다"** — 그것도 한 원인이지만, 데이터가 너무 적거나 모델이 과제에 비해 지나치게 복잡할 때도 생긴다.
 
-**함께 보기:** [Evals](07-dev-stages.md), [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝), [Multi-Task Fine-Tuning](04-finetuning.md#multi-task-fine-tuning--멀티태스크-미세조정)
+**함께 보기:** [Evals](07-dev-stages.md#evals--평가벤치마크-evaluation--benchmarks), [Instruction Tuning](04-finetuning.md#instruction-tuning--인스트럭션-튜닝), [Multi-Task Fine-Tuning](04-finetuning.md#multi-task-fine-tuning--멀티태스크-미세조정)
 
 **출처:** Google, *Machine Learning Crash Course — Overfitting*, [developers.google.com](https://developers.google.com/machine-learning/crash-course/overfitting/overfitting) ("creating a model that matches (memorizes) the training set so closely that the model fails to make correct predictions on new data"; 확인 2026-07-12). 보조 — *Overfitting*, [en.wikipedia.org/wiki/Overfitting](https://en.wikipedia.org/wiki/Overfitting) ("corresponds too closely … may therefore fail to fit to additional data or predict future observations reliably"). (표준 ML 개념 — 유일 창시 없음.)
 

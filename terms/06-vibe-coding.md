@@ -103,7 +103,7 @@
 
 **흔한 오해:** 스캐폴딩 결과물은 완성품이 아니다. **출발용 뼈대일 뿐**, 실제 로직은 그 위에 직접 채워야 한다. 또 Rails 전용 기능이 아니다 — Ruby on Rails가 이 말을 대중화했지만 여러 프레임워크에 있는 범용 개념이다.
 
-**함께 보기:** [Vendoring](#vendoring--벤더링), [PoC / MVP](07-dev-stages.md)
+**함께 보기:** [Vendoring](#vendoring--벤더링), [PoC / MVP](07-dev-stages.md#poc--개념-증명-proof-of-concept)
 
 **출처:** Ruby on Rails 공식 가이드, [guides.rubyonrails.org](https://guides.rubyonrails.org/). (Rails가 대중화한 범용 개념 — 유일 창시 아님.)
 
